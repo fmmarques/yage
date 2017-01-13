@@ -1,32 +1,42 @@
 #!/usr/bin/env make
 CC:= g++
 
-CFLAGS:= -std=c++11 -g $(shell pkg-config --cflags sdl2) 
+CFLAGS += -g -Wall -Wextra -std=c++11 $(shell pkg-config --cflags sdl2)
+LDFLAGS := -pthread $(shell pkg-config --libs sdl2) -gtest -gtest_main
 
 SOURCE_DIR := src
+TESTS_DIR := tests
 BUILD_DIR := build
-LIBRARIES_DIR := -L lib -L /usr/local/lib
-INCLUDE_DIR := -I include
 
-TARGET := $(BUILD_DIR)/arkanoid
+LIBRARIES_LOCATIONS := -L dependencies/unit_testing/googletest/build/googlemock:dependencies/unit_testing/googletest/build/googlemock/gtest -L lib -L /usr/local/lib
+INCLUDE_LOCATIONS := -I dependencies/unit_testing/googletest/include -I include
 
 SOURCE_EXTENSION := cpp
 SOURCES := $(shell find $(SOURCE_DIR) -type f -name "*.$(SOURCE_EXTENSION)") 
 
-OBJECTS := $(patsubst $(SOURCE_DIR)/%,$(BUILD_DIR)/%,$(SOURCES:.$(SOURCE_EXTENSION)=.o))
+TESTS := $(shell find $(TESTS_DIR) -type f -name "*.$(SOURCE_EXTENSION)")
 
-LIBRARIES := -pthread $(shell pkg-config --libs sdl2) 
+OBJECTS := $(patsubst $(SOURCE_DIR)/%,$(BUILD_DIR)/$(SOURCE_DIR)/%,$(SOURCES:.$(SOURCE_EXTENSION)=.o)) \
+           $(patsubst $(TESTS_DIR)/%,$(BUILD_DIR)/$(TESTS_DIR)%,$(TESTS:.$(SOURCE_EXTENSION)=.o))
 
-.PHONY: clean
 
-$(TARGET): $(OBJECTS)
-	@echo " Linking $@ "
-	$(CC) $^ -o $@ $(LIBRARIES)
+.PHONY: all clean
 
-$(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.$(SOURCE_EXTENSION)
+all: $(OBJECTS) $(TESTS)
+
+main: $(OBJECTS) $(TESTS)
+	$(CC) $(CFLAGS) $(LIBRARIES_LOCATIONS) 
+
+$(BUILD_DIR)/$(SRC_DIR)/%.o: $(SOURCE_DIR)/%.$(SOURCE_EXTENSION)
 	@mkdir -p $(shell dirname $@) 
 	@echo " Compiling $@ "
-	$(CC) $(CFLAGS) -o $@ -c $(INCLUDE_DIR) $<
+	$(CC) $(CFLAGS) -o $@ -c $(INCLUDE_LOCATIONS) $<
+
+$(BUILD_DIR)/$(TESTS_DIR)/%.o: $(TESTS_DIR)/%.$(SOURCE_EXTENSION)
+	@mkdir -p $(shell dirname $@) 
+	@echo " Compiling $@ "
+	$(CC) $(CFLAGS) -o $@ -c $(INCLUDE_LOCATIONS) $<
+
 
 clean: 
 	@echo " Cleaning..."
