@@ -19,8 +19,8 @@ public:
   ~graphics_manager();
 
 // Window related
-  SDL_Window* get_window()           const;
-  const SDL_Rect&   get_window_rectangle() const;
+  SDL_Window* get_window() const;
+  const SDL_Rect& get_window_rectangle() const;
 
   SDL_Window* create_window( const char *pWindowTitle = "", 
 		             unsigned int uiWidth = graphics_manager::uiDefaultWindowWidth, 

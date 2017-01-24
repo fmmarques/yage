@@ -75,9 +75,12 @@ SDL_Window* graphics::graphics_manager::create_window(
 {
   using namespace std;
 
-  assert( nullptr != pWindowTitle );
-  assert( 0 < uiWidth );
-  assert( 0 < uiHeight );
+  assert( "The title of the window must not be null." && 
+	  nullptr != pWindowTitle );
+  assert( "The width of the window must not be 0." && 
+	  0 < uiWidth );
+  assert( "The height of the window must not be 0." && 
+	  0 < uiHeight );
   invariant();
 
 
