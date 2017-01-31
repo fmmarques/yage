@@ -38,7 +38,7 @@ public:
 
 protected:
   virtual const game_state_status& get_status() const;
-  virtual void set_status(game_state_status& status);
+  virtual void set_status(game_state_status&& status);
   
 private:
   game_state_status _eStatus;

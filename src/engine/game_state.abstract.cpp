@@ -3,8 +3,8 @@
 
 namespace engine {
 
-game_state_abstract::game_state_abstract()
-  _eStatus(UNINITIALIZED)
+game_state_abstract::game_state_abstract():
+  _eStatus( engine::game_state_status::UNINITIALIZED )
 {
 
 }
@@ -52,7 +52,7 @@ const game_state_status& game_state_abstract::get_status() const
   return _eStatus;
 }
 
-void game_state_abstract::set_status(game_state_status& status)
+void game_state_abstract::set_status(game_state_status&& status)
 {
   _eStatus = status;
 }

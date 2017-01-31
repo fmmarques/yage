@@ -25,16 +25,16 @@ public:
   /// \brief Adds a listener to the event listener list
   /// \param spListener a shared pointer to the listener.
   void register_listener( std::shared_ptr< event_listener_interface >& spListener,
-		          SDL_EventType event_t );
+		          unsigned int event_t );
   /// \brief Removes a listener from the event listener list
   void unregister_listener( std::shared_ptr< event_listener_interface >& spListener,
-		            SDL_EventType event_t );
+		            unsigned int event_t );
   void run();
 private:
   
   std::mutex _mMutex;
 
-  std::map< SDL_EventType,
+  std::map< unsigned int,
             std::list< std::shared_ptr< event_listener_interface > > > _mListeners;
   bool _bContinue;
 };

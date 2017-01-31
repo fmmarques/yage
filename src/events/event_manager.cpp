@@ -31,7 +31,7 @@ std::shared_ptr<events::event_manager>& events::event_manager::instance()
 
 void events::event_manager::register_listener( 
   std::shared_ptr< events::event_listener_interface >& spListener,
-  SDL_EventType event_t )
+  unsigned int event_t )
 {
   std::unique_lock<std::mutex> lLock(_mMutex, std::defer_lock);
 
@@ -47,7 +47,7 @@ void events::event_manager::register_listener(
 
 void events::event_manager::unregister_listener( 
   std::shared_ptr< events::event_listener_interface >& spListener,
-  SDL_EventType event_t )
+  unsigned int event_t )
 {
   std::unique_lock<std::mutex> lLock(_mMutex, std::defer_lock);
 
@@ -66,9 +66,11 @@ void events::event_manager::run()
 {
   std::unique_lock<std::mutex> lLock(_mMutex, std::defer_lock);
   SDL_Event oEvent;
+  unsigned int oEventType;
   do {
     
     while ( SDL_PollEvent(&oEvent) ) {
+      oEventType = oEvent.type;
       switch( oEvent.type ) {
       case SDL_QUIT:
         lLock.lock();
@@ -83,7 +85,7 @@ void events::event_manager::run()
       default:
         lLock.lock();
 	invariant();
-	for ( auto pListener: _mListeners[ oEvent.type ] )
+	for ( auto pListener: _mListeners[ oEventType ] )
 	  pListener->on_event( &oEvent );
 	invariant();
 	lLock.unlock();
