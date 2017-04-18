@@ -1,8 +1,7 @@
 #if !defined(GAME_ENGINE_ABSTRACT_H)
 #  define GAME_ENGINE_ABSTRACT_H
 
-#include <input/keyboard_listener.interface.h>
-
+#include <events/keyboard_listener.interface.h>
 #include <engine/game_state.interface.h>
 
 //#include <graphics/
@@ -19,7 +18,8 @@ enum class game_state_status {
 
 class game_state_abstract:
   public virtual engine::game_state_interface,
-  public virtual input::keyboard_listener_interface {
+  public virtual events::scancode_listener_interface 
+{
 public:
   game_state_abstract();
   ~game_state_abstract();
@@ -29,12 +29,10 @@ public:
   virtual void on_continue();
   virtual void on_deinitialize(); 
 
-  virtual void on_event(SDL_Event *);
-  virtual void on_event(SDL_KeyboardEvent *);
   
-  virtual void on_render();
+  virtual void on_render() = 0;
 
-  virtual void on_update();
+  virtual void on_update() = 0;
 
 protected:
   virtual const game_state_status& get_status() const;

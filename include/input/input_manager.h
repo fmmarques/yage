@@ -14,18 +14,15 @@ protected:
   void invariant();
   input_manager();
 public:
-  std::weak_ptr<input_manager> instance();
+  input_manager& instance();
   ~input_manager();
 
-  void register_listener( std::weak_ptr<keyboard_listener_interface>& spListener );
-
-  
-  void unregister_listener( std::weak_ptr<keyboard_listener_interface>& spListener );
-
+  void register_listener( std::shared_ptr<keyboard_listener_interface>& spListener );
+  void unregister_listener( std::shared_ptr<keyboard_listener_interface>& spListener );
   void run();
 private:
   std::mutex _mMutex;
-  std::list< weak_ptr<keyboard_listener_interface> > _lListeners;
+  std::list< std::shared_ptr<keyboard_listener_interface> > _lListeners;
 };
 
 }

@@ -12,7 +12,7 @@ badd +38 ~/src/alien-armada/main.cpp
 badd +1 ~/src/alien-armada/include/logic/game.h
 badd +10 ~/src/alien-armada/include/logic/state.h
 badd +1 include/logic/game/state.h
-badd +1 ~/.vimrc
+badd +4 ~/.vimrc
 badd +44 ~/src/image-processing-on-gpu-clusters/hive2_GPU_queue/include/hive.h
 badd +520 ~/src/image-processing-on-gpu-clusters/hive2_GPU_queue/src/hive.cc
 badd +28 ~/src/image-processing-on-gpu-clusters/hive2_GPU_queue/include/frame_calc.h
@@ -42,8 +42,10 @@ badd +15 ~/src/arkanoid/include/arkanoid.h
 badd +1 ~/src/arkanoid/src/arkanoid.cpp
 badd +18 ~/src/arkanoid/Makefile
 badd +1 Makefile
-badd +0 include/events/event_manager.h
-badd +0 tests/graphics/graphics_manager.unit.cpp
+badd +1 include/events/event_manager.h
+badd +1 tests/graphics/graphics_manager.unit.cpp
+badd +8 include/tests/unit/graphics/graphics.fixture.h
+badd +0 tests/unit/graphics/graphics_manager.unit.cpp
 silent! argdel *
 edit Makefile
 set splitbelow splitright
@@ -61,61 +63,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 39 - ((38 * winheight(0) + 23) / 46)
+let s:l = 10 - ((9 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-39
-normal! 0
-tabedit tests/graphics/graphics_manager.unit.cpp
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-set nosplitbelow
-set nosplitright
-wincmd t
-set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 88 + 87) / 174)
-exe 'vert 2resize ' . ((&columns * 85 + 87) / 174)
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 23) / 46)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-1
-normal! 020l
-wincmd w
-argglobal
-edit tests/graphics/graphics_manager.unit.cpp
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 7 - ((6 * winheight(0) + 23) / 46)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-7
-normal! 0
-wincmd w
-exe 'vert 1resize ' . ((&columns * 88 + 87) / 174)
-exe 'vert 2resize ' . ((&columns * 85 + 87) / 174)
+10
+normal! 0112l
 tabedit include/events/event_manager.h
 set splitbelow splitright
 set nosplitbelow
@@ -132,12 +85,61 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 9 - ((8 * winheight(0) + 23) / 46)
+let s:l = 26 - ((25 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-9
-normal! 020l
+26
+normal! 044l
+tabedit include/tests/unit/graphics/graphics.fixture.h
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 88 + 88) / 176)
+exe 'vert 2resize ' . ((&columns * 85 + 88) / 176)
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 13 - ((12 * winheight(0) + 23) / 46)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+13
+normal! 0
+wincmd w
+argglobal
+edit tests/unit/graphics/graphics_manager.unit.cpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 23) / 46)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 041l
+wincmd w
+exe 'vert 1resize ' . ((&columns * 88 + 88) / 176)
+exe 'vert 2resize ' . ((&columns * 85 + 88) / 176)
 tabnext 2
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

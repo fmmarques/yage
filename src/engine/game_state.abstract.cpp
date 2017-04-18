@@ -14,19 +14,16 @@ game_state_abstract::~game_state_abstract()
 
 void game_state_abstract::on_initialize()
 {
-
   set_status( game_state_status::INITIALIZED );
 }
 
 void game_state_abstract::on_pause()
 {
-
   set_status( game_state_status::PAUSED );
 }
 
 void game_state_abstract::on_continue()
 {
-
   set_status( game_state_status::CONTINUING );
 }
 
@@ -34,18 +31,6 @@ void game_state_abstract::on_deinitialize()
 {
   set_status( game_state_status::DEINITIALIZING );
 }
-
-void game_state_abstract::on_event(SDL_Event *pEvent)
-{}
-
-void game_state_abstract::on_event(SDL_KeyboardEvent *pEvent)
-{}
-
-void game_state_abstract::on_render()
-{}
-
-void game_state_abstract::on_update()
-{}
 
 const game_state_status& game_state_abstract::get_status() const
 {

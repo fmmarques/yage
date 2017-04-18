@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor game_client
+actor game_server
+
+rectangle yage {
+  usecase (adds game a state) as game_state
+  
+  game_client  -- (game_state)
+  (game_state) -- (renders_screen)
+}
+
+@enduml

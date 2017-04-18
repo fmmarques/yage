@@ -13,9 +13,9 @@ input::input_manager::input_manager()
   invariant();
 }
 
-std::weak_ptr<input::input_manager> input::input_manager::instance()
+input::input_manager& input::input_manager::instance()
 {
-  static std::shared_ptr<input::input_manager> spInstance = std::make_shared<input::input_manager>();
+  static input::input_manager spInstance;
   return spInstance;
 }
 
@@ -32,7 +32,7 @@ void input::input_manager::register_listener( std::shared_ptr<keyboard_listener_
   invariant();
 }
 
-void input::input_manager::unregister_listener( shared_ptr<keyboard_listener_interface>& spListener )
+void input::input_manager::unregister_listener( std::shared_ptr<keyboard_listener_interface>& spListener )
 {
   std::lock_guard<std::mutex> lLock(_mMutex );
   invariant();
@@ -42,8 +42,9 @@ void input::input_manager::unregister_listener( shared_ptr<keyboard_listener_int
 
 void input::input_manager::run()
 {
-  std::lock_guard<std::mutex> lLock(_mMutex, std::defer_lock);
+  std::lock_guard<std::mutex> lLock(_mMutex);
   invariant();
 //  for ( shared_ptr<input_event_listener>
+#warning "NOT_IMPLEMENTED will loop through messages and notify listeners of changes. "
   invariant();
 }
