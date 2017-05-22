@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <engine/updatable.interface.h>
+#include <engine/game_state.interface.h>
 
 namespace engine {
 

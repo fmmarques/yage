@@ -1,16 +1,16 @@
 #if !defined(EVENTS_EVENT_LISTENER_INTERFACE_H)
 #  define EVENTS_EVENT_LISTENER_INTERFACE_H
 
+#include <cstdint>
+
 #include <SDL2/SDL.h> 
+
 
 namespace events {
 
-struct event_listener_interface {
-  virtual void on_event(SDL_Event *) = 0;
-};
-
-struct keyboard_listener_interface {
-  virtual void on_scancode_event(SDL_Event *) = 0;
+struct event_listener_interface
+{
+  virtual void on_event(uint32_t event) = 0;
 };
 
 }

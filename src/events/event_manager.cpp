@@ -22,22 +22,22 @@ void events::event_manager::invariant()
 
 }
 
-std::shared_ptr<events::event_manager>& events::event_manager::instance()
+events::event_manager& events::event_manager::instance()
 {
-  static std::shared_ptr<events::event_manager> pInstance(new events::event_manager);
-  return pInstance;
+  static events::event_manager instance;
+  return instance;
 }
 
 void events::event_manager::register_listener( 
   std::shared_ptr< events::event_listener_interface >& spListener,
-  uint32_t event_type )
+  uint32_t event )
 {
   std::unique_lock<std::mutex> lLock(_mMutex, std::defer_lock);
 
   lLock.lock();
   invariant();
 
-  auto lListeners = _mListeners[ event_t ];
+  auto lListeners = _mListeners[ event ];
   lListeners.push_back( spListener );
 
   invariant();
@@ -46,14 +46,14 @@ void events::event_manager::register_listener(
 
 void events::event_manager::unregister_listener( 
   std::shared_ptr< events::event_listener_interface >& spListener,
-  uint32_t event_t )
+  uint32_t event )
 {
   std::unique_lock<std::mutex> lLock(_mMutex, std::defer_lock);
 
   lLock.lock();
   invariant();
 
-  auto lListeners = _mListeners[ event_t ];
+  auto lListeners = _mListeners[ event ];
   lListeners.remove( spListener );
 
   invariant();

@@ -22,11 +22,14 @@ private:
 protected:
   event_manager();
 public:
-  static std::shared_ptr<event_manager>& instance();
+  static events::event_manager& instance();
   virtual ~event_manager();
 
   void register_listener( std::shared_ptr< event_listener_interface >& spListener,
-                          uint
+                          uint32_t );
+  
+  void unregister_listener( std::shared_ptr< event_listener_interface >& spListener,
+                          uint32_t );
 private:
   std::mutex _mMutex;
 

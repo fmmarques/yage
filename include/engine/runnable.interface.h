@@ -6,7 +6,7 @@
 
 namespace engine {
 //
-struct runnable_interface:
+struct runnable_interface
 {
   virtual ~runnable_interface() {}
 

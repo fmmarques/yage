@@ -29,8 +29,7 @@ class null_state:
 
   void on_update()
   {
-    assert( "What to do at this point?" && 
-            nullptr );
+    assert( "What to do at this point?" && false );
   }
     
 };

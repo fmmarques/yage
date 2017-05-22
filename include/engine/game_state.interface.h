@@ -1,6 +1,8 @@
 #if !defined(ENGINE_GAME_STATE_INTERFACE_H)
 #  define ENGINE_GAME_STATE_INTERFACE_H
 
+#include <events/keyboard_listener.interface.h>
+
 namespace engine {
 
 struct game_state_interface:

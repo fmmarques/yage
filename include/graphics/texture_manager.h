@@ -20,7 +20,7 @@ protected:
   void invariant() const;
   texture_manager();
 public:
-  static std::shared_ptr<texture_manager>& instance();
+  static graphics::texture_manager& instance();
   ~texture_manager();
 
   /// \brief Loads a texture from a file.

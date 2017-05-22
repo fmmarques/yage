@@ -4,7 +4,8 @@
 #include <memory>
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+
+#include <SDL_image.h>
 
 #include <graphics/graphics_manager.h>
 #include <graphics/texture_manager.h>
@@ -42,9 +43,9 @@ texture_manager::texture_manager():
   invariant();
 }
 
-std::shared_ptr<texture_manager>& texture_manager::instance()
+texture_manager& texture_manager::instance()
 {
-  static std::shared_ptr<texture_manager> instance( new texture_manager() );
+  static texture_manager instance;
   return instance;
 }
 
