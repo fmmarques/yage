@@ -4,8 +4,8 @@
 #include <stdexcept>
 #include <cassert>
 
-#include <engine/game_state.interface.h>
-#include <engine/game_state.abstract.h>
+#include <yage/engine/game_state.interface.h>
+#include <yage/engine/game_state.abstract.h>
 
 namespace engine {
 namespace states {

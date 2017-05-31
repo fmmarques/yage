@@ -1,5 +1,5 @@
 
-#include <engine/game_state.abstract.h>
+#include <yage/engine/game_state.abstract.h>
 
 namespace engine {
 

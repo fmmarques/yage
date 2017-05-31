@@ -10,8 +10,8 @@
 
 #include <SDL2/SDL.h>
 
-#include <events/event_manager.interface.h>
-#include <events/event_listener.interface.h>
+#include <yage/events/event_manager.interface.h>
+#include <yage/events/event_listener.interface.h>
 
 namespace events {
 
@@ -23,7 +23,7 @@ protected:
   event_manager();
 public:
   static events::event_manager& instance();
-  virtual ~event_manager();
+  virtual ~event_manager() = default;
 
   void register_listener( std::shared_ptr< event_listener_interface >& spListener,
                           uint32_t );

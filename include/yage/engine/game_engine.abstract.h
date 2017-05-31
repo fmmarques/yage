@@ -4,13 +4,13 @@
 #include <memory>
 #include <queue>
 
-#include <events/event_manager.interface.h>
+#include <yage/events/event_manager.interface.h>
 
-#include <engine/runnable.interface.h>
-#include <engine/game_engine.interface.h>
-#include <engine/game_state.abstract.h>
+#include <yage/engine/runnable.interface.h>
+#include <yage/engine/game_engine.interface.h>
+#include <yage/engine/game_state.abstract.h>
 
-#include <engine/state_machine.implementation.h>
+#include <yage/engine/state_machine.implementation.h>
 
 namespace engine {
 

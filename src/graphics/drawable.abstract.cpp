@@ -1,5 +1,5 @@
 
-#include <graphics/drawable.abstract.h>
+#include <yage/graphics/drawable.abstract.h>
 
 namespace graphics {
 
@@ -25,6 +25,17 @@ unsigned int drawable_abstract::y(unsigned int y)
   uiY = y;
   oRectangle.y = static_cast<int>(y);
   return uiY;
+}
+
+unsigned int drawable_abstract::z() const 
+{
+  return uiZ;
+}
+
+unsigned int drawable_abstract::z(unsigned int z)
+{
+  uiZ = z;
+  return uiZ;
 }
 
 unsigned int drawable_abstract::w() const 

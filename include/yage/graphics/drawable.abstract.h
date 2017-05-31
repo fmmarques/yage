@@ -1,7 +1,7 @@
 #if !defined(GRAPHICS_DRAWABLE_ABSTRACT_H)
 #  define GRAPHICS_DRAWABLE_ABSTRACT_H
 
-#include <graphics/bounding_box.interface.h>
+#include <yage/graphics/bounding_box.interface.h>
 
 namespace graphics {
 
@@ -36,7 +36,7 @@ public:
   virtual void draw() = 0;
 
 protected:
-  unsigned int uiX, uiY;
+  unsigned int uiX, uiY, uiZ;
   unsigned int uiW, uiH;
   SDL_Rect oRectangle;
 };
