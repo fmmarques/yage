@@ -38,7 +38,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 link_libraries(${GTEST_BOTH_LIBRARIES})
 
 # Sources
-include_directories("${CMAKE_SOURCE_DIR}/include")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(YAGE_SRC
 	src/engine/game_engine.abstract.cpp
 	src/engine/game_state.abstract.cpp
