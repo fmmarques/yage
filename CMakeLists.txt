@@ -14,6 +14,7 @@ if (NOT SDL2_FOUND)
 endif()
 include_directories(${SDL2_INCLUDE_DIR})
 link_libraries(${SDL2_LIBRARY})
+set(SDL2_INCLUDE_DIR ${SDL2_INCLUDE_DIR} PARENT_SCOPE)
 
 find_package(SDL2_image)
 if (NOT SDL2_IMAGE_FOUND)
