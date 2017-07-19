@@ -4,7 +4,7 @@
 #include <memory>
 #include <list>
 
-#include <input/keyboard_listener.interface.h>
+#include <yage/input/keyboard_listener.interface.h>
 
 namespace input {
 
@@ -19,7 +19,6 @@ public:
 
   void register_listener( std::shared_ptr<keyboard_listener_interface>& spListener );
   void unregister_listener( std::shared_ptr<keyboard_listener_interface>& spListener );
-  void run();
 private:
   std::mutex _mMutex;
   std::list< std::shared_ptr<keyboard_listener_interface> > _lListeners;

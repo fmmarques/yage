@@ -4,7 +4,7 @@
 #include <memory>   // std::shared_ptr<T>
 #include <stdint.h> // uint32_t
 
-#include <events/event_listener.interface.h> 
+#include <yage/events/event_listener.interface.h> 
 namespace events {
 
 struct event_manager_interface {

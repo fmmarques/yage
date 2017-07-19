@@ -3,7 +3,7 @@
 #include <cassert>
 #include <stdexcept>
 
-#include <input/input_manager.h>
+#include <yage/input/input_manager.h>
 
 void input::input_manager::invariant()
 {}
@@ -40,11 +40,4 @@ void input::input_manager::unregister_listener( std::shared_ptr<keyboard_listene
   invariant();
 }
 
-void input::input_manager::run()
-{
-  std::lock_guard<std::mutex> lLock(_mMutex);
-  invariant();
-//  for ( shared_ptr<input_event_listener>
-#warning "NOT_IMPLEMENTED will loop through messages and notify listeners of changes. "
-  invariant();
-}
+

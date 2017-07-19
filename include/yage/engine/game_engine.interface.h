@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include <engine/updatable.interface.h>
-#include <engine/game_state.interface.h>
+#include <yage/engine/updatable.interface.h>
+#include <yage/engine/game_state.interface.h>
 
 namespace engine {
 

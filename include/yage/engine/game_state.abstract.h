@@ -1,10 +1,9 @@
 #if !defined(GAME_ENGINE_ABSTRACT_H)
 #  define GAME_ENGINE_ABSTRACT_H
 
-#include <events/keyboard_listener.interface.h>
-#include <engine/game_state.interface.h>
+#include <yage/events/keyboard_listener.interface.h>
+#include <yage/engine/game_state.interface.h>
 
-//#include <graphics/
 
 namespace engine {
 

@@ -7,8 +7,8 @@
 
 #include <SDL2/SDL.h>
 
-#include <events/event_listener.interface.h>
-#include <events/event_manager.h>
+#include <yage/events/event_listener.interface.h>
+#include <yage/events/event_manager.h>
 
 events::event_manager::event_manager():
   _mMutex(),
