@@ -3,7 +3,7 @@ project(yage CXX)
 
 
 # Setting the project's Cmake modules
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
 
 
 # Dependencies
