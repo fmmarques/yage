@@ -52,7 +52,7 @@ set(YAGE_SRC
 	src/graphics/texture_manager.cpp
 
 	src/input/input_manager.cpp
-)
+		include/yage.h)
 # Targets
 add_library(yage MODULE ${YAGE_SRC})
 set_property(TARGET yage PROPERTY CXX_STANDARD 14)
