@@ -5,7 +5,6 @@ project(yage CXX)
 # Setting the project's Cmake modules
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
 
-
 # Dependencies
 #  SDL dependencies.
 find_package(SDL2)
@@ -14,7 +13,6 @@ if (NOT SDL2_FOUND)
 endif()
 include_directories(${SDL2_INCLUDE_DIR})
 link_libraries(${SDL2_LIBRARY})
-set(SDL2_INCLUDE_DIR ${SDL2_INCLUDE_DIR} PARENT_SCOPE)
 
 find_package(SDL2_image)
 if (NOT SDL2_IMAGE_FOUND)
@@ -57,3 +55,19 @@ set(YAGE_SRC
 add_library(yage MODULE ${YAGE_SRC})
 set_property(TARGET yage PROPERTY CXX_STANDARD 14)
 
+
+# Helper variables for client projects
+get_directory_property(hasParent PARENT_DIRECTORY)
+if(hasParent)
+	set(SDL2_INCLUDE_DIR ${SDL2_INCLUDE_DIR} PARENT_SCOPE)
+	set(SDL2_LIBRARY ${SDL2_LIBRARY} PARENT_SCOPE)
+
+    set(SDL2_IMAGE_INCLUDE_DIRS ${SDL2_IMAGE_INCLUDE_DIRS} PARENT_SCOPE)
+    set(SDL2_IMAGE_LIBRARIES ${SDL2_IMAGE_LIBRARIES} PARENT_SCOPE)
+
+	set(SDL2_IMAGE_INCLUDE_DIRS ${SDL2_IMAGE_INCLUDE_DIRS} PARENT_SCOPE)
+	set(SDL2_IMAGE_LIBRARIES ${SDL2_IMAGE_LIBRARIES} PARENT_SCOPE)
+
+	set(GTEST_INCLUDE_DIRS ${GTEST_INCLUDE_DIRS} PARENT_SCOPE)
+    set(GTEST_BOTH_LIBRARIES ${GTEST_BOTH_LIBRARIES} PARENT_SCOPE)
+endif()
