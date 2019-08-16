@@ -4,6 +4,7 @@
 #include <queue>
 #include <memory>
 
+namespace yage {
 namespace engine {
 
 template < typename state_t >
@@ -32,46 +33,47 @@ public:
 
   state_machine(state_machine &&rrOther):
     state_machine_interface< state_t >(),
-    _qStates() 
+    _qStates()
   {
-    _qStates.swap(rrOther._qStates);  
+    _qStates.swap(rrOther._qStates);
   }
 
   state_machine(const state_machine &rOther):
     state_machine_interface< state_t >(),
-    _qStates() 
-    
+    _qStates()
+
   {
     for (state_t state: rOther._qStates)
       _qStates.emplace( state );
-  } 
+  }
 
   virtual void push(state_t&& state)
   {
     _qStates.push(state);
   }
 
-  virtual state_t&& pop() 
+  virtual state_t&& pop()
   {
     state_t result = std::move(_qStates.front());
     _qStates.pop();
-    return std::move(result); 
+    return std::move(result);
   }
 
   virtual const state_t& peek() const
   {
     return _qStates.front();
-  } 
+  }
 
-  virtual unsigned int length() const 
+  virtual unsigned int length() const
   {
     return _qStates.size();
   }
 
 private:
-  std::queue< state_t > _qStates;  
+  std::queue< state_t > _qStates;
 };
 
+}
 }
 
 #endif

@@ -3,62 +3,120 @@
 
 #include <list>
 #include <memory>
+#include <shared_mutex>
 #include <mutex>
+#include <algorithm>
+
 
 #include <SDL2/SDL.h>
 
-#include <yage/events/event_listener.interface.h>
+#include <yage/events/event_listener.h>
 #include <yage/events/event_manager.h>
 
-events::event_manager::event_manager():
-  _mMutex(),
-  _mListeners()
+yage::events::event_manager::event_manager():
+  mutex{},
+  event_listeners{},
+  continue_thread_execution{true}
 {
+  std::lock_guard<std::shared_mutex> lock(mutex);
   invariant();
+
 }
 
-void events::event_manager::invariant()
+void yage::events::event_manager::invariant()
 {
 
 }
 
-events::event_manager& events::event_manager::instance()
+yage::events::event_manager& yage::events::event_manager::instance()
 {
   static events::event_manager instance;
   return instance;
 }
-
-void events::event_manager::register_listener( 
-  std::shared_ptr< events::event_listener_interface >& spListener,
-  uint32_t event )
+// Listeners
+void yage::events::event_manager::register_listener(
+  events::event_listener * listener,
+  SDL_EventType event )
 {
-  std::unique_lock<std::mutex> lLock(_mMutex, std::defer_lock);
+  std::unique_lock<decltype(mutex)> lock(mutex, std::defer_lock);
 
-  lLock.lock();
+  lock.lock();
   invariant();
 
-  auto lListeners = _mListeners[ event ];
-  lListeners.push_back( spListener );
+
+  auto listeners = event_listeners[ event ];
+  listeners.push_back(listener);
 
   invariant();
-  lLock.unlock();
+  lock.unlock();
 }
 
-void events::event_manager::unregister_listener( 
-  std::shared_ptr< events::event_listener_interface >& spListener,
-  uint32_t event )
+void yage::events::event_manager::unregister_listener(
+  events::event_listener * listener,
+  SDL_EventType event )
 {
-  std::unique_lock<std::mutex> lLock(_mMutex, std::defer_lock);
+  std::unique_lock<decltype(mutex)> lock(mutex, std::defer_lock);
 
-  lLock.lock();
+  lock.lock();
   invariant();
 
-  auto lListeners = _mListeners[ event ];
-  lListeners.remove( spListener );
+  auto listeners = event_listeners[ event ];
+  listeners.remove( listener );
 
   invariant();
-  lLock.unlock();
+  lock.unlock();
 
 }
 
+void yage::events::event_manager::emit(const SDL_Event& event)
+{
+    std::shared_lock<decltype(mutex)> lock(mutex,std::defer_lock);
+
+    SDL_EventType event_type = static_cast< SDL_EventType>(event.type);
+    lock.lock();
+    std::list< event_listener * >& listeners = event_listeners[ event_type ];
+    lock.unlock();
+
+
+    std::for_each(
+        listeners.begin(),
+        listeners.end(),
+        [&event] (event_listener * listener) {
+            listener->on_event(event);
+        });
+}
+
+// Runnable
+
+void yage::events::event_manager::interrupt()
+{
+
+}
+
+void yage::events::event_manager::run()
+{
+    SDL_Event curr_event {};
+    std::shared_lock<decltype(mutex)> lock(mutex,std::defer_lock);
+    bool continue_next_iteration = false;
+
+    lock.lock();
+    continue_next_iteration = continue_thread_execution;
+    lock.unlock();
+
+    while (continue_next_iteration && SDL_WaitEvent(&curr_event))
+    {
+        switch (curr_event.type)
+        {
+        case SDL_QUIT:
+            emit(curr_event);
+            continue_thread_execution = false;
+            break;
+        }
+
+
+        lock.lock();
+        continue_next_iteration = continue_thread_execution;
+        lock.unlock();
+    }
+}
 

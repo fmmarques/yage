@@ -5,38 +5,40 @@
 
 #include <yage/input/input_manager.h>
 
-void input::input_manager::invariant()
+void yage::input::input_manager::invariant()
 {}
 
-input::input_manager::input_manager()
+yage::input::input_manager::input_manager():
+    mutex{},
+    keyboard_listeners{}
 {
   invariant();
 }
 
-input::input_manager& input::input_manager::instance()
+yage::input::input_manager& yage::input::input_manager::instance()
 {
-  static input::input_manager spInstance;
-  return spInstance;
+  static yage::input::input_manager instance{};
+  return instance;
 }
 
-input::input_manager::~input_manager()
+yage::input::input_manager::~input_manager()
 {
-  invariant();
-}
-
-void input::input_manager::register_listener( std::shared_ptr<keyboard_listener_interface>& spListener )
-{
-  std::lock_guard<std::mutex> lLock(_mMutex);
-  invariant();
-  _lListeners.push_back( spListener );
   invariant();
 }
 
-void input::input_manager::unregister_listener( std::shared_ptr<keyboard_listener_interface>& spListener )
+void yage::input::input_manager::register_listener( keyboard_listener *listener )
 {
-  std::lock_guard<std::mutex> lLock(_mMutex );
+  std::lock_guard<decltype(mutex)> lock(mutex);
   invariant();
-  _lListeners.remove( spListener );
+  keyboard_listeners.push_back( listener );
+  invariant();
+}
+
+void yage::input::input_manager::unregister_listener( keyboard_listener *listener )
+{
+  std::lock_guard<decltype(mutex)> lock(mutex );
+  invariant();
+  keyboard_listeners.remove( listener );
   invariant();
 }
 

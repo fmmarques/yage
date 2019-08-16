@@ -4,15 +4,17 @@
 #include <memory>
 
 
+namespace yage {
 namespace engine {
 //
-struct runnable_interface
+struct runnable
 {
-  virtual ~runnable_interface() {}
+  virtual ~runnable() {}
 
   virtual void run() = 0;
   virtual void interrupt() = 0;
-}; 
+};
+}
 
 }
 #endif

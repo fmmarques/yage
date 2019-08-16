@@ -5,73 +5,82 @@ project(yage CXX)
 # Setting the project's Cmake modules
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
 
-# Dependencies
-#  SDL dependencies.
-find_package(SDL2)
-if (NOT SDL2_FOUND)
-  message(FATAL_ERROR "SDL2 was not fond on the system")
-endif()
-include_directories(${SDL2_INCLUDE_DIR})
-link_libraries(${SDL2_LIBRARY})
-
-find_package(SDL2_image)
-if (NOT SDL2_IMAGE_FOUND)
-  message(FATAL_ERROR "SDL2_image was not found on the system")
-endif()
-include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-link_libraries(${SDL2_IMAGE_LIBRARIES})
-
-find_package(SDL2_ttf REQUIRED)
-if (NOT SDL2_TTF_FOUND)
-  message(FATAL_ERROR "SDL2_TTF was not found on the system")
-endif()
-include_directories(${SDL2_TTF_INCLUDE_DIRS})
-link_libraries(${SDL2_TTF_LIBRARIES})
-
-#  GTest for unit testing
-find_package(GTest)
-if (NOT GTEST_FOUND OR !${GTEST_FOUND})
-  message(FATAL_ERROR "Google's Gtest, a C++ unit testing library is not present on your system. Please obtain it from google's github.")
-endif()
-include_directories(${GTEST_INCLUDE_DIRS})
-link_libraries(${GTEST_BOTH_LIBRARIES})
-
-# Sources
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
+# Define sources
 set(YAGE_SRC
-	src/engine/game_engine.abstract.cpp
-	src/engine/game_state.abstract.cpp
+	src/engine/game_engine.cpp
+	src/engine/game_state.cpp
+	src/engine/state_machine.cpp
+	src/engine/states/splash_screen.cpp
+	
 	src/graphics/drawable.abstract.cpp
 	
-	src/engine/state_machine.implementation.cpp
-	src/engine/states/null_state.concrete.cpp
 
 	src/events/event_manager.cpp
 	src/graphics/graphics_manager.cpp
 	src/graphics/texture_manager.cpp
 
 	src/input/input_manager.cpp)
+
+
+
 # Targets
-add_library(yage MODULE ${YAGE_SRC})
-set_property(TARGET yage PROPERTY CXX_STANDARD 14)
+add_library(yage SHARED ${YAGE_SRC})
+set_property(TARGET yage PROPERTY CXX_STANDARD 17)
+set_property(TARGET yage PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 
+# Dependencies
+#  SDL dependencies.
+set(SDL2_BUILDING_LIBRARY:BOOL ON)
+option(BUILD_SHARED_LIBS "Build shared libs" ON)
+find_package(SDL2)
+if (NOT SDL2_FOUND)
+  message(FATAL_ERROR "SDL2 was not fond on the system")
+endif()
+include_directories(${SDL2_INCLUDE_DIR})
+message(STATUS ${SDL2_LIBRARY})
+target_link_libraries(yage libSDL2.so)
+
+find_package(SDL2_image)
+if (NOT SDL2_IMAGE_FOUND)
+  message(FATAL_ERROR "SDL2_image was not found on the system")
+endif()
+include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
+#link_libraries(${SDL2_IMAGE_LIBRARIES})
+
+find_package(SDL2_ttf REQUIRED)
+if (NOT SDL2_TTF_FOUND)
+  message(FATAL_ERROR "SDL2_TTF was not found on the system")
+endif()
+include_directories(${SDL2_TTF_INCLUDE_DIRS})
+#link_libraries(${SDL2_TTF_LIBRARIES})
+
+#  GTest for unit testing
+#find_package(GTest
+#	PATHS ENV{GTEST_ROOT})
+#if (NOT GTEST_FOUND OR !${GTEST_FOUND})
+#  message(FATAL_ERROR "Google's Gtest, a C++ unit testing library is not present on your system. Please obtain it from google's github.")
+#endif()
+#include_directories(${GTEST_INCLUDE_DIRS})
+#link_libraries(${GTEST_BOTH_LIBRARIES})
+
+# Sources
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
 # Helper variables for client projects
 get_directory_property(hasParent PARENT_DIRECTORY)
 if(hasParent)
-	set(SDL2_INCLUDE_DIR ${SDL2_INCLUDE_DIR} PARENT_SCOPE)
-        message(STATUS ">>>> ${SDL2_INCLUDE_DIR}")
-	set(SDL2_LIBRARY ${SDL2_LIBRARY} PARENT_SCOPE)
+  set(SDL2_INCLUDE_DIR ${SDL2_INCLUDE_DIR} PARENT_SCOPE)
+  
+  set(SDL2_LIBRARY ${SDL2_LIBRARY} PARENT_SCOPE)
 
-    set(SDL2_IMAGE_INCLUDE_DIRS ${SDL2_IMAGE_INCLUDE_DIRS} PARENT_SCOPE)
-    set(SDL2_IMAGE_LIBRARIES ${SDL2_IMAGE_LIBRARIES} PARENT_SCOPE)
+  set(SDL2_IMAGE_INCLUDE_DIRS ${SDL2_IMAGE_INCLUDE_DIRS} PARENT_SCOPE)
+  set(SDL2_IMAGE_LIBRARIES ${SDL2_IMAGE_LIBRARIES} PARENT_SCOPE)
 
-	set(SDL2_TTF_INCLUDE_DIRS ${SDL2_TTF_INCLUDE_DIRS} PARENT_SCOPE)
-	set(SDL2_TTF_LIBRARIES ${SDL2_TTF_LIBRARIES} PARENT_SCOPE)
+  set(SDL2_TTF_INCLUDE_DIRS ${SDL2_TTF_INCLUDE_DIRS} PARENT_SCOPE)
+  set(SDL2_TTF_LIBRARIES ${SDL2_TTF_LIBRARIES} PARENT_SCOPE)
 
-	set(GTEST_INCLUDE_DIRS ${GTEST_INCLUDE_DIRS} PARENT_SCOPE)
-    set(GTEST_BOTH_LIBRARIES ${GTEST_BOTH_LIBRARIES} PARENT_SCOPE)
+  set(GTEST_INCLUDE_DIRS ${GTEST_INCLUDE_DIRS} PARENT_SCOPE)
+  set(GTEST_BOTH_LIBRARIES ${GTEST_BOTH_LIBRARIES} PARENT_SCOPE)
 
-    set(YAGE_DEPENDENCIES_INCLUDE_DIRS ${SDL2_INCLUDE_DIR}:${SDL2_IMAGE_INCLUDE_DIRS}:${SDL2_TTF_INCLUDE_DIRS}:${GTEST_INCLUDE_DIRS}
-            PARENT_SCOPE)
+  set(YAGE_DEPENDENCIES_INCLUDE_DIRS ${SDL2_INCLUDE_DIR}:${SDL2_IMAGE_INCLUDE_DIRS}:${SDL2_TTF_INCLUDE_DIRS}:${GTEST_INCLUDE_DIRS} PARENT_SCOPE)
 endif()
