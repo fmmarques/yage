@@ -42,7 +42,7 @@ set_target_properties(yage
 
 # Dependencies
 find_package(Git QUIET)
-if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
 # Update submodules as needed
     option(GIT_SUBMODULE "Check submodules during build" ON)
     if(GIT_SUBMODULE)
@@ -80,7 +80,7 @@ include_directories(${SDL2_TTF_INCLUDE_DIRS})
 link_libraries(${SDL2_TTF_LIBRARIES})
 
 #  GTest for unit testing
-set(GTEST_ROOT "${PROJECT_SOURCE_DIR}/dependencies/googletest/googletest")
+set(GTEST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/googletest/googletest")
 add_subdirectory(${GTEST_ROOT} EXCLUDE_FROM_ALL)
 include_directories("${gtest_SOURCE_DIR}/include")
 
@@ -98,7 +98,7 @@ add_unit_test(graphics_manager_test graphics_manager_test)
 
 
 # Sources
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Helper variables for client projects
 get_directory_property(hasParent PARENT_DIRECTORY)
 if(hasParent)
