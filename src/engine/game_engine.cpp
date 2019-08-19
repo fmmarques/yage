@@ -1,3 +1,3 @@
-#include <yage/engine/game_engine.h>
-#include <yage/events/event_manager.h>
+#include <yage/engine/game_engine.hpp>
+#include <yage/events/event_manager.hpp>
 

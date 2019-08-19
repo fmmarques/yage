@@ -1,3 +1,3 @@
-#include <yage/engine/game_state.h>
-#include <yage/engine/state_machine.h>
+#include <yage/engine/game_state.hpp>
+#include <yage/engine/state_machine.hpp>
 

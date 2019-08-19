@@ -6,12 +6,12 @@
 #include <thread>
 #include <mutex>
 
-#include <yage/events/event_manager.h>
+#include <yage/events/event_manager.hpp>
 
-#include <yage/engine/runnable.h>
-#include <yage/engine/game_state.h>
+#include <yage/engine/runnable.hpp>
+#include <yage/engine/game_state.hpp>
 
-#include <yage/engine/state_machine.h>
+#include <yage/engine/state_machine.hpp>
 
 namespace yage {
 namespace engine {
@@ -84,9 +84,8 @@ public:
   virtual void run() override
   {
     events::event_manager& event_mgr = yage::events::event_manager::instance();
-    event_mgr.register_listener(this,SDL_EventType::SDL_QUIT);
-
-  }
+    event_mgr.subscribe(this,SDL_EventType::SDL_QUIT);
+ }
 
 
 private:

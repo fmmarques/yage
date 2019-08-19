@@ -1,8 +1,7 @@
 #if !defined(GAME_ENGINE_ABSTRACT_H)
 #  define GAME_ENGINE_ABSTRACT_H
 
-#include <yage/events/keyboard_listener.h>
-#include <yage/engine/game_state.h>
+#include <yage/engine/game_state.hpp>
 
 namespace yage {
 namespace engine {
@@ -15,12 +14,11 @@ enum class game_state_status {
   DEINITIALIZING
 };
 
-class game_state:
-  public virtual events::scancode_listener
+class game_state
 {
 public:
   game_state();
-  ~game_state();
+  virtual ~game_state();
 
   virtual void on_initialize();
   virtual void on_pause();
@@ -34,7 +32,7 @@ protected:
   virtual void set_status(game_state_status&& status);
 
 private:
-  game_state_status _eStatus;
+  game_state_status status;
 
 };
 

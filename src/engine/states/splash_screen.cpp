@@ -1,1 +1,1 @@
-#include <yage/engine/states/splash_screen.h>
+#include <yage/engine/states/splash_screen.hpp>

@@ -1,7 +1,7 @@
 #if !defined(GRAPHICS_DRAWABLE_ABSTRACT_H)
 #  define GRAPHICS_DRAWABLE_ABSTRACT_H
 
-#include <yage/graphics/bounding_box.interface.h>
+#include <yage/graphics/bounding_box.interface.hpp>
 
 namespace graphics {
 

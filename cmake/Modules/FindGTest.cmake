@@ -74,7 +74,7 @@ See :module:`GoogleTest` for information on the :command:`gtest_add_tests`
 and :command:`gtest_discover_tests` commands.
 #]=======================================================================]
 
-include(${CMAKE_CURRENT_LIST_DIR}/GoogleTest.cmake)
+include(GoogleTest)
 
 function(__gtest_append_debugs _endvar _library)
     if(${_library} AND ${_library}_DEBUG)
@@ -86,12 +86,17 @@ function(__gtest_append_debugs _endvar _library)
 endfunction()
 
 function(__gtest_find_library _name)
-    find_library(${_name}
-        NAMES ${ARGN}
+	message(STATUS "FindGTests.cmake: __gtest_find_library:\n\${_gtest_libpath_suffixes}:${_gtest_libpath_suffixes};\n\${_name}:${_name};\n\${ARGN}:${ARGN}\n\${GTEST_ROOT}:${GTEST_ROOT}")  
+   find_library(${_name}
+	NAMES 
+	    "${ARGN}" 
+	    "lib${ARGN}.so"
         HINTS
-            ENV GTEST_ROOT
-            ${GTEST_ROOT}
-        PATH_SUFFIXES ${_gtest_libpath_suffixes}
+	#ENV GTEST_ROOT
+            "${GTEST_ROOT}/"
+        PATH_SUFFIXES 
+		${_gtest_libpath_suffixes}
+		.${_gtest_libpath_suffixes}
     )
     mark_as_advanced(${_name})
 endfunction()
@@ -152,7 +157,11 @@ if(NOT DEFINED GTEST_MSVC_SEARCH)
     set(GTEST_MSVC_SEARCH MD)
 endif()
 
-set(_gtest_libpath_suffixes lib)
+if(WIN32)
+  set(_gtest_libpath_suffixes lib)
+elseif(UNIX)
+  set(_gtest_libpath_suffixes a)
+endif()
 if(MSVC)
     if(GTEST_MSVC_SEARCH STREQUAL "MD")
         list(APPEND _gtest_libpath_suffixes
@@ -171,6 +180,8 @@ if(MSVC)
     endif()
 endif()
 
+message(STATUS "FindGTest: \$ENV{GTEST_ROOT}:$ENV{GTEST_ROOT}")
+message(STATUS "FindGTest: \${GTEST_ROOT}:${GTEST_ROOT}")
 
 find_path(GTEST_INCLUDE_DIR gtest/gtest.h
     HINTS
@@ -178,7 +189,7 @@ find_path(GTEST_INCLUDE_DIR gtest/gtest.h
         ${GTEST_ROOT}/include
 )
 mark_as_advanced(GTEST_INCLUDE_DIR)
-
+message(STATUS "FindGTest: GTEST_INCLUDE_DIR:${GTEST_INCLUDE_DIR}")
 if(MSVC AND GTEST_MSVC_SEARCH STREQUAL "MD")
     # The provided /MD project files for Google Test add -md suffixes to the
     # library names.
@@ -187,14 +198,24 @@ if(MSVC AND GTEST_MSVC_SEARCH STREQUAL "MD")
     __gtest_find_library(GTEST_MAIN_LIBRARY       gtest_main-md  gtest_main)
     __gtest_find_library(GTEST_MAIN_LIBRARY_DEBUG gtest_main-mdd gtest_maind)
 else()
-    __gtest_find_library(GTEST_LIBRARY            gtest)
-    __gtest_find_library(GTEST_LIBRARY_DEBUG      gtestd)
-    __gtest_find_library(GTEST_MAIN_LIBRARY       gtest_main)
-    __gtest_find_library(GTEST_MAIN_LIBRARY_DEBUG gtest_maind)
+	find_library(GTEST_LIBRARY
+			gtest	
+			${SOURCE_PROJECT_DIR}/dependencies/googletest/googletest)
+    	mark_as_advanced(GTEST_LIBRARY)
+	message(STATUS "Finding the lib:\"${GTEST_LIBRARY}\"")
+    if (GTEST_LIBRARY)
+	    message(STATUS "Found")
+    else()
+	    message(STATUS "NOT FOUND")
+    endif()
+    # __gtest_find_library(GTEST_LIBRARY            gtest)
+    #    __gtest_find_library(GTEST_LIBRARY_DEBUG      gtestd)
+    # __gtest_find_library(GTEST_MAIN_LIBRARY       gtest_main)
+    #    __gtest_find_library(GTEST_MAIN_LIBRARY_DEBUG gtest_maind)
 endif()
 
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(GTest DEFAULT_MSG GTEST_LIBRARY GTEST_INCLUDE_DIR GTEST_MAIN_LIBRARY)
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(GTest DEFAULT_MSG GTEST_LIBRARY GTEST_INCLUDE_DIR)# GTEST_MAIN_LIBRARY)
 
 if(GTEST_FOUND)
     set(GTEST_INCLUDE_DIRS ${GTEST_INCLUDE_DIR})

@@ -127,20 +127,18 @@
 # 
 #  * Kitware, Inc.
 #=============================================================================
-
 if(NOT BUILD_SHARED_LIBRARIES)
   set(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_STATIC_LIBRARY_SUFFIX})
 else()
-	set(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_SHARED_LIBRARY_SUFFIX})
+  set(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_SHARED_LIBRARY_SUFFIX})
 endif()
-message(STATUS "Finding libs with suffix ${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
 find_path(SDL2_INCLUDE_DIR SDL.h
   HINTS
     ENV SDL2DIR # Use SDL2DIR on Windows pointing to the SDL2 root.
   PATH_SUFFIXES SDL2
-                # path suffixes to search inside ENV{SDLDIR}
-                include/SDL2 include
+               # path suffixes to search inside ENV{SDLDIR}
+  include/SDL2 include
 )
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -151,8 +149,10 @@ endif()
 
 # SDL-1.1 is the name used by FreeBSD ports...
 # don't confuse it for the version number.
+
 find_library(SDL2_LIBRARY_TEMP
-  NAMES SDL2 SDL-2
+  NAMES 
+  ${CMAKE_FIND_LIBRARY_PREFIXES}SDL2${CMAKE_FIND_LIBRARY_SUFFIXES} #SDL2 SDL-2
   HINTS
     ENV SDL2DIR
   PATH_SUFFIXES lib ${VC_LIB_PATH_SUFFIX}
@@ -193,6 +193,7 @@ if(MINGW)
   set(MINGW32_LIBRARY mingw32 CACHE STRING "mwindows for MinGW")
 endif()
 
+
 if(SDL2_LIBRARY_TEMP)
   # For SDL2main
   if(SDL2MAIN_LIBRARY AND NOT SDL2_BUILDING_LIBRARY)
@@ -217,7 +218,11 @@ if(SDL2_LIBRARY_TEMP)
   # In fact, there seems to be a problem if I used the Threads package
   # and try using this line, so I'm just skipping it entirely for OS X.
   if(NOT APPLE)
-    set(SDL2_LIBRARY_TEMP ${SDL2_LIBRARY_TEMP} ${CMAKE_THREAD_LIBS_INIT})
+    list(FIND SDL2_LIBRARY_TEMP "${CMAKE_THREAD_LIBS_INIT}" _SDL2_THREADS_INDEX)
+    if (_SDL2_THREADS_INDEX EQUAL -1)
+      set(SDL2_LIBRARY_TEMP ${SDL2_LIBRARY_TEMP} ${CMAKE_THREAD_LIBS_INIT})
+    endif()
+    unset(_SDL2_THREADS_INDEX)  
   endif()
 
   # For MinGW library
@@ -248,7 +253,6 @@ if(SDL2_INCLUDE_DIR AND EXISTS "${SDL2_INCLUDE_DIR}/SDL_version.h")
 endif()
 
 include(FindPackageHandleStandardArgs)
-
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(SDL2 
 	                          FOUND_VAR SDL2_FOUND
                                   REQUIRED_VARS SDL2_LIBRARY SDL2_INCLUDE_DIR

@@ -7,8 +7,8 @@
 
 #include <SDL_image.h>
 
-#include <yage/graphics/graphics_manager.h>
-#include <yage/graphics/texture_manager.h>
+#include <yage/graphics/graphics_manager.hpp>
+#include <yage/graphics/texture_manager.hpp>
 
 namespace graphics {
 

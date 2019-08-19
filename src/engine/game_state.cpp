@@ -1,11 +1,11 @@
 
-#include <yage/engine/game_state.h>
+#include <yage/engine/game_state.hpp>
 
 namespace yage {
 namespace engine {
 
 game_state::game_state():
-  _eStatus( engine::game_state_status::UNINITIALIZED )
+  status( engine::game_state_status::UNINITIALIZED )
 {
 
 }
@@ -35,12 +35,12 @@ void game_state::on_deinitialize()
 
 const game_state_status& game_state::get_status() const
 {
-  return _eStatus;
+  return status;
 }
 
 void game_state::set_status(game_state_status&& status)
 {
-  _eStatus = status;
+  this->status = status;
 }
 
 }

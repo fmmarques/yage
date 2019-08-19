@@ -5,7 +5,7 @@
 #include <cassert>
 #include <iostream>
 
-#include <yage/engine/game_state.h>
+#include <yage/engine/game_state.hpp>
 
 namespace yage {
 namespace engine {

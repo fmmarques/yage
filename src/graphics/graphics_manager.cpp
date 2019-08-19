@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL.h>
 
-#include <yage/graphics/graphics_manager.h>
+#include <yage/graphics/graphics_manager.hpp>
 
 const unsigned int graphics::graphics_manager::uiDefaultWindowWidth = 480;
 const unsigned int graphics::graphics_manager::uiDefaultWindowHeight = 640;

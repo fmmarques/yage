@@ -1,5 +1,5 @@
 
-#include <yage/graphics/drawable.abstract.h>
+#include <yage/graphics/drawable.abstract.hpp>
 
 namespace graphics {
 
