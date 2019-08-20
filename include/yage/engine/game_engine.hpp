@@ -25,7 +25,7 @@ class game_engine:
   public virtual engine_strategy_t
 {
 private:
-  void invariant() const
+  void inline invariant() const
   {
 	engine_strategy_t::invariant();
 	engine::state_machine< game_state_t >::invariant();
@@ -40,8 +40,15 @@ protected:
     continue_thread_execution{true}
   {
     std::unique_lock<std::mutex> lock{ mutex, std::defer_lock };
+    
     lock.lock();
     invariant();
+    
+    events::event_manager& event_mgr = yage::events::event_manager::instance();
+    event_mgr.subscribe(this,SDL_EventType::SDL_QUIT);
+
+    invariant();
+    lock.unlock();
   }
 
 
@@ -72,21 +79,16 @@ public:
 
   }
 
-// From runnable_interface:
-
+// From runnable interface:
   virtual void interrupt() override
   {
-    std::unique_lock<std::mutex> lock{ mutex, std::defer_lock };
-    lock.lock();
-    continue_thread_execution = false;
+    static_cast< engine_strategy_t *>(this)->interrupt();
   }
 
   virtual void run() override
   {
-    events::event_manager& event_mgr = yage::events::event_manager::instance();
-    event_mgr.subscribe(this,SDL_EventType::SDL_QUIT);
- }
-
+    static_cast< engine_strategy_t *>(this)->run();
+  }
 
 private:
     std::thread thread;
