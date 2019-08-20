@@ -7,70 +7,55 @@
 namespace yage {
 namespace engine {
 
-template < typename state_t >
-struct state_machine_interface {
-  virtual void push(state_t&& state) = 0;
-  virtual state_t&& pop() = 0;
-
-  virtual const state_t& peek() const = 0;
-  virtual unsigned int length() const = 0;
-};
 
 template < typename state_t >
-class state_machine: public virtual state_machine_interface< state_t >
+class state_machine
 {
 public:
-  typedef typename state_t::null_state_t null_state_t;
-
   virtual ~state_machine() {};
 
   state_machine():
-    state_machine_interface< state_t >(),
-    _qStates()
+    states{}
   {
-    _qStates.emplace( std::move( null_state_t() ) );
   }
 
-  state_machine(state_machine &&rrOther):
-    state_machine_interface< state_t >(),
-    _qStates()
+  state_machine(state_machine &&other):
+    states()
   {
-    _qStates.swap(rrOther._qStates);
+    states.swap(other.states);
   }
 
-  state_machine(const state_machine &rOther):
-    state_machine_interface< state_t >(),
-    _qStates()
-
+  state_machine(const state_machine &other):
+    states{}
   {
-    for (state_t state: rOther._qStates)
-      _qStates.emplace( state );
+    for (auto&& state: other.states)
+      states.emplace( state );
   }
 
   virtual void push(state_t&& state)
   {
-    _qStates.push(state);
+    states.push(state);
   }
 
   virtual state_t&& pop()
   {
-    state_t result = std::move(_qStates.front());
-    _qStates.pop();
+    state_t result = std::move(states.front());
+    states.pop();
     return std::move(result);
   }
 
   virtual const state_t& peek() const
   {
-    return _qStates.front();
+    return states.front();
   }
 
   virtual unsigned int length() const
   {
-    return _qStates.size();
+    return states.size();
   }
 
 private:
-  std::queue< state_t > _qStates;
+  std::queue< state_t > states;
 };
 
 }
