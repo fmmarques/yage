@@ -1,7 +1,8 @@
-#if !defined(GAME_ENGINE_ABSTRACT_H)
-#  define GAME_ENGINE_ABSTRACT_H
+#if !defined(ENGINE_GAME_STATE_HPP)
+#  define ENGINE_GAME_STATE_HPP
 
-#include <yage/engine/game_state.hpp>
+
+#include <yage/engine/runnable.hpp>
 
 namespace yage {
 namespace engine {
@@ -14,7 +15,8 @@ enum class game_state_status {
   DEINITIALIZING
 };
 
-class game_state
+class game_state:
+	public virtual yage::engine::runnable
 {
 public:
   game_state();
@@ -26,6 +28,10 @@ public:
   virtual void on_deinitialize();
   virtual void on_render() = 0;
   virtual void on_update() = 0;
+
+public:
+  virtual void run() = 0;
+  virtual void interrupt() = 0;
 
 protected:
   virtual const game_state_status& get_status() const;
