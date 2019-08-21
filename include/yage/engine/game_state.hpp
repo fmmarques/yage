@@ -39,37 +39,37 @@ public:
 
   void on_initialize() override
   {
-    static_cast< strategy_t * >(this)->on_initialize();
+    static_cast< strategy_t & >(*this).on_initialize();
     set_status( game_state_status::INITIALIZED );
   }
   
   void on_pause() override
   {
-    static_cast< strategy_t * >(this)->on_pause();
+    static_cast< strategy_t & >(*this).on_pause();
     set_status( game_state_status::PAUSED );
   }
 
   void on_continue() override
   {
-    static_cast< strategy_t *>(this)->on_continue();
+    static_cast< strategy_t & >(*this).on_continue();
     set_status( game_state_status::CONTINUING );
   }
 
   void on_deinitialize() override
   {
-    static_cast< strategy_t *>(this)->on_deinitialize();
+    static_cast< strategy_t & >(*this).on_deinitialize();
     set_status( game_state_status::DEINITIALIZING );
   } 
 
 // Runnable
   void run() override
   {
-    static_cast< strategy_t *>(this)->run();
+    static_cast< strategy_t & >(*this).run();
   }
 
   void interrupt() override
   {
-    static_cast< strategy_t *>(this)->interrupt();
+    static_cast< strategy_t & >(*this).interrupt();
   }
 
 protected:

@@ -56,6 +56,17 @@ CMAKE_BINARY_DIR = /home/fmmarques/Documentos/Projects/yage
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/opt/cmake-3.15.2/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,17 +88,6 @@ test:
 test/fast: test
 
 .PHONY : test/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/opt/cmake-3.15.2/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -122,17 +122,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named all_tests
+# Target rules for targets named graphics_manager_test
 
 # Build rule for target.
-all_tests: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 all_tests
-.PHONY : all_tests
+graphics_manager_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 graphics_manager_test
+.PHONY : graphics_manager_test
 
 # fast build rule for target.
-all_tests/fast:
-	$(MAKE) -f CMakeFiles/all_tests.dir/build.make CMakeFiles/all_tests.dir/build
-.PHONY : all_tests/fast
+graphics_manager_test/fast:
+	$(MAKE) -f CMakeFiles/graphics_manager_test.dir/build.make CMakeFiles/graphics_manager_test.dir/build
+.PHONY : graphics_manager_test/fast
 
 #=============================================================================
 # Target rules for targets named yage
@@ -148,17 +148,30 @@ yage/fast:
 .PHONY : yage/fast
 
 #=============================================================================
-# Target rules for targets named graphics_manager_test
+# Target rules for targets named state_machine_test
 
 # Build rule for target.
-graphics_manager_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 graphics_manager_test
-.PHONY : graphics_manager_test
+state_machine_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 state_machine_test
+.PHONY : state_machine_test
 
 # fast build rule for target.
-graphics_manager_test/fast:
-	$(MAKE) -f CMakeFiles/graphics_manager_test.dir/build.make CMakeFiles/graphics_manager_test.dir/build
-.PHONY : graphics_manager_test/fast
+state_machine_test/fast:
+	$(MAKE) -f CMakeFiles/state_machine_test.dir/build.make CMakeFiles/state_machine_test.dir/build
+.PHONY : state_machine_test/fast
+
+#=============================================================================
+# Target rules for targets named all_tests
+
+# Build rule for target.
+all_tests: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 all_tests
+.PHONY : all_tests
+
+# fast build rule for target.
+all_tests/fast:
+	$(MAKE) -f CMakeFiles/all_tests.dir/build.make CMakeFiles/all_tests.dir/build
+.PHONY : all_tests/fast
 
 #=============================================================================
 # Target rules for targets named gtest
@@ -456,6 +469,33 @@ src/input/input_manager.cpp.s:
 	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/input/input_manager.cpp.s
 .PHONY : src/input/input_manager.cpp.s
 
+tests/engine/state_machine.unit.o: tests/engine/state_machine.unit.cpp.o
+
+.PHONY : tests/engine/state_machine.unit.o
+
+# target to build an object file
+tests/engine/state_machine.unit.cpp.o:
+	$(MAKE) -f CMakeFiles/state_machine_test.dir/build.make CMakeFiles/state_machine_test.dir/tests/engine/state_machine.unit.cpp.o
+.PHONY : tests/engine/state_machine.unit.cpp.o
+
+tests/engine/state_machine.unit.i: tests/engine/state_machine.unit.cpp.i
+
+.PHONY : tests/engine/state_machine.unit.i
+
+# target to preprocess a source file
+tests/engine/state_machine.unit.cpp.i:
+	$(MAKE) -f CMakeFiles/state_machine_test.dir/build.make CMakeFiles/state_machine_test.dir/tests/engine/state_machine.unit.cpp.i
+.PHONY : tests/engine/state_machine.unit.cpp.i
+
+tests/engine/state_machine.unit.s: tests/engine/state_machine.unit.cpp.s
+
+.PHONY : tests/engine/state_machine.unit.s
+
+# target to generate assembly for a file
+tests/engine/state_machine.unit.cpp.s:
+	$(MAKE) -f CMakeFiles/state_machine_test.dir/build.make CMakeFiles/state_machine_test.dir/tests/engine/state_machine.unit.cpp.s
+.PHONY : tests/engine/state_machine.unit.cpp.s
+
 tests/graphics/graphics_manager.unit.o: tests/graphics/graphics_manager.unit.cpp.o
 
 .PHONY : tests/graphics/graphics_manager.unit.o
@@ -489,12 +529,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
-	@echo "... test"
-	@echo "... all_tests"
 	@echo "... rebuild_cache"
-	@echo "... yage"
 	@echo "... graphics_manager_test"
+	@echo "... yage"
+	@echo "... state_machine_test"
+	@echo "... edit_cache"
+	@echo "... all_tests"
+	@echo "... test"
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... src/engine/game_engine.o"
@@ -527,6 +568,9 @@ help:
 	@echo "... src/input/input_manager.o"
 	@echo "... src/input/input_manager.i"
 	@echo "... src/input/input_manager.s"
+	@echo "... tests/engine/state_machine.unit.o"
+	@echo "... tests/engine/state_machine.unit.i"
+	@echo "... tests/engine/state_machine.unit.s"
 	@echo "... tests/graphics/graphics_manager.unit.o"
 	@echo "... tests/graphics/graphics_manager.unit.i"
 	@echo "... tests/graphics/graphics_manager.unit.s"

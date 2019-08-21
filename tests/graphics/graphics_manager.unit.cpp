@@ -1,4 +1,4 @@
-#include <tests/unit/graphics/graphics.fixture.h>
+#include <tests/graphics/graphics.fixture.h>
 
 #include <yage/graphics/graphics_manager.hpp>
 

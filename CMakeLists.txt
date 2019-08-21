@@ -88,15 +88,20 @@ include_directories("${gtest_SOURCE_DIR}/include")
 
 enable_testing()
 # Tests
-add_executable(graphics_manager_test 
-	tests/graphics/graphics_manager.unit.cpp)
+add_executable(graphics_manager_test tests/graphics/graphics_manager.unit.cpp)
+add_executable(state_machine_test tests/engine/state_machine.unit.cpp)
 
 target_link_libraries(graphics_manager_test gtest_main yage ${SDL2_IMAGE_LIBRARIES} ${SDL2_LIBRARY})
+target_link_libraries(state_machine_test gtest gtest_main yage)
+
 add_dependencies(graphics_manager_test gtest gtest_main yage)
+add_dependencies(state_machine_test gtest gtest_main yage)
+
 set_property(TARGET graphics_manager_test PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/tests")
+set_property(TARGET state_machine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/tests")
 
 add_unit_test(graphics_manager_test graphics_manager_test)
-#add_test(NAME graphics_manager_test COMMAND graphics_manager_test)
+add_unit_test(state_machine_test state_machine_test)
 
 
 # Sources

@@ -11,6 +11,8 @@ namespace engine {
 template < typename state_t >
 class state_machine
 {
+private:
+  std::queue< std::unique_ptr< state_t > > states;
 public:
   virtual ~state_machine() {};
 
@@ -26,22 +28,23 @@ public:
   }
 
 
-
-  virtual void push(state_t&& state)
+  template < typename state_derived_t >
+  void push(state_derived_t&& state)
   {
-    states.push(state);
+    states.push(std::make_unique< state_derived_t>(state));
   }
 
-  virtual state_t&& pop()
+  virtual state_t* pop()
   {
-    state_t result = std::move(states.front());
+    auto&& result = std::move(states.front());
     states.pop();
-    return std::move(result);
+
+    return std::move(result.release());
   }
 
-  virtual state_t&& peek() const
+  virtual state_t* peek() const
   {
-    return states.front();
+    return states.front().get();
   }
 
   virtual unsigned int length() const
@@ -49,8 +52,6 @@ public:
     return states.size();
   }
 
-private:
-  std::queue< std::unique_ptr< state_t > > states;
 };
 
 }
