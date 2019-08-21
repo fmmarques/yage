@@ -6,40 +6,61 @@
 
 #include <SDL2/SDL.h>
 
+namespace yage {
 namespace graphics {
+namespace interface1 {
+
+struct sdl_deleter_t
+{
+  void operator()(SDL_Window *ptr) const;
+  void operator()(SDL_Renderer *ptr) const;
+};
+
+
+class window
+{
+public:
+  window() {};
+  window( const std::string& title, unsigned width, unsigned height ); 
+  window(window&& other);
+  window(const window&) = delete;
+  window& operator=(const window&) = delete;
+
+  operator SDL_Rect&();
+  operator SDL_Window*();
+  operator SDL_Renderer*();
+
+  
+private:
+  std::unique_ptr< SDL_Window, sdl_deleter_t > window_resource;
+  std::unique_ptr<SDL_Renderer, sdl_deleter_t > renderer_resource;
+  SDL_Rect rectangle;
+};
+
 
 class graphics_manager
 {
 protected:
   graphics_manager();
   void invariant() const;
-  
 public:
-  static std::unique_ptr<graphics::graphics_manager>& instance();
+  static graphics_manager& instance();
   ~graphics_manager();
 
 // Window related
-  SDL_Window* get_window() const;
-  const SDL_Rect& get_window_rectangle() const;
+  void set_window(window&& main_window);
+  window& get_window() const;
 
-  SDL_Window* create_window( const char *pWindowTitle = "", 
-		             unsigned int uiWidth = graphics_manager::uiDefaultWindowWidth, 
-			     unsigned int uiHeight = graphics_manager::uiDefaultWindowHeight );
-
-
+// Renderer
   SDL_Renderer *get_renderer() const;
 
 private:
-  SDL_Window *pWindow;
-  SDL_Rect oWindowRectangle;
-  
-  SDL_Renderer *pRenderer;
-  
-  static const unsigned int uiDefaultWindowWidth, uiDefaultWindowHeight;
-  static const std::string sNoAvailableWindow;
-  
+  std::unique_ptr< window > main_window;
 };
 
+}
+ using namespace interface1;
+}
 }
 
 #endif

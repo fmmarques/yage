@@ -7,13 +7,19 @@
 
 #include <SDL2/SDL.h>
 
+#include <yage/graphics/texture.hpp>
+
+namespace yage {
 namespace graphics {
+
+namespace interface1 {
 
 struct __deleter_wrapper_t {
   void operator()(SDL_Texture *);
   void operator()(SDL_Surface *);
 };
 
+class texture;
 class texture_manager
 {
 protected:
@@ -24,14 +30,17 @@ public:
   ~texture_manager();
 
   /// \brief Loads a texture from a file.
-  std::shared_ptr<SDL_Texture> load(const std::string&);
+  texture load(const std::string&);
 
-
+  void on_texture_release( const std::string& name );
 private:
   std::map< std::string,
-	    std::shared_ptr< SDL_Texture > > _mTextureByFilename;
-  int _iInitiatedFormats;
+	    std::shared_ptr< SDL_Texture > > textures_by_name;
+  int formats;
 };
 
+}
+  using namespace interface1;
+}
 }
 #endif

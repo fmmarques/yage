@@ -7,116 +7,122 @@
 
 #include <yage/graphics/graphics_manager.hpp>
 
-const unsigned int graphics::graphics_manager::uiDefaultWindowWidth = 480;
-const unsigned int graphics::graphics_manager::uiDefaultWindowHeight = 640;
-const std::string graphics::graphics_manager::sNoAvailableWindow = "";
+namespace yage {
+namespace graphics {
+namespace interface1 {
 
-graphics::graphics_manager::graphics_manager():
-  pWindow(0),
-  oWindowRectangle{0, 0, 0, 0},
-  pRenderer(0)
+
+// Deleter
+void sdl_deleter_t::operator()(SDL_Window *ptr) const 
+{
+  if (nullptr != ptr)
+    SDL_DestroyWindow(ptr);
+}	
+
+void sdl_deleter_t::operator()(SDL_Renderer *ptr) const
+{
+  if (nullptr != ptr)
+    SDL_DestroyRenderer(ptr);
+}
+
+window::window(
+  const std::string& title,
+  unsigned width,
+  unsigned height):
+ 	window_resource{nullptr},
+	renderer_resource{nullptr},
+	rectangle{}
+{
+  auto temp_window_ptr = SDL_CreateWindow( title.c_str() ,
+		             SDL_WINDOWPOS_CENTERED, 
+			     SDL_WINDOWPOS_CENTERED,
+			     width, height,
+			     SDL_WINDOW_OPENGL );
+  if (nullptr == temp_window_ptr)
+    throw std::runtime_error( "Couldn't create a SDL window with error: \"" + std::string( SDL_GetError() ) + "\"" );
+
+
+  window_resource = std::unique_ptr< SDL_Window, sdl_deleter_t >( temp_window_ptr );
+  
+  auto temp_renderer_ptr =SDL_CreateRenderer(window_resource.get(), -1, SDL_RENDERER_ACCELERATED);
+  if (nullptr == temp_renderer_ptr)
+    throw std::runtime_error( "Couldn't create a SDL renderer with error: \"" + std::string( SDL_GetError() ) + "\"" );
+  renderer_resource = std::unique_ptr< SDL_Renderer, sdl_deleter_t >( temp_renderer_ptr );
+  
+  rectangle.x = rectangle.y = 0;
+  rectangle.w = static_cast<int>( width );
+  rectangle.h = static_cast<int>( height );
+  
+}
+
+window::window(window&& other):
+  window_resource{std::move(other.window_resource)},
+  renderer_resource{std::move(other.renderer_resource)},
+  rectangle{other.rectangle}
+{}
+
+window::operator SDL_Rect&()
+{
+  return rectangle; 
+}
+
+window::operator SDL_Window*()
+{
+  return window_resource.get();
+}
+
+window::operator SDL_Renderer*()
+{
+  return renderer_resource.get();
+}
+
+// Graphics manager
+graphics_manager::graphics_manager():
+  main_window(nullptr)
 {
   using namespace std;
 
   if ( 0 != SDL_Init(SDL_INIT_VIDEO) )
-    throw runtime_error( SDL_GetError() );
-
-  if ( 0 != SDL_SetRenderDrawBlendMode(pRenderer, SDL_BLENDMODE_BLEND) ) 
-    throw std::runtime_error( SDL_GetError() );
+    throw runtime_error("Couldn't initialize video with error: \""+ std::string(SDL_GetError()) + "\"." );
 }
 
-void graphics::graphics_manager::invariant() const
+void graphics_manager::invariant() const
 {
-  assert( "A instance of graphics manager must have a valid SDL_Window. " && 
-	  0 != pWindow );
-  assert( "If a instance of graphics manager has a valid SDL_Window then it must have a valid SDL_Renderer " && 
- 	  (!(0 != pWindow) || 0 != pRenderer ) );
-  assert( "If a instance of graphics manager has a valid SDL_Window then it must have a valid SDL_Rect with the window's dimensions." );
 }
 
-std::unique_ptr<graphics::graphics_manager>& graphics::graphics_manager::instance()
+graphics_manager& graphics::graphics_manager::instance()
 {
-  static std::unique_ptr<graphics::graphics_manager> instance(new graphics::graphics_manager);
+  static graphics::graphics_manager instance{};
   return instance;
 }
 
 
-graphics::graphics_manager::~graphics_manager()
+graphics_manager::~graphics_manager()
 {
   invariant();
-  if (0 != pRenderer)
-    SDL_DestroyRenderer(pRenderer);
-  if (0 != pWindow)
-    SDL_DestroyWindow(pWindow);
 }
 
-SDL_Window* graphics::graphics_manager::get_window() const
+void graphics_manager::set_window(window&& new_window){
+  main_window = std::make_unique< window >( std::move(new_window) );
+}
+
+window& graphics_manager::get_window() const
 {
   invariant();
-  if (0 == pWindow)
-    throw std::runtime_error(graphics::graphics_manager::sNoAvailableWindow);
+  if (nullptr == main_window)
+    throw std::runtime_error("no window");
   invariant();
-  return pWindow;
+  return *(main_window.get());
 }
 
-const SDL_Rect& graphics::graphics_manager::get_window_rectangle() const
+SDL_Renderer *graphics_manager::get_renderer() const 
 {
   invariant();
-  if (0 == pWindow)
-    throw std::runtime_error(graphics::graphics_manager::sNoAvailableWindow);
-  invariant();
-  return oWindowRectangle;
+  return *main_window;
 }
+//  if ( 0 != SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND) ) 
+//    throw std::runtime_error( "SDL_SetRenderDrawBlendMode returned \"" + std::string( SDL_GetError() ) + "\"" );
 
-SDL_Window* graphics::graphics_manager::create_window( 
-  const char * pWindowTitle,
-  unsigned int uiWidth,
-  unsigned int uiHeight )
-{
-  using namespace std;
-
-  assert( "The title of the window must not be null." && 
-	  nullptr != pWindowTitle );
-  assert( "The width of the window must not be 0." && 
-	  0 < uiWidth );
-  assert( "The height of the window must not be 0." && 
-	  0 < uiHeight );
-  invariant();
-
-
-  if (0 != pWindow) {
-    if (0 != pRenderer) 
-      SDL_DestroyRenderer(pRenderer);
-    SDL_DestroyWindow(pWindow);
-  }
-  
-  oWindowRectangle.x = oWindowRectangle.y = 0;
-  oWindowRectangle.w = static_cast<int>( uiWidth );
-  oWindowRectangle.h = static_cast<int>( uiHeight );
-
-  pWindow = SDL_CreateWindow(  pWindowTitle,
-		               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-			       oWindowRectangle.w, oWindowRectangle.h,
-			       SDL_WINDOW_OPENGL );
-  if ( 0 == pWindow ) 
-    throw runtime_error( SDL_GetError() );
-
-
-  pRenderer = SDL_CreateRenderer( pWindow, 
-		                   -1,
-				   SDL_RENDERER_ACCELERATED );
-  if ( 0 == pRenderer )
-    throw runtime_error( SDL_GetError() );
-  invariant();
-  return pWindow;
 }
-
-SDL_Renderer* graphics::graphics_manager::get_renderer() const
-{
-  invariant();
-  if (0 == pWindow)
-    throw std::runtime_error( graphics::graphics_manager::sNoAvailableWindow);
-  invariant();
-  return pRenderer;
 }
-
+}

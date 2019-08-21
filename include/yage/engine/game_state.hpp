@@ -26,8 +26,6 @@ public:
   virtual void on_pause();
   virtual void on_continue();
   virtual void on_deinitialize();
-  virtual void on_render() = 0;
-  virtual void on_update() = 0;
 
 public:
   virtual void run() = 0;

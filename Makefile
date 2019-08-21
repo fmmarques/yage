@@ -375,6 +375,33 @@ src/graphics/graphics_manager.cpp.s:
 	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/graphics_manager.cpp.s
 .PHONY : src/graphics/graphics_manager.cpp.s
 
+src/graphics/texture.o: src/graphics/texture.cpp.o
+
+.PHONY : src/graphics/texture.o
+
+# target to build an object file
+src/graphics/texture.cpp.o:
+	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture.cpp.o
+.PHONY : src/graphics/texture.cpp.o
+
+src/graphics/texture.i: src/graphics/texture.cpp.i
+
+.PHONY : src/graphics/texture.i
+
+# target to preprocess a source file
+src/graphics/texture.cpp.i:
+	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture.cpp.i
+.PHONY : src/graphics/texture.cpp.i
+
+src/graphics/texture.s: src/graphics/texture.cpp.s
+
+.PHONY : src/graphics/texture.s
+
+# target to generate assembly for a file
+src/graphics/texture.cpp.s:
+	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture.cpp.s
+.PHONY : src/graphics/texture.cpp.s
+
 src/graphics/texture_manager.o: src/graphics/texture_manager.cpp.o
 
 .PHONY : src/graphics/texture_manager.o
@@ -491,6 +518,9 @@ help:
 	@echo "... src/graphics/graphics_manager.o"
 	@echo "... src/graphics/graphics_manager.i"
 	@echo "... src/graphics/graphics_manager.s"
+	@echo "... src/graphics/texture.o"
+	@echo "... src/graphics/texture.i"
+	@echo "... src/graphics/texture.s"
 	@echo "... src/graphics/texture_manager.o"
 	@echo "... src/graphics/texture_manager.i"
 	@echo "... src/graphics/texture_manager.s"

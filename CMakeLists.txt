@@ -20,11 +20,13 @@ set(YAGE_SRC
 	src/engine/states/splash_screen.cpp
 	
 	src/graphics/drawable.abstract.cpp
-	
+     	
 
 	src/events/event_manager.cpp
+	
 	src/graphics/graphics_manager.cpp
 	src/graphics/texture_manager.cpp
+	src/graphics/texture.cpp
 
 	src/input/input_manager.cpp)
 
