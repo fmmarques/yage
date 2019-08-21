@@ -21,19 +21,17 @@ template < typename engine_strategy_t,
 class game_engine:
   public virtual yage::engine::runnable,
   public virtual yage::engine::state_machine< game_state_t >,
-  public virtual yage::events::event_listener,
-  public virtual engine_strategy_t
+  public virtual yage::events::event_listener
 {
 private:
   void inline invariant() const
   {
-	engine_strategy_t::invariant();
+	static_cast<const engine_strategy_t& >(*this).invariant();
 	engine::state_machine< game_state_t >::invariant();
   }
 
 protected:
   game_engine():
-    engine_strategy_t{},
     engine::state_machine< game_state_t >{},
     thread(&game_engine::run, this),
     mutex{}
@@ -52,14 +50,6 @@ protected:
 
 
 public:
- /* 
-  template < class _engine_impl_t, class _game_state_t >
-  static engine::game_engine< _engine_impl_t,  _game_state_t >&  instance()
-  {
-    static engine::game_engine< _engine_impl_t, _game_state_t > instance;
-    return instance;
-  }
-*/
   virtual ~game_engine();
 // From machine_state_interface< state_t >:
   using engine::state_machine< game_state_t >::push;
@@ -83,12 +73,12 @@ public:
 // From runnable interface:
   virtual void interrupt() override
   {
-    static_cast< engine_strategy_t *>(this)->interrupt();
+    static_cast< engine_strategy_t&>(*this).interrupt();
   }
 
   virtual void run() override
   {
-    static_cast< engine_strategy_t *>(this)->run();
+    static_cast< engine_strategy_t &>(*this).run();
   }
 
 private:

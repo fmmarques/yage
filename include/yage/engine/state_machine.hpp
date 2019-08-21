@@ -13,6 +13,8 @@ class state_machine
 {
 private:
   std::queue< std::unique_ptr< state_t > > states;
+protected:
+  void invariant() const {}
 public:
   virtual ~state_machine() {};
 
