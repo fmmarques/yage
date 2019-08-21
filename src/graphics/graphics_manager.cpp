@@ -29,10 +29,15 @@ window::window(
   const std::string& title,
   unsigned width,
   unsigned height):
+	title(title),
  	window_resource{nullptr},
 	renderer_resource{nullptr},
 	rectangle{}
 {
+  (void) graphics_manager::instance();
+
+  this->title = title;
+
   auto temp_window_ptr = SDL_CreateWindow( title.c_str() ,
 		             SDL_WINDOWPOS_CENTERED, 
 			     SDL_WINDOWPOS_CENTERED,
