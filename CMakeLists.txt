@@ -72,14 +72,14 @@ if (NOT SDL2_IMAGE_FOUND)
   message(FATAL_ERROR "SDL2_image was not found on the system")
 endif()
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-link_libraries(${SDL2_IMAGE_LIBRARIES})
+target_link_libraries(yage ${SDL2_IMAGE_LIBRARIES})
 
 find_package(SDL2_ttf REQUIRED)
 if (NOT SDL2_TTF_FOUND)
   message(FATAL_ERROR "SDL2_TTF was not found on the system")
 endif()
 include_directories(${SDL2_TTF_INCLUDE_DIRS})
-link_libraries(${SDL2_TTF_LIBRARIES})
+target_link_libraries(yage ${SDL2_TTF_LIBRARIES})
 
 #  GTest for unit testing
 set(GTEST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/googletest/googletest")
