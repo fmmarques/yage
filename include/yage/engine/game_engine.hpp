@@ -36,7 +36,7 @@ protected:
     engine_strategy_t{},
     engine::state_machine< game_state_t >{},
     thread(&game_engine::run, this),
-    mutex{},
+    mutex{}
   {
     std::unique_lock<std::mutex> lock{ mutex, std::defer_lock };
     

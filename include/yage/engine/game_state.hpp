@@ -16,48 +16,58 @@ enum class game_state_status {
   DEINITIALIZING
 };
 
-template < typename strategy_t >
-class game_state:
+class game_state: 
   public virtual yage::engine::runnable
 {
 public:
-  game_state():
+  virtual void on_initialize() = 0;
+  virtual void on_pause() = 0;
+  virtual void on_continue() = 0;
+  virtual void on_deinitialize() = 0;
+};
+
+template < typename strategy_t >
+class game_state_impl:
+  public virtual game_state
+{
+public:
+  game_state_impl():
     status( engine::interface1::game_state_status::UNINITIALIZED )
   {}
 
-  virtual ~game_state();
+  virtual ~game_state_impl() {}
 
-  virtual void on_initialize() 
+  void on_initialize() override
   {
     static_cast< strategy_t * >(this)->on_initialize();
     set_status( game_state_status::INITIALIZED );
   }
   
-  virtual void on_pause()
+  void on_pause() override
   {
     static_cast< strategy_t * >(this)->on_pause();
     set_status( game_state_status::PAUSED );
   }
 
-  virtual void on_continue()
+  void on_continue() override
   {
     static_cast< strategy_t *>(this)->on_continue();
     set_status( game_state_status::CONTINUING );
   }
 
-  virtual void on_deinitialize()
+  void on_deinitialize() override
   {
     static_cast< strategy_t *>(this)->on_deinitialize();
     set_status( game_state_status::DEINITIALIZING );
   } 
 
-public:
-  virtual void run() 
+// Runnable
+  void run() override
   {
     static_cast< strategy_t *>(this)->run();
   }
 
-  virtual void interrupt() 
+  void interrupt() override
   {
     static_cast< strategy_t *>(this)->interrupt();
   }

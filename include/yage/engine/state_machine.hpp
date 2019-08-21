@@ -19,18 +19,13 @@ public:
   {
   }
 
-  state_machine(state_machine &&other):
+  state_machine(state_machine&& other):
     states()
   {
     states.swap(other.states);
   }
 
-  state_machine(const state_machine &other):
-    states{}
-  {
-    for (auto&& state: other.states)
-      states.emplace( state );
-  }
+
 
   virtual void push(state_t&& state)
   {
@@ -44,7 +39,7 @@ public:
     return std::move(result);
   }
 
-  virtual const state_t& peek() const
+  virtual state_t&& peek() const
   {
     return states.front();
   }
@@ -55,7 +50,7 @@ public:
   }
 
 private:
-  std::queue< state_t > states;
+  std::queue< std::unique_ptr< state_t > > states;
 };
 
 }
