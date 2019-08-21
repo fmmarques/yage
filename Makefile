@@ -48,10 +48,10 @@ RM = /opt/cmake-3.15.2/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fmmarques/Documentos/Projects/yage
+CMAKE_SOURCE_DIR = /home/fmmarques/Documentos/Projects/bejeweled
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fmmarques/Documentos/Projects/yage
+CMAKE_BINARY_DIR = /home/fmmarques/Documentos/Projects/bejeweled
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -67,17 +67,6 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/opt/cmake-3.15.2/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -91,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fmmarques/Documentos/Projects/yage/CMakeFiles /home/fmmarques/Documentos/Projects/yage/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fmmarques/Documentos/Projects/yage/CMakeFiles 0
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(CMAKE_COMMAND) -E cmake_progress_start /home/fmmarques/Documentos/Projects/bejeweled/CMakeFiles /home/fmmarques/Documentos/Projects/bejeweled/dependencies/yage/CMakeFiles/progress.marks
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fmmarques/Documentos/Projects/bejeweled/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/clean
 .PHONY : clean
 
 # The main clean target
@@ -108,83 +97,63 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named all_tests
+# Convenience name for target.
+dependencies/yage/CMakeFiles/all_tests.dir/rule:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/CMakeFiles/all_tests.dir/rule
+.PHONY : dependencies/yage/CMakeFiles/all_tests.dir/rule
 
-# Build rule for target.
-all_tests: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 all_tests
+# Convenience name for target.
+all_tests: dependencies/yage/CMakeFiles/all_tests.dir/rule
+
 .PHONY : all_tests
 
 # fast build rule for target.
 all_tests/fast:
-	$(MAKE) -f CMakeFiles/all_tests.dir/build.make CMakeFiles/all_tests.dir/build
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/all_tests.dir/build.make dependencies/yage/CMakeFiles/all_tests.dir/build
 .PHONY : all_tests/fast
 
-#=============================================================================
-# Target rules for targets named yage
+# Convenience name for target.
+dependencies/yage/CMakeFiles/yage.dir/rule:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/CMakeFiles/yage.dir/rule
+.PHONY : dependencies/yage/CMakeFiles/yage.dir/rule
 
-# Build rule for target.
-yage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 yage
+# Convenience name for target.
+yage: dependencies/yage/CMakeFiles/yage.dir/rule
+
 .PHONY : yage
 
 # fast build rule for target.
 yage/fast:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/build
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/build
 .PHONY : yage/fast
 
-#=============================================================================
-# Target rules for targets named graphics_manager_test
+# Convenience name for target.
+dependencies/yage/CMakeFiles/graphics_manager_test.dir/rule:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/CMakeFiles/graphics_manager_test.dir/rule
+.PHONY : dependencies/yage/CMakeFiles/graphics_manager_test.dir/rule
 
-# Build rule for target.
-graphics_manager_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 graphics_manager_test
+# Convenience name for target.
+graphics_manager_test: dependencies/yage/CMakeFiles/graphics_manager_test.dir/rule
+
 .PHONY : graphics_manager_test
 
 # fast build rule for target.
 graphics_manager_test/fast:
-	$(MAKE) -f CMakeFiles/graphics_manager_test.dir/build.make CMakeFiles/graphics_manager_test.dir/build
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_manager_test.dir/build.make dependencies/yage/CMakeFiles/graphics_manager_test.dir/build
 .PHONY : graphics_manager_test/fast
-
-#=============================================================================
-# Target rules for targets named gtest
-
-# Build rule for target.
-gtest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gtest
-.PHONY : gtest
-
-# fast build rule for target.
-gtest/fast:
-	$(MAKE) -f dependencies/googletest/googletest/CMakeFiles/gtest.dir/build.make dependencies/googletest/googletest/CMakeFiles/gtest.dir/build
-.PHONY : gtest/fast
-
-#=============================================================================
-# Target rules for targets named gtest_main
-
-# Build rule for target.
-gtest_main: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gtest_main
-.PHONY : gtest_main
-
-# fast build rule for target.
-gtest_main/fast:
-	$(MAKE) -f dependencies/googletest/googletest/CMakeFiles/gtest_main.dir/build.make dependencies/googletest/googletest/CMakeFiles/gtest_main.dir/build
-.PHONY : gtest_main/fast
 
 src/engine/game_engine.o: src/engine/game_engine.cpp.o
 
@@ -192,7 +161,7 @@ src/engine/game_engine.o: src/engine/game_engine.cpp.o
 
 # target to build an object file
 src/engine/game_engine.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/game_engine.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/game_engine.cpp.o
 .PHONY : src/engine/game_engine.cpp.o
 
 src/engine/game_engine.i: src/engine/game_engine.cpp.i
@@ -201,7 +170,7 @@ src/engine/game_engine.i: src/engine/game_engine.cpp.i
 
 # target to preprocess a source file
 src/engine/game_engine.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/game_engine.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/game_engine.cpp.i
 .PHONY : src/engine/game_engine.cpp.i
 
 src/engine/game_engine.s: src/engine/game_engine.cpp.s
@@ -210,7 +179,7 @@ src/engine/game_engine.s: src/engine/game_engine.cpp.s
 
 # target to generate assembly for a file
 src/engine/game_engine.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/game_engine.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/game_engine.cpp.s
 .PHONY : src/engine/game_engine.cpp.s
 
 src/engine/game_state.o: src/engine/game_state.cpp.o
@@ -219,7 +188,7 @@ src/engine/game_state.o: src/engine/game_state.cpp.o
 
 # target to build an object file
 src/engine/game_state.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/game_state.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/game_state.cpp.o
 .PHONY : src/engine/game_state.cpp.o
 
 src/engine/game_state.i: src/engine/game_state.cpp.i
@@ -228,7 +197,7 @@ src/engine/game_state.i: src/engine/game_state.cpp.i
 
 # target to preprocess a source file
 src/engine/game_state.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/game_state.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/game_state.cpp.i
 .PHONY : src/engine/game_state.cpp.i
 
 src/engine/game_state.s: src/engine/game_state.cpp.s
@@ -237,7 +206,7 @@ src/engine/game_state.s: src/engine/game_state.cpp.s
 
 # target to generate assembly for a file
 src/engine/game_state.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/game_state.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/game_state.cpp.s
 .PHONY : src/engine/game_state.cpp.s
 
 src/engine/state_machine.o: src/engine/state_machine.cpp.o
@@ -246,7 +215,7 @@ src/engine/state_machine.o: src/engine/state_machine.cpp.o
 
 # target to build an object file
 src/engine/state_machine.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/state_machine.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/state_machine.cpp.o
 .PHONY : src/engine/state_machine.cpp.o
 
 src/engine/state_machine.i: src/engine/state_machine.cpp.i
@@ -255,7 +224,7 @@ src/engine/state_machine.i: src/engine/state_machine.cpp.i
 
 # target to preprocess a source file
 src/engine/state_machine.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/state_machine.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/state_machine.cpp.i
 .PHONY : src/engine/state_machine.cpp.i
 
 src/engine/state_machine.s: src/engine/state_machine.cpp.s
@@ -264,7 +233,7 @@ src/engine/state_machine.s: src/engine/state_machine.cpp.s
 
 # target to generate assembly for a file
 src/engine/state_machine.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/state_machine.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/state_machine.cpp.s
 .PHONY : src/engine/state_machine.cpp.s
 
 src/engine/states/splash_screen.o: src/engine/states/splash_screen.cpp.o
@@ -273,7 +242,7 @@ src/engine/states/splash_screen.o: src/engine/states/splash_screen.cpp.o
 
 # target to build an object file
 src/engine/states/splash_screen.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/states/splash_screen.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/states/splash_screen.cpp.o
 .PHONY : src/engine/states/splash_screen.cpp.o
 
 src/engine/states/splash_screen.i: src/engine/states/splash_screen.cpp.i
@@ -282,7 +251,7 @@ src/engine/states/splash_screen.i: src/engine/states/splash_screen.cpp.i
 
 # target to preprocess a source file
 src/engine/states/splash_screen.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/states/splash_screen.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/states/splash_screen.cpp.i
 .PHONY : src/engine/states/splash_screen.cpp.i
 
 src/engine/states/splash_screen.s: src/engine/states/splash_screen.cpp.s
@@ -291,7 +260,7 @@ src/engine/states/splash_screen.s: src/engine/states/splash_screen.cpp.s
 
 # target to generate assembly for a file
 src/engine/states/splash_screen.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/engine/states/splash_screen.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/engine/states/splash_screen.cpp.s
 .PHONY : src/engine/states/splash_screen.cpp.s
 
 src/events/event_manager.o: src/events/event_manager.cpp.o
@@ -300,7 +269,7 @@ src/events/event_manager.o: src/events/event_manager.cpp.o
 
 # target to build an object file
 src/events/event_manager.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/events/event_manager.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/events/event_manager.cpp.o
 .PHONY : src/events/event_manager.cpp.o
 
 src/events/event_manager.i: src/events/event_manager.cpp.i
@@ -309,7 +278,7 @@ src/events/event_manager.i: src/events/event_manager.cpp.i
 
 # target to preprocess a source file
 src/events/event_manager.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/events/event_manager.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/events/event_manager.cpp.i
 .PHONY : src/events/event_manager.cpp.i
 
 src/events/event_manager.s: src/events/event_manager.cpp.s
@@ -318,7 +287,7 @@ src/events/event_manager.s: src/events/event_manager.cpp.s
 
 # target to generate assembly for a file
 src/events/event_manager.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/events/event_manager.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/events/event_manager.cpp.s
 .PHONY : src/events/event_manager.cpp.s
 
 src/graphics/drawable.abstract.o: src/graphics/drawable.abstract.cpp.o
@@ -327,7 +296,7 @@ src/graphics/drawable.abstract.o: src/graphics/drawable.abstract.cpp.o
 
 # target to build an object file
 src/graphics/drawable.abstract.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/drawable.abstract.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/drawable.abstract.cpp.o
 .PHONY : src/graphics/drawable.abstract.cpp.o
 
 src/graphics/drawable.abstract.i: src/graphics/drawable.abstract.cpp.i
@@ -336,7 +305,7 @@ src/graphics/drawable.abstract.i: src/graphics/drawable.abstract.cpp.i
 
 # target to preprocess a source file
 src/graphics/drawable.abstract.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/drawable.abstract.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/drawable.abstract.cpp.i
 .PHONY : src/graphics/drawable.abstract.cpp.i
 
 src/graphics/drawable.abstract.s: src/graphics/drawable.abstract.cpp.s
@@ -345,7 +314,7 @@ src/graphics/drawable.abstract.s: src/graphics/drawable.abstract.cpp.s
 
 # target to generate assembly for a file
 src/graphics/drawable.abstract.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/drawable.abstract.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/drawable.abstract.cpp.s
 .PHONY : src/graphics/drawable.abstract.cpp.s
 
 src/graphics/graphics_manager.o: src/graphics/graphics_manager.cpp.o
@@ -354,7 +323,7 @@ src/graphics/graphics_manager.o: src/graphics/graphics_manager.cpp.o
 
 # target to build an object file
 src/graphics/graphics_manager.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/graphics_manager.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/graphics_manager.cpp.o
 .PHONY : src/graphics/graphics_manager.cpp.o
 
 src/graphics/graphics_manager.i: src/graphics/graphics_manager.cpp.i
@@ -363,7 +332,7 @@ src/graphics/graphics_manager.i: src/graphics/graphics_manager.cpp.i
 
 # target to preprocess a source file
 src/graphics/graphics_manager.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/graphics_manager.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/graphics_manager.cpp.i
 .PHONY : src/graphics/graphics_manager.cpp.i
 
 src/graphics/graphics_manager.s: src/graphics/graphics_manager.cpp.s
@@ -372,7 +341,7 @@ src/graphics/graphics_manager.s: src/graphics/graphics_manager.cpp.s
 
 # target to generate assembly for a file
 src/graphics/graphics_manager.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/graphics_manager.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/graphics_manager.cpp.s
 .PHONY : src/graphics/graphics_manager.cpp.s
 
 src/graphics/texture.o: src/graphics/texture.cpp.o
@@ -381,7 +350,7 @@ src/graphics/texture.o: src/graphics/texture.cpp.o
 
 # target to build an object file
 src/graphics/texture.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/texture.cpp.o
 .PHONY : src/graphics/texture.cpp.o
 
 src/graphics/texture.i: src/graphics/texture.cpp.i
@@ -390,7 +359,7 @@ src/graphics/texture.i: src/graphics/texture.cpp.i
 
 # target to preprocess a source file
 src/graphics/texture.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/texture.cpp.i
 .PHONY : src/graphics/texture.cpp.i
 
 src/graphics/texture.s: src/graphics/texture.cpp.s
@@ -399,7 +368,7 @@ src/graphics/texture.s: src/graphics/texture.cpp.s
 
 # target to generate assembly for a file
 src/graphics/texture.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/texture.cpp.s
 .PHONY : src/graphics/texture.cpp.s
 
 src/graphics/texture_manager.o: src/graphics/texture_manager.cpp.o
@@ -408,7 +377,7 @@ src/graphics/texture_manager.o: src/graphics/texture_manager.cpp.o
 
 # target to build an object file
 src/graphics/texture_manager.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture_manager.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/texture_manager.cpp.o
 .PHONY : src/graphics/texture_manager.cpp.o
 
 src/graphics/texture_manager.i: src/graphics/texture_manager.cpp.i
@@ -417,7 +386,7 @@ src/graphics/texture_manager.i: src/graphics/texture_manager.cpp.i
 
 # target to preprocess a source file
 src/graphics/texture_manager.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture_manager.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/texture_manager.cpp.i
 .PHONY : src/graphics/texture_manager.cpp.i
 
 src/graphics/texture_manager.s: src/graphics/texture_manager.cpp.s
@@ -426,7 +395,7 @@ src/graphics/texture_manager.s: src/graphics/texture_manager.cpp.s
 
 # target to generate assembly for a file
 src/graphics/texture_manager.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/graphics/texture_manager.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/texture_manager.cpp.s
 .PHONY : src/graphics/texture_manager.cpp.s
 
 src/input/input_manager.o: src/input/input_manager.cpp.o
@@ -435,7 +404,7 @@ src/input/input_manager.o: src/input/input_manager.cpp.o
 
 # target to build an object file
 src/input/input_manager.cpp.o:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/input/input_manager.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/input_manager.cpp.o
 .PHONY : src/input/input_manager.cpp.o
 
 src/input/input_manager.i: src/input/input_manager.cpp.i
@@ -444,7 +413,7 @@ src/input/input_manager.i: src/input/input_manager.cpp.i
 
 # target to preprocess a source file
 src/input/input_manager.cpp.i:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/input/input_manager.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/input_manager.cpp.i
 .PHONY : src/input/input_manager.cpp.i
 
 src/input/input_manager.s: src/input/input_manager.cpp.s
@@ -453,7 +422,7 @@ src/input/input_manager.s: src/input/input_manager.cpp.s
 
 # target to generate assembly for a file
 src/input/input_manager.cpp.s:
-	$(MAKE) -f CMakeFiles/yage.dir/build.make CMakeFiles/yage.dir/src/input/input_manager.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/input_manager.cpp.s
 .PHONY : src/input/input_manager.cpp.s
 
 tests/graphics/graphics_manager.unit.o: tests/graphics/graphics_manager.unit.cpp.o
@@ -462,7 +431,7 @@ tests/graphics/graphics_manager.unit.o: tests/graphics/graphics_manager.unit.cpp
 
 # target to build an object file
 tests/graphics/graphics_manager.unit.cpp.o:
-	$(MAKE) -f CMakeFiles/graphics_manager_test.dir/build.make CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_manager_test.dir/build.make dependencies/yage/CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.o
 .PHONY : tests/graphics/graphics_manager.unit.cpp.o
 
 tests/graphics/graphics_manager.unit.i: tests/graphics/graphics_manager.unit.cpp.i
@@ -471,7 +440,7 @@ tests/graphics/graphics_manager.unit.i: tests/graphics/graphics_manager.unit.cpp
 
 # target to preprocess a source file
 tests/graphics/graphics_manager.unit.cpp.i:
-	$(MAKE) -f CMakeFiles/graphics_manager_test.dir/build.make CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_manager_test.dir/build.make dependencies/yage/CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.i
 .PHONY : tests/graphics/graphics_manager.unit.cpp.i
 
 tests/graphics/graphics_manager.unit.s: tests/graphics/graphics_manager.unit.cpp.s
@@ -480,7 +449,7 @@ tests/graphics/graphics_manager.unit.s: tests/graphics/graphics_manager.unit.cpp
 
 # target to generate assembly for a file
 tests/graphics/graphics_manager.unit.cpp.s:
-	$(MAKE) -f CMakeFiles/graphics_manager_test.dir/build.make CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_manager_test.dir/build.make dependencies/yage/CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.s
 .PHONY : tests/graphics/graphics_manager.unit.cpp.s
 
 # Help Target
@@ -490,13 +459,10 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... test"
 	@echo "... all_tests"
 	@echo "... rebuild_cache"
 	@echo "... yage"
 	@echo "... graphics_manager_test"
-	@echo "... gtest"
-	@echo "... gtest_main"
 	@echo "... src/engine/game_engine.o"
 	@echo "... src/engine/game_engine.i"
 	@echo "... src/engine/game_engine.s"
@@ -541,6 +507,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -37,7 +37,6 @@ protected:
     engine::state_machine< game_state_t >{},
     thread(&game_engine::run, this),
     mutex{},
-    continue_thread_execution{true}
   {
     std::unique_lock<std::mutex> lock{ mutex, std::defer_lock };
     
@@ -53,18 +52,20 @@ protected:
 
 
 public:
+ /* 
   template < class _engine_impl_t, class _game_state_t >
   static engine::game_engine< _engine_impl_t,  _game_state_t >&  instance()
   {
     static engine::game_engine< _engine_impl_t, _game_state_t > instance;
     return instance;
   }
-
+*/
   virtual ~game_engine();
 // From machine_state_interface< state_t >:
   using engine::state_machine< game_state_t >::push;
   using engine::state_machine< game_state_t >::peek;
   using engine::state_machine< game_state_t >::pop;
+  using engine::state_machine< game_state_t >::length;
 // Implementing event_listener:
   virtual void on_event(const SDL_Event& event) override
   {
@@ -93,7 +94,6 @@ public:
 private:
     std::thread thread;
     std::mutex mutex;
-    bool continue_thread_execution;
 };
 
 }
