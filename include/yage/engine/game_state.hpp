@@ -6,6 +6,7 @@
 
 namespace yage {
 namespace engine {
+namespace interface1 {
 
 enum class game_state_status {
   UNINITIALIZED,
@@ -15,31 +16,69 @@ enum class game_state_status {
   DEINITIALIZING
 };
 
+template < typename strategy_t >
 class game_state:
-	public virtual yage::engine::runnable
+  public virtual yage::engine::runnable
 {
 public:
-  game_state();
+  game_state():
+    status( engine::interface1::game_state_status::UNINITIALIZED )
+  {}
+
   virtual ~game_state();
 
-  virtual void on_initialize();
-  virtual void on_pause();
-  virtual void on_continue();
-  virtual void on_deinitialize();
+  virtual void on_initialize() 
+  {
+    static_cast< strategy_t * >(this)->on_initialize();
+    set_status( game_state_status::INITIALIZED );
+  }
+  
+  virtual void on_pause()
+  {
+    static_cast< strategy_t * >(this)->on_pause();
+    set_status( game_state_status::PAUSED );
+  }
+
+  virtual void on_continue()
+  {
+    static_cast< strategy_t *>(this)->on_continue();
+    set_status( game_state_status::CONTINUING );
+  }
+
+  virtual void on_deinitialize()
+  {
+    static_cast< strategy_t *>(this)->on_deinitialize();
+    set_status( game_state_status::DEINITIALIZING );
+  } 
 
 public:
-  virtual void run() = 0;
-  virtual void interrupt() = 0;
+  virtual void run() 
+  {
+    static_cast< strategy_t *>(this)->run();
+  }
+
+  virtual void interrupt() 
+  {
+    static_cast< strategy_t *>(this)->interrupt();
+  }
 
 protected:
-  virtual const game_state_status& get_status() const;
-  virtual void set_status(game_state_status&& status);
-
+  virtual const game_state_status& get_status() const 
+  {
+    return status;
+  }
+  
+  virtual void set_status(game_state_status&& status) 
+  { 
+    this->status = status;
+  }
 private:
   game_state_status status;
 
 };
 
+}
+using namespace interface1;
 }
 }
 
