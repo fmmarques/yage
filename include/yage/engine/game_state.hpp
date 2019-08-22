@@ -16,8 +16,8 @@ enum class game_state_status {
   DEINITIALIZING
 };
 
-class game_state: 
-  public virtual yage::engine::runnable
+class game_state:
+  public virtual runnable
 {
 public:
   virtual void on_initialize() = 0;
@@ -27,15 +27,16 @@ public:
 };
 
 template < typename strategy_t >
-class game_state_impl:
-  public virtual game_state
+class base_game_state:
+  public virtual runnable
+, public virtual game_state
 {
 public:
-  game_state_impl():
+  base_game_state():
     status( engine::interface1::game_state_status::UNINITIALIZED )
   {}
 
-  virtual ~game_state_impl() {}
+  virtual ~base_game_state() {}
 
   void on_initialize() override
   {
@@ -64,13 +65,14 @@ public:
 // Runnable
   void run() override
   {
-    static_cast< strategy_t & >(*this).run();
+    static_cast< strategy_t & >(*this).on_frame();
   }
 
   void interrupt() override
   {
-    static_cast< strategy_t & >(*this).interrupt();
+    static_cast< strategy_t &>(*this).on_interrupt();
   }
+
 
 protected:
   virtual const game_state_status& get_status() const 

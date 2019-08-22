@@ -8,6 +8,7 @@
 #include <memory>
 #include <shared_mutex>
 #include <mutex>
+#include <thread>
 
 #include <SDL2/SDL.h>
 
@@ -28,7 +29,7 @@ protected:
   void emit(const SDL_Event& event);
 public:
   static events::event_manager& instance();
-  virtual ~event_manager() = default;
+  virtual ~event_manager();
 
   void subscribe( event_listener *listener,
                   SDL_EventType type);
@@ -48,6 +49,7 @@ private:
 
   std::map< SDL_EventType, std::list< event_listener* > > event_listeners;
   bool continue_thread_execution;
+  std::thread th;
 };
 
 

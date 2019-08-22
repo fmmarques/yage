@@ -24,6 +24,13 @@ texture::texture( const std::string& texture_name,
   invariant();
 }
 
+texture::texture(texture&& other):
+  name{std::move(other.name)}
+ ,resource{std::move(other.resource)}
+{
+  invariant();
+}
+
 texture::~texture()
 {
   invariant();

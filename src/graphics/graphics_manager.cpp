@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cassert>
 #include <stdexcept>
 #include <memory>
@@ -66,9 +67,9 @@ window::window(window&& other):
   rectangle{other.rectangle}
 {}
 
-window::operator SDL_Rect&()
+window::operator SDL_Rect*()
 {
-  return rectangle; 
+  return &rectangle; 
 }
 
 window::operator SDL_Window*()
@@ -86,9 +87,10 @@ graphics_manager::graphics_manager():
   main_window(nullptr)
 {
   using namespace std;
-
-  if ( 0 != SDL_Init(SDL_INIT_VIDEO) )
+  std::cout << "graphics_manager::ctor(): entry" << std::endl;
+  if ( 0 != SDL_InitSubSystem(SDL_INIT_VIDEO) )
     throw runtime_error("Couldn't initialize video with error: \""+ std::string(SDL_GetError()) + "\"." );
+  std::cout << "graphics_manager::ctor(): exit" << std::endl;
 }
 
 void graphics_manager::invariant() const
@@ -104,11 +106,17 @@ graphics_manager& graphics::graphics_manager::instance()
 
 graphics_manager::~graphics_manager()
 {
+  std::cout << "graphics_manager::~graphics_manager(): entry"<<std::endl;
+  std::cout << "graphics_manager::~graphics_manager(): quitting video subsystem."<<std::endl;
+  SDL_QuitSubSystem(SDL_INIT_VIDEO);
   invariant();
 }
 
-void graphics_manager::set_window(window&& new_window){
+void graphics_manager::set_window(window&& new_window)
+{
+  std::cout << "graphics_manager::set_window(window&&): enter"<< std::endl;
   main_window = std::make_unique< window >( std::move(new_window) );
+  std::cout << "graphics_manager::set_window(window&&): exit"<< std::endl;
 }
 
 window& graphics_manager::get_window() const

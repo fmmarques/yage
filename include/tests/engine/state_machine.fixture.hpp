@@ -9,7 +9,7 @@
 
 
 class simple_state:
-  public yage::engine::game_state_impl< simple_state >
+  public yage::engine::base_game_state< simple_state >
 {
 private:
   std::stringstream& oss;
@@ -21,8 +21,8 @@ public:
   }
 
   virtual ~simple_state() {}
-  void run() { oss << "run "; }
-  void interrupt() { oss << "interrupt "; }
+  void on_frame() { oss << "on_frame "; }
+  void on_interrupt() { oss << "on_interrupt "; }
   void on_initialize() {}
   void on_pause() {}
   void on_continue() {}

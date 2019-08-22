@@ -30,10 +30,10 @@ public:
   }
 
 
-  template < typename state_derived_t >
-  void push(state_derived_t&& state)
+  template < class state_derived_t, class... args_t >
+  void push(args_t&&... args)
   {
-    states.push(std::make_unique< state_derived_t>(state));
+    states.push(std::make_unique< state_derived_t >(args...));
   }
 
   virtual state_t* pop()

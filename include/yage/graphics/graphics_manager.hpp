@@ -26,7 +26,7 @@ public:
   window(const window&) = delete;
   window& operator=(const window&) = delete;
 
-  operator SDL_Rect&();
+  operator SDL_Rect*();
   operator SDL_Window*();
   operator SDL_Renderer*();
 

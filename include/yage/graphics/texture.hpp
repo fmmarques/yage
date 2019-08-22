@@ -17,6 +17,7 @@ protected:
 public:
   texture(const std::string& name, 
 	  std::shared_ptr< SDL_Texture >& resource);
+  texture(texture&& other);
   ~texture();
 
   operator SDL_Texture*();

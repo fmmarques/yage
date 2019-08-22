@@ -1,6 +1,6 @@
 #if !defined(YAGE_ENGINE_GAME_ENGINE_ABSTRACT_H)
 #  define YAGE_ENGINE_GAME_ENGINE_ABSTRACT_H
-
+#include <iostream>
 #include <memory>
 #include <queue>
 #include <thread>
@@ -19,38 +19,34 @@ namespace engine {
 template < typename engine_strategy_t,
            typename game_state_t = yage::engine::game_state >
 class game_engine:
-  public virtual yage::engine::runnable,
-  public virtual yage::engine::state_machine< game_state_t >,
+  public yage::engine::state_machine< game_state_t >,
   public virtual yage::events::event_listener
 {
 private:
   void inline invariant() const
   {
-	static_cast<const engine_strategy_t& >(*this).invariant();
-	engine::state_machine< game_state_t >::invariant();
+    engine::state_machine< game_state_t >::invariant();
   }
 
 protected:
   game_engine():
-    engine::state_machine< game_state_t >{},
-    thread(&game_engine::run, this),
-    mutex{}
+    engine::state_machine< game_state_t >{}
+   ,mutex{}
   {
-    std::unique_lock<std::mutex> lock{ mutex, std::defer_lock };
-    
-    lock.lock();
+    std::cout << "game_engine::game_engine(): enter." << std::endl; 
+    std::cout << "game_engine::game_engine(): adding game_engine to SDL_QUIT[=" << SDL_QUIT<< "] event listening pool." << std::endl;
+    yage::events::event_manager::instance().subscribe(this,SDL_EventType::SDL_QUIT);
     invariant();
-    
-    events::event_manager& event_mgr = yage::events::event_manager::instance();
-    event_mgr.subscribe(this,SDL_EventType::SDL_QUIT);
-
-    invariant();
-    lock.unlock();
+    std::cout << "game_engine::game_engine(): exit." << std::endl;
   }
 
 
 public:
-  virtual ~game_engine();
+  virtual ~game_engine() 
+  {
+    invariant();
+    yage::events::event_manager::instance().unsubscribe(this,SDL_EventType::SDL_QUIT);
+  };
 // From machine_state_interface< state_t >:
   using engine::state_machine< game_state_t >::push;
   using engine::state_machine< game_state_t >::peek;
@@ -59,6 +55,8 @@ public:
 // Implementing event_listener:
   virtual void on_event(const SDL_Event& event) override
   {
+
+    std::cout << "yage::game_engine::on_event(): enter" << std::endl;
     switch(event.type)
     {
         case SDL_EventType::SDL_QUIT:
@@ -67,22 +65,26 @@ public:
         default:
             break;
     }
+    std::cout << "yage::game_engine::on_event(): exit" << std::endl;
 
   }
 
 // From runnable interface:
-  virtual void interrupt() override
+  void interrupt() 
   {
-    static_cast< engine_strategy_t&>(*this).interrupt();
+    std::cout << "yage::game_engine::interrupt(): enter" << std::endl;
+    static_cast< engine_strategy_t&>(*this).on_interrupt();
+    std::cout << "yage::game_engine::interrupt(): leave" << std::endl;
   }
 
-  virtual void run() override
+  void run() 
   {
-    static_cast< engine_strategy_t &>(*this).run();
+    std::cout << "yage::game_engine::run(): enter" <<std::endl;
+    static_cast< engine_strategy_t &>(*this).on_loop();
+    std::cout << "yage::game_engine::run(): leave" <<std::endl;
   }
 
 private:
-    std::thread thread;
     std::mutex mutex;
 };
 
