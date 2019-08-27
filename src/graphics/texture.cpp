@@ -17,7 +17,7 @@ void texture::invariant()
 }
 
 texture::texture( const std::string& texture_name,
-	          std::shared_ptr< SDL_Texture >& texture_resource ):
+	              std::shared_ptr< SDL_Texture >& texture_resource ):
   name{texture_name},
   resource{texture_resource}
 {
