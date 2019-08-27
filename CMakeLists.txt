@@ -11,6 +11,8 @@ function(add_unit_test target target_test)
   set(UNIT_TEST_TARGETS ${UNIT_TEST_TARGETS} ${target_test} PARENT_SCOPE)
   add_test(target ${_target_output_directory}/${target_test})
 endfunction(add_unit_test)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -g")
 
 # Define sources
 set(YAGE_SRC
@@ -27,6 +29,7 @@ set(YAGE_SRC
 	src/graphics/graphics_manager.cpp
 	src/graphics/texture_manager.cpp
 	src/graphics/texture.cpp
+	src/graphics/spritesheet.cpp
 
 	src/input/input_manager.cpp)
 
@@ -88,19 +91,21 @@ include_directories("${gtest_SOURCE_DIR}/include")
 
 enable_testing()
 # Tests
-add_executable(graphics_manager_test tests/graphics/graphics_manager.unit.cpp)
+add_executable(graphics_test 
+	tests/graphics/graphics_manager.unit.cpp
+	tests/graphics/spritesheet.cpp)
 add_executable(state_machine_test tests/engine/state_machine.unit.cpp)
 
-target_link_libraries(graphics_manager_test gtest_main yage ${SDL2_IMAGE_LIBRARIES} ${SDL2_LIBRARY})
+target_link_libraries(graphics_test gtest_main yage ${SDL2_IMAGE_LIBRARIES} ${SDL2_LIBRARY})
 target_link_libraries(state_machine_test gtest gtest_main yage)
 
-add_dependencies(graphics_manager_test gtest gtest_main yage)
+add_dependencies(graphics_test gtest gtest_main yage)
 add_dependencies(state_machine_test gtest gtest_main yage)
 
-set_property(TARGET graphics_manager_test PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/tests")
+set_property(TARGET graphics_test PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/tests")
 set_property(TARGET state_machine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/tests")
 
-add_unit_test(graphics_manager_test graphics_manager_test)
+add_unit_test(graphics_test graphics_test)
 add_unit_test(state_machine_test state_machine_test)
 
 

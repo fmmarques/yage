@@ -7,14 +7,13 @@
 
 #include <SDL2/SDL.h>
 
-#include <yage/graphics/texture.hpp>
 
 namespace yage {
 namespace graphics {
-
 namespace interface1 {
 
-struct __deleter_wrapper_t {
+struct __deleter_wrapper_t 
+{
   void operator()(SDL_Texture *);
   void operator()(SDL_Surface *);
 };
@@ -26,11 +25,12 @@ protected:
   void invariant() const;
   texture_manager();
 public:
-  static graphics::texture_manager& instance();
+  static texture_manager& instance();
   ~texture_manager();
 
   /// \brief Loads a texture from a file.
   texture load(const std::string&);
+  texture load(const std::string&, uint8_t r, uint8_t g, uint8_t b);
 
   void on_texture_release( const std::string& name );
 private:
@@ -40,7 +40,7 @@ private:
 };
 
 }
-  using namespace interface1;
+using namespace interface1;
 }
 }
 #endif

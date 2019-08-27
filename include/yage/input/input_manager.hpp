@@ -12,6 +12,7 @@
 
 namespace yage {
 namespace input {
+namespace interface1 {
 
 class input_manager:
   public virtual yage::events::event_listener
@@ -25,15 +26,25 @@ public:
 
 // 
   void subscribe( input_listener *listener );
+  void subscribe( mouse_listener *listener );
+  void subscribe( keyboard_listener *listener );
+  
+  void unsubscribe( keyboard_listener *listener );
+  void unsubscribe( mouse_listener *listener );
   void unsubscribe( input_listener *listener );
 // event_listener implementation
   void on_event(const SDL_Event& event) override; 
+//
 
 private:
   std::shared_mutex mutex;
-  std::list< input_listener *> input_listeners;
+  std::list< mouse_listener *> mouse_listeners;
+  std::list< keyboard_listener *> keyboard_listeners;
+
 };
 
+}
+  using namespace interface1;
 }
 }
 #endif

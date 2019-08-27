@@ -31,6 +31,7 @@ private:
 protected:
   game_engine():
     engine::state_machine< game_state_t >{}
+   ,continue_to_iterate{true}
    ,mutex{}
   {
     std::cout << "game_engine::game_engine(): enter." << std::endl; 
@@ -69,23 +70,46 @@ public:
 
   }
 
-// From runnable interface:
-  void interrupt() 
-  {
-    std::cout << "yage::game_engine::interrupt(): enter" << std::endl;
-    static_cast< engine_strategy_t&>(*this).on_interrupt();
-    std::cout << "yage::game_engine::interrupt(): leave" << std::endl;
-  }
-
   void run() 
   {
-    std::cout << "yage::game_engine::run(): enter" <<std::endl;
-    static_cast< engine_strategy_t &>(*this).on_loop();
-    std::cout << "yage::game_engine::run(): leave" <<std::endl;
+    std::string fn("yage::game_engine::run(): ");
+    std::cout << fn << "enter" << std::endl;
+
+    bool do_next_iteration = true;
+
+    {
+      std::unique_lock< decltype(mutex) > lock(mutex);
+      do_next_iteration = continue_to_iterate;
+    }
+
+    while (do_next_iteration)
+    {
+  
+      do_next_iteration &= static_cast< engine_strategy_t &>(*this).on_loop();
+      {
+        std::unique_lock< decltype(mutex) > lock(mutex);
+        do_next_iteration &= continue_to_iterate;
+      }
+      std::cout << fn << "do_next_iteration: " << do_next_iteration << std::endl;    
+    }
+
+    std::cout << fn << "joining event_manager's thread." << std::endl;
+    yage::events::event_manager::instance().interrupt();
+    std::cout << fn << "leave" <<std::endl;
   }
+
+  void interrupt()
+  {
+    std::string fn("game_engine::interrupt(): ");
+    std::cout << fn << "interrupting the main loop";
+    std::unique_lock< decltype(mutex) > lock( mutex );
+    continue_to_iterate = false;
+    static_cast< engine_strategy_t & >( *this ).on_interrupt();
+  } 
 
 private:
     std::mutex mutex;
+    volatile bool continue_to_iterate;
 };
 
 }

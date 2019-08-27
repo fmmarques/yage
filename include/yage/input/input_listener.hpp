@@ -30,7 +30,7 @@ struct input_listener:
 };
 
 }
-using interface1::input_listener;
+using namespace interface1;
 }
 }
 #endif

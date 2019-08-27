@@ -1,7 +1,7 @@
 #if !defined(ENGINE_STATE_MACHINE_IMPLEMENTATION_H)
 #  define ENGINE_STATE_MACHINE_IMPLEMENTATION_H
 
-#include <queue>
+#include <stack>
 #include <memory>
 
 namespace yage {
@@ -12,7 +12,7 @@ template < typename state_t >
 class state_machine
 {
 private:
-  std::queue< std::unique_ptr< state_t > > states;
+  std::stack< std::shared_ptr< state_t > > states;
 protected:
   void invariant() const {}
 public:
@@ -23,30 +23,32 @@ public:
   {
   }
 
+/*
   state_machine(state_machine&& other):
     states()
   {
     states.swap(other.states);
   }
+*/
 
 
   template < class state_derived_t, class... args_t >
   void push(args_t&&... args)
   {
-    states.push(std::make_unique< state_derived_t >(args...));
+    states.push(std::make_shared< state_derived_t >(args...));
   }
 
-  virtual state_t* pop()
+  virtual std::shared_ptr<state_t>&& pop()
   {
-    auto&& result = std::move(states.front());
+    auto&& result = std::move(states.top());
     states.pop();
 
-    return std::move(result.release());
+    return std::move(result);
   }
 
   virtual state_t* peek() const
   {
-    return states.front().get();
+    return states.top().get();
   }
 
   virtual unsigned int length() const

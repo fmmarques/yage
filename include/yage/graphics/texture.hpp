@@ -4,7 +4,10 @@
 #include <string>
 #include <memory>
 
+
 #include <SDL2/SDL.h>
+
+#include <yage/graphics/texture_manager.hpp>
 
 namespace yage {
 namespace graphics {
@@ -14,10 +17,16 @@ class texture
 {
 protected:
   void invariant();
+  texture(const std::string& name, std::shared_ptr< SDL_Texture >& resource);
+
+
+  friend class yage::graphics::texture_manager;
 public:
-  texture(const std::string& name, 
-	  std::shared_ptr< SDL_Texture >& resource);
+  texture(const texture& other);
   texture(texture&& other);
+  texture& operator=(texture&& other);
+  texture& operator=(const texture& other);
+
   ~texture();
 
   operator SDL_Texture*();

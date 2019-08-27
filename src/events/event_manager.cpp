@@ -127,7 +127,7 @@ void event_manager::unsubscribe(
     invariant();
     
     lock.unlock();
-    std::next(event_iterator);
+    event_iterator++;
   }
 
 

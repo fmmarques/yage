@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <string>
 #include <memory>
+#include <iostream>
 
 #include <SDL2/SDL.h>
 
@@ -9,6 +10,7 @@
 
 #include <yage/graphics/graphics_manager.hpp>
 #include <yage/graphics/texture_manager.hpp>
+#include <yage/graphics/texture.hpp>
 
 namespace yage {
 namespace graphics {
@@ -18,14 +20,27 @@ namespace interface1 {
 
 void __deleter_wrapper_t::operator()(SDL_Texture *texture)
 {
+  std::string fn{ "__deleter_wrapper_t::operator()(SDL_Texture*): " };
+
+  std::cout << fn << "enter" << std::endl;
   if (nullptr != texture)
+  {
+    std::cout << fn << "destroying texture " << std::hex << texture << std::dec << std::endl; 
     SDL_DestroyTexture(texture);
+  }
+  std::cout << fn << "exit" << std::endl;
 }
 
 void __deleter_wrapper_t::operator()(SDL_Surface *surface)
 {
+  std::string fn{"__deleter_wrapper_t::operator()(SDL_Surface*): "};
+  std::cout << fn << "enter" << std::endl;
   if (nullptr != surface)
+  {
+    std::cout << fn << "destroying surface " << std::hex << surface << std::dec << std::endl; 
     SDL_FreeSurface(surface);
+  }
+  std::cout << fn << "exit" << std::endl;
 }
 
 
@@ -81,6 +96,35 @@ texture texture_manager::load(const std::string& name)
 
   return graphics::texture(name,shared_texture);
 }
+
+texture texture_manager::load(const std::string& name, uint8_t r, uint8_t g, uint8_t b)
+{
+  invariant();
+  auto&& screen = yage::graphics::graphics_manager::instance().get_window();
+
+  if (textures_by_name.find(name) != textures_by_name.end())
+    return graphics::texture(name, textures_by_name[ name ]);
+
+  std::unique_ptr<SDL_Surface, __deleter_wrapper_t> surface(IMG_Load(name.c_str()));
+  if (nullptr == surface)
+    throw std::runtime_error(SDL_GetError());
+
+  SDL_SetColorKey( surface.get(), SDL_TRUE, SDL_MapRGB( surface.get()->format, r, g, b ) );
+  
+  std::unique_ptr<SDL_Surface, __deleter_wrapper_t> blitted_surface(SDL_ConvertSurface(surface.get(), SDL_GetWindowSurface(screen)->format, surface.get()->flags | SDL_SWSURFACE));
+
+  std::unique_ptr<SDL_Texture, __deleter_wrapper_t> uniq_texture( SDL_CreateTextureFromSurface( graphics_manager::instance().get_renderer(), surface.get() ) );
+  if (nullptr == uniq_texture)
+    throw std::runtime_error(SDL_GetError());
+
+  std::shared_ptr<SDL_Texture> shared_texture(std::move(uniq_texture));
+  textures_by_name.emplace(name, shared_texture);
+
+  invariant();
+
+  return graphics::texture(name,shared_texture);
+}
+
 
 void texture_manager::on_texture_release(const std::string& name)
 {

@@ -31,6 +31,27 @@ texture::texture(texture&& other):
   invariant();
 }
 
+texture::texture(const texture& other):
+  name{other.name}
+, resource{other.resource}
+{
+  invariant();
+}
+
+texture& texture::operator=(texture&& other)
+{
+  name = std::move(other.name);
+  resource = std::move(other.resource);
+  return *this;
+}
+
+texture& texture::operator=(const texture& other)
+{
+  name = other.name;
+  resource = other.resource;
+  return *this;
+}
+
 texture::~texture()
 {
   invariant();

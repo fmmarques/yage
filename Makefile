@@ -111,21 +111,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-dependencies/yage/CMakeFiles/all_tests.dir/rule:
-	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/CMakeFiles/all_tests.dir/rule
-.PHONY : dependencies/yage/CMakeFiles/all_tests.dir/rule
-
-# Convenience name for target.
-all_tests: dependencies/yage/CMakeFiles/all_tests.dir/rule
-
-.PHONY : all_tests
-
-# fast build rule for target.
-all_tests/fast:
-	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/all_tests.dir/build.make dependencies/yage/CMakeFiles/all_tests.dir/build
-.PHONY : all_tests/fast
-
-# Convenience name for target.
 dependencies/yage/CMakeFiles/state_machine_test.dir/rule:
 	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/CMakeFiles/state_machine_test.dir/rule
 .PHONY : dependencies/yage/CMakeFiles/state_machine_test.dir/rule
@@ -156,19 +141,34 @@ yage/fast:
 .PHONY : yage/fast
 
 # Convenience name for target.
-dependencies/yage/CMakeFiles/graphics_manager_test.dir/rule:
-	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/CMakeFiles/graphics_manager_test.dir/rule
-.PHONY : dependencies/yage/CMakeFiles/graphics_manager_test.dir/rule
+dependencies/yage/CMakeFiles/all_tests.dir/rule:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/CMakeFiles/all_tests.dir/rule
+.PHONY : dependencies/yage/CMakeFiles/all_tests.dir/rule
 
 # Convenience name for target.
-graphics_manager_test: dependencies/yage/CMakeFiles/graphics_manager_test.dir/rule
+all_tests: dependencies/yage/CMakeFiles/all_tests.dir/rule
 
-.PHONY : graphics_manager_test
+.PHONY : all_tests
 
 # fast build rule for target.
-graphics_manager_test/fast:
-	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_manager_test.dir/build.make dependencies/yage/CMakeFiles/graphics_manager_test.dir/build
-.PHONY : graphics_manager_test/fast
+all_tests/fast:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/all_tests.dir/build.make dependencies/yage/CMakeFiles/all_tests.dir/build
+.PHONY : all_tests/fast
+
+# Convenience name for target.
+dependencies/yage/CMakeFiles/graphics_test.dir/rule:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f CMakeFiles/Makefile2 dependencies/yage/CMakeFiles/graphics_test.dir/rule
+.PHONY : dependencies/yage/CMakeFiles/graphics_test.dir/rule
+
+# Convenience name for target.
+graphics_test: dependencies/yage/CMakeFiles/graphics_test.dir/rule
+
+.PHONY : graphics_test
+
+# fast build rule for target.
+graphics_test/fast:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_test.dir/build.make dependencies/yage/CMakeFiles/graphics_test.dir/build
+.PHONY : graphics_test/fast
 
 src/engine/game_engine.o: src/engine/game_engine.cpp.o
 
@@ -359,6 +359,33 @@ src/graphics/graphics_manager.cpp.s:
 	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/graphics_manager.cpp.s
 .PHONY : src/graphics/graphics_manager.cpp.s
 
+src/graphics/spritesheet.o: src/graphics/spritesheet.cpp.o
+
+.PHONY : src/graphics/spritesheet.o
+
+# target to build an object file
+src/graphics/spritesheet.cpp.o:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/spritesheet.cpp.o
+.PHONY : src/graphics/spritesheet.cpp.o
+
+src/graphics/spritesheet.i: src/graphics/spritesheet.cpp.i
+
+.PHONY : src/graphics/spritesheet.i
+
+# target to preprocess a source file
+src/graphics/spritesheet.cpp.i:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/spritesheet.cpp.i
+.PHONY : src/graphics/spritesheet.cpp.i
+
+src/graphics/spritesheet.s: src/graphics/spritesheet.cpp.s
+
+.PHONY : src/graphics/spritesheet.s
+
+# target to generate assembly for a file
+src/graphics/spritesheet.cpp.s:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/spritesheet.cpp.s
+.PHONY : src/graphics/spritesheet.cpp.s
+
 src/graphics/texture.o: src/graphics/texture.cpp.o
 
 .PHONY : src/graphics/texture.o
@@ -473,7 +500,7 @@ tests/graphics/graphics_manager.unit.o: tests/graphics/graphics_manager.unit.cpp
 
 # target to build an object file
 tests/graphics/graphics_manager.unit.cpp.o:
-	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_manager_test.dir/build.make dependencies/yage/CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.o
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_test.dir/build.make dependencies/yage/CMakeFiles/graphics_test.dir/tests/graphics/graphics_manager.unit.cpp.o
 .PHONY : tests/graphics/graphics_manager.unit.cpp.o
 
 tests/graphics/graphics_manager.unit.i: tests/graphics/graphics_manager.unit.cpp.i
@@ -482,7 +509,7 @@ tests/graphics/graphics_manager.unit.i: tests/graphics/graphics_manager.unit.cpp
 
 # target to preprocess a source file
 tests/graphics/graphics_manager.unit.cpp.i:
-	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_manager_test.dir/build.make dependencies/yage/CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.i
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_test.dir/build.make dependencies/yage/CMakeFiles/graphics_test.dir/tests/graphics/graphics_manager.unit.cpp.i
 .PHONY : tests/graphics/graphics_manager.unit.cpp.i
 
 tests/graphics/graphics_manager.unit.s: tests/graphics/graphics_manager.unit.cpp.s
@@ -491,8 +518,35 @@ tests/graphics/graphics_manager.unit.s: tests/graphics/graphics_manager.unit.cpp
 
 # target to generate assembly for a file
 tests/graphics/graphics_manager.unit.cpp.s:
-	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_manager_test.dir/build.make dependencies/yage/CMakeFiles/graphics_manager_test.dir/tests/graphics/graphics_manager.unit.cpp.s
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_test.dir/build.make dependencies/yage/CMakeFiles/graphics_test.dir/tests/graphics/graphics_manager.unit.cpp.s
 .PHONY : tests/graphics/graphics_manager.unit.cpp.s
+
+tests/graphics/spritesheet.o: tests/graphics/spritesheet.cpp.o
+
+.PHONY : tests/graphics/spritesheet.o
+
+# target to build an object file
+tests/graphics/spritesheet.cpp.o:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_test.dir/build.make dependencies/yage/CMakeFiles/graphics_test.dir/tests/graphics/spritesheet.cpp.o
+.PHONY : tests/graphics/spritesheet.cpp.o
+
+tests/graphics/spritesheet.i: tests/graphics/spritesheet.cpp.i
+
+.PHONY : tests/graphics/spritesheet.i
+
+# target to preprocess a source file
+tests/graphics/spritesheet.cpp.i:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_test.dir/build.make dependencies/yage/CMakeFiles/graphics_test.dir/tests/graphics/spritesheet.cpp.i
+.PHONY : tests/graphics/spritesheet.cpp.i
+
+tests/graphics/spritesheet.s: tests/graphics/spritesheet.cpp.s
+
+.PHONY : tests/graphics/spritesheet.s
+
+# target to generate assembly for a file
+tests/graphics/spritesheet.cpp.s:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/graphics_test.dir/build.make dependencies/yage/CMakeFiles/graphics_test.dir/tests/graphics/spritesheet.cpp.s
+.PHONY : tests/graphics/spritesheet.cpp.s
 
 # Help Target
 help:
@@ -500,12 +554,12 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... all_tests"
 	@echo "... edit_cache"
 	@echo "... state_machine_test"
 	@echo "... rebuild_cache"
 	@echo "... yage"
-	@echo "... graphics_manager_test"
+	@echo "... all_tests"
+	@echo "... graphics_test"
 	@echo "... src/engine/game_engine.o"
 	@echo "... src/engine/game_engine.i"
 	@echo "... src/engine/game_engine.s"
@@ -527,6 +581,9 @@ help:
 	@echo "... src/graphics/graphics_manager.o"
 	@echo "... src/graphics/graphics_manager.i"
 	@echo "... src/graphics/graphics_manager.s"
+	@echo "... src/graphics/spritesheet.o"
+	@echo "... src/graphics/spritesheet.i"
+	@echo "... src/graphics/spritesheet.s"
 	@echo "... src/graphics/texture.o"
 	@echo "... src/graphics/texture.i"
 	@echo "... src/graphics/texture.s"
@@ -542,6 +599,9 @@ help:
 	@echo "... tests/graphics/graphics_manager.unit.o"
 	@echo "... tests/graphics/graphics_manager.unit.i"
 	@echo "... tests/graphics/graphics_manager.unit.s"
+	@echo "... tests/graphics/spritesheet.o"
+	@echo "... tests/graphics/spritesheet.i"
+	@echo "... tests/graphics/spritesheet.s"
 .PHONY : help
 
 
