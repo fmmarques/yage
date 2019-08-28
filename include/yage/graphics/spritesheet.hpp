@@ -27,6 +27,8 @@ private:
   texture tex;
   std::vector< SDL_Rect > seq;
   int ticks;
+protected:
+  void invariant() const {}
 public:
   animation(const texture& map);
   void map(uint32_t x, uint32_t y, uint32_t w, uint32_t h); 
@@ -56,8 +58,8 @@ private:
   texture map;
   std::map< key_t, animation > animations; 
 
+  void invariant() const {}
 public:
-  
   sprite(const id_t& id, const texture& map):
     id{id}
   , map{map}
@@ -100,6 +102,7 @@ class spritesheet:
 private:
   texture map;
   std::map< sprite_id_t, sprite< sprite_id_t, animation_id_t > > sprites;
+  void invariant() const {}
 public:
   spritesheet(const std::string& name):
     map{ yage::graphics::texture_manager::instance().load(name) },
@@ -157,7 +160,7 @@ public:
     return sprite_it->second;
   }
 
- 
+
   void render(const SDL_Rect *r)
   {
     //std::cout << "spritesheet::render(): enter" << std::endl;
