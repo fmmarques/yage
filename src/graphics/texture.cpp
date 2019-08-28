@@ -10,7 +10,7 @@ namespace graphics {
 namespace interface1 {
 
 // Texture section
-void texture::invariant() 
+void texture::invariant() const
 {
   assert( !name.empty() );
   assert( nullptr != resource );
@@ -18,15 +18,15 @@ void texture::invariant()
 
 texture::texture( const std::string& texture_name,
 	              std::shared_ptr< SDL_Texture >& texture_resource ):
-  name{texture_name},
-  resource{texture_resource}
+  name{texture_name}
+, resource{texture_resource}
 {
   invariant();
 }
 
 texture::texture(texture&& other):
-  name{std::move(other.name)}
- ,resource{std::move(other.resource)}
+  name{other.name}
+, resource{other.resource}
 {
   invariant();
 }
@@ -40,8 +40,9 @@ texture::texture(const texture& other):
 
 texture& texture::operator=(texture&& other)
 {
-  name = std::move(other.name);
-  resource = std::move(other.resource);
+  name = other.name;
+  resource = other.resource;
+  invariant();
   return *this;
 }
 
@@ -49,6 +50,7 @@ texture& texture::operator=(const texture& other)
 {
   name = other.name;
   resource = other.resource;
+  invariant();
   return *this;
 }
 
@@ -65,7 +67,6 @@ texture::operator SDL_Texture*()
   return resource.get();
 }
 
-	
 
 
 

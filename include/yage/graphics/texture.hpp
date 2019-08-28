@@ -13,10 +13,10 @@ namespace yage {
 namespace graphics {
 namespace interface1 {
 
-class texture 
+class texture
 {
 protected:
-  void invariant();
+  void invariant() const;
   texture(const std::string& name, std::shared_ptr< SDL_Texture >& resource);
 
 
