@@ -52,7 +52,7 @@ void event_manager::subscribe(
 {
   std::unique_lock<decltype(mutex)> lock(mutex, std::defer_lock);
 
-  std::cout << "event_manager::subscribe(event_listener*, SDL_EventType): enter. " << std::endl;
+//  std::cout << "event_manager::subscribe(event_listener*, SDL_EventType): enter. " << std::endl;
   
   lock.lock();
   invariant();
@@ -64,20 +64,20 @@ void event_manager::subscribe(
   lock.unlock();
 
 
-  std::cout << "event_manager::subscribe(event_listener*, SDL_EventType): exit. " << std::endl;
+//  std::cout << "event_manager::subscribe(event_listener*, SDL_EventType): exit. " << std::endl;
 }
 
 void event_manager::subscribe(
   events::event_listener *listener,
   std::vector< SDL_EventType >&& events )
 {
-  std::cout << "event_manager::subscribe(event_listener*, std::vector): enter. " << std::endl;
+//  std::cout << "event_manager::subscribe(event_listener*, std::vector): enter. " << std::endl;
   std::unique_lock< decltype(mutex) > lock(mutex, std::defer_lock);
   
   auto event_iterator = std::cbegin(events);
   while (event_iterator != std::cend(events))
   {
-    std::cout << "event_manager::subscribe(event_listerner*, std::vector): adding listener to " << *event_iterator << " event" << std::endl;
+//    std::cout << "event_manager::subscribe(event_listerner*, std::vector): adding listener to " << *event_iterator << " event" << std::endl;
     lock.lock();
     invariant();
     
@@ -88,7 +88,7 @@ void event_manager::subscribe(
     lock.unlock();
     event_iterator++;
   }
-  std::cout << "event_manager::subscribe(event_listener*, std::vector): exit. " << std::endl;
+//  std::cout << "event_manager::subscribe(event_listener*, std::vector): exit. " << std::endl;
 }
 
 void event_manager::unsubscribe(
@@ -135,14 +135,14 @@ void event_manager::unsubscribe(
 
 void event_manager::emit(const SDL_Event& event)
 {
-    std::cout << "event_manager::emit(const SDL_Event&): enter. ";
+//    std::cout << "event_manager::emit(const SDL_Event&): enter. ";
     std::shared_lock<decltype(mutex)> lock(mutex,std::defer_lock);
 
     SDL_EventType event_type = static_cast< SDL_EventType>(event.type);
     lock.lock();
     std::list< event_listener * > listeners = event_listeners[ event_type ];
     lock.unlock();
-    std::cout << " Emiting event [event.type = " << event.type << "] to " << listeners.size() << " listeners." << std::endl;
+//    std::cout << " Emiting event [event.type = " << event.type << "] to " << listeners.size() << " listeners." << std::endl;
 
     std::for_each(
         listeners.begin(),
@@ -150,7 +150,7 @@ void event_manager::emit(const SDL_Event& event)
         [&event] (event_listener * listener) {
             listener->on_event(event);
         });
-    std::cout << "event_manager::emit(const SDL_Event&): exit." << std::endl;
+//    std::cout << "event_manager::emit(const SDL_Event&): exit." << std::endl;
 }
 
 // Runnable
