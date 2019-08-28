@@ -34,12 +34,12 @@ public:
 
   void inline tick()
   {
-    std::string fn {"animation::tick(): "};
+    //std::string fn {"animation::tick(): "};
     if (seq.size() > 0)
       ticks = (++ticks) % seq.size();
     else
       ticks = 0;
-    std::cout << fn << "enter. tick is " << ticks << ". exit." << std::endl;
+    //std::cout << fn << "enter. tick is " << ticks << ". exit." << std::endl;
   } 
 
   void render(const SDL_Rect *r);
@@ -68,15 +68,14 @@ public:
   {
     std::string fname{ "sprite::operator[](const std::key_t&): " };
     //std::cout << fname << "enter" << std::endl;
-    std::cout << fname << "locating animation " << static_cast<int>(id) << " "; 
+    //std::cout << fname << "locating animation " << static_cast<int>(id) << " "; 
     auto&& animation_it = animations.begin();
     if (animations.end() != (animation_it = animations.find(id)))
     {
-      std::cout << "and returning it." << std::endl;
-      //std::cout << fname << " exit" << std::endl;
+      //std::cout << "and returning it." << std::endl;
       return animation_it->second;
     }
-    std::cout << "but failed. creating an empty animation." << std::endl;
+    //std::cout << "but failed. creating an empty animation." << std::endl;
     animations.emplace( id, map );
     //std::cout << fname << "exit" << std::endl;
     return animations.find(id)->second;
@@ -140,15 +139,15 @@ public:
   { 
     std::string fn {"spritesheet::operator[](const sprite_id_t&): "};
     //std::cout << fn << "enter." << std::endl;
-    std::cout << fn << "locating sprite " << static_cast<int>(id) << " ";
+    //std::cout << fn << "locating sprite " << static_cast<int>(id) << " ";
     auto sprite_it = sprites.end();
     if (sprites.end() != (sprite_it = sprites.find(id))) 
     {
-      std::cout << "and returning it." << std::endl;
+      //std::cout << "and returning it." << std::endl;
       return sprite_it->second;
     }
   
-    std::cout << "but does not exist; creating an empty sprite. " << std::endl;
+    //std::cout << "but does not exist; creating an empty sprite. " << std::endl;
     sprites.emplace( std::piecewise_construct, 
 		    std::forward_as_tuple(id), 
 		    std::forward_as_tuple(id, map));
@@ -161,11 +160,11 @@ public:
  
   void render(const SDL_Rect *r)
   {
-    std::cout << "spritesheet::render(): enter" << std::endl;
+    //std::cout << "spritesheet::render(): enter" << std::endl;
     auto it = sprites.begin();
     if (sprites.end() != it)
       it->second.render(r);
-    std::cout << "spritesheet::render(): exit" << std::endl;
+    //std::cout << "spritesheet::render(): exit" << std::endl;
   }
 };
 

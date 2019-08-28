@@ -20,27 +20,26 @@ namespace interface1 {
 
 void __deleter_wrapper_t::operator()(SDL_Texture *texture)
 {
-  std::string fn{ "__deleter_wrapper_t::operator()(SDL_Texture*): " };
+  std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
 
-  std::cout << fn << "enter" << std::endl;
   if (nullptr != texture)
   {
     std::cout << fn << "destroying texture " << std::hex << texture << std::dec << std::endl; 
     SDL_DestroyTexture(texture);
   }
-  std::cout << fn << "exit" << std::endl;
+  // std::cout << fn << "exit" << std::endl;
 }
 
 void __deleter_wrapper_t::operator()(SDL_Surface *surface)
 {
-  std::string fn{"__deleter_wrapper_t::operator()(SDL_Surface*): "};
-  std::cout << fn << "enter" << std::endl;
+  std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+  //std::cout << fn << "enter" << std::endl;
   if (nullptr != surface)
   {
     std::cout << fn << "destroying surface " << std::hex << surface << std::dec << std::endl; 
     SDL_FreeSurface(surface);
   }
-  std::cout << fn << "exit" << std::endl;
+  //std::cout << fn << "exit" << std::endl;
 }
 
 

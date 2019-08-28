@@ -50,9 +50,10 @@ void event_manager::subscribe(
   events::event_listener * listener,
   SDL_EventType event )
 {
+  std::string fn{ std::string( __PRETTY_FUNCTION__ ) + std::string(": ") }
   std::unique_lock<decltype(mutex)> lock(mutex, std::defer_lock);
 
-  std::cout << "event_manager::subscribe(event_listener*, SDL_EventType): enter. " << std::endl;
+  //std::cout << fn << "enter. " << std::endl;
   
   lock.lock();
   invariant();
@@ -64,20 +65,22 @@ void event_manager::subscribe(
   lock.unlock();
 
 
-  std::cout << "event_manager::subscribe(event_listener*, SDL_EventType): exit. " << std::endl;
+  //std::cout << fn << "exit. " << std::endl;
 }
 
 void event_manager::subscribe(
   events::event_listener *listener,
   std::vector< SDL_EventType >&& events )
 {
-  std::cout << "event_manager::subscribe(event_listener*, std::vector): enter. " << std::endl;
-  std::unique_lock< decltype(mutex) > lock(mutex, std::defer_lock);
+	std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") }
+	std::cout << fn;
+//	std::cout << "enter. ";
+	std::unique_lock< decltype(mutex) > lock(mutex, std::defer_lock);
   
   auto event_iterator = std::cbegin(events);
   while (event_iterator != std::cend(events))
   {
-    std::cout << "event_manager::subscribe(event_listerner*, std::vector): adding listener to " << *event_iterator << " event" << std::endl;
+    std::cout << "adding listener to " << *event_iterator << " event. ";
     lock.lock();
     invariant();
     
@@ -88,7 +91,8 @@ void event_manager::subscribe(
     lock.unlock();
     event_iterator++;
   }
-  std::cout << "event_manager::subscribe(event_listener*, std::vector): exit. " << std::endl;
+//  std::cout << "exit. " << std::endl;
+  std::cout << std::endl;
 }
 
 void event_manager::unsubscribe(

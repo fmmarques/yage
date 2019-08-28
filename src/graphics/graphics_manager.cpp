@@ -86,11 +86,14 @@ window::operator SDL_Renderer*()
 graphics_manager::graphics_manager():
   main_window(nullptr)
 {
-  using namespace std;
-  std::cout << "graphics_manager::ctor(): entry" << std::endl;
-  if ( 0 != SDL_InitSubSystem(SDL_INIT_VIDEO) )
-    throw runtime_error("Couldn't initialize video with error: \""+ std::string(SDL_GetError()) + "\"." );
-  std::cout << "graphics_manager::ctor(): exit" << std::endl;
+	const std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+	using namespace std;
+//	std::cout << fn << "entry" << std::endl;
+  
+	if ( 0 != SDL_InitSubSystem(SDL_INIT_VIDEO) )
+		throw runtime_error("Couldn't initialize video with error: \"" + std::string(SDL_GetError()) + "\".");
+  
+//	std::cout << fn << "exit" << std::endl;
 }
 
 void graphics_manager::invariant() const
@@ -106,17 +109,18 @@ graphics_manager& graphics::graphics_manager::instance()
 
 graphics_manager::~graphics_manager()
 {
-  std::cout << "graphics_manager::~graphics_manager(): entry"<<std::endl;
-  std::cout << "graphics_manager::~graphics_manager(): quitting video subsystem."<<std::endl;
-  SDL_QuitSubSystem(SDL_INIT_VIDEO);
-  invariant();
+	std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+	std::cout << fn << "quitting video subsystem." << std::endl;
+	SDL_QuitSubSystem(SDL_INIT_VIDEO);
+	invariant();
 }
 
 void graphics_manager::set_window(window&& new_window)
 {
-  std::cout << "graphics_manager::set_window(window&&): enter"<< std::endl;
-  main_window = std::make_unique< window >( std::move(new_window) );
-  std::cout << "graphics_manager::set_window(window&&): exit"<< std::endl;
+	std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+	std::cout << fn << "setting a new window."<< std::endl;
+	main_window = std::make_unique< window >(std::move(new_window));
+//	std::cout << fn << "exit" << std::endl;
 }
 
 window& graphics_manager::get_window() const
