@@ -17,7 +17,7 @@ animation::animation(const texture& map):
 
 void animation::map(uint32_t x, uint32_t y, uint32_t w, uint32_t h ) 
 {
-  const std::string name{"animation::map(uint,uint,uint,uint): "};  
+  const std::string name{ std::string(__PRETTY_FUNCTION__) + std::string(": ")};  
   //std::cout << name << "enter" << std::endl;
   invariant();
   SDL_Rect rect;
@@ -35,7 +35,7 @@ void animation::map(uint32_t x, uint32_t y, uint32_t w, uint32_t h )
 
 void animation::map_all_of(uint32_t frames, uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
-  const std::string fn{"animation::map_all_of(uint32_t,uint32_t,uint32_t,uint32_t,uint32_t): "};
+  const std::string fn{ std::string(__PRETTY_FUNCTION__) +  std::string(": ")};
   invariant();
   //std::cout << fn << "enter. mapping " << frames << "." << std::endl;
   SDL_Rect r;
@@ -65,7 +65,7 @@ void animation::map_all_of(uint32_t frames, uint32_t x, uint32_t y, uint32_t w, 
 
 void animation::render(const SDL_Rect * d) 
 {
-  std::string fname{"animation::render(): "};
+  std::string fname{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
   invariant();
 //  std::cout << fname << "enter" << std::endl;
   auto&& r = yage::graphics::graphics_manager::instance().get_window();

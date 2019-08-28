@@ -36,7 +36,7 @@ public:
 
   void inline tick()
   {
-    std::string fn {"animation::tick(): "};
+    //std::string fn {"animation::tick(): "};
     if (seq.size() > 0)
       ticks = (++ticks) % seq.size();
     else
@@ -74,7 +74,6 @@ public:
     auto&& animation_it = animations.begin();
     if (animations.end() != (animation_it = animations.find(id)))
     {
-      //std::cout << "and returning it." << std::endl;
       //std::cout << fname << " exit" << std::endl;
       return animation_it->second;
     }
@@ -151,7 +150,6 @@ public:
       return sprite_it->second;
     }
 
-    //std::cout << "but does not exist; creating an empty sprite. " << std::endl;
     sprites.emplace( std::piecewise_construct, std::forward_as_tuple(id), std::forward_as_tuple(id, map));
     sprite_it = sprites.find(id);
 
