@@ -1,5 +1,7 @@
 #if !defined(YAGE_UTILITY_HPP)
 #  define YAGE_UTILITY_HPP
+#   include <SDL2/SDL.h>
+
 namespace yage {
 namespace utility {
 namespace interface1 {

@@ -9,9 +9,15 @@ namespace interface1 {
 
 class label
 {
+protected:
+  std::string _text;
+  yage::graphics::font _font;
 public:
-	label(const std::string& text, const yage::graphics::font& font = factory<font>::make("") )
+	label( const std::string& text, 
+         const yage::graphics::font& font)
 	void on_frame()
+  {
+  }
 };
 
 

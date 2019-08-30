@@ -1,0 +1,37 @@
+#if !defined(YAGE_GRAPHICS_FONT_MANAGER_HPP)
+#  define YAGE_GRAPHICS_FRONT_MANAGER_HPP
+
+#include <map>
+
+#include <yage/graphics/font.hpp>
+
+namespace yage {
+namespace graphics {
+namespace interface1 {
+
+class font;
+class font_manager
+{
+private:
+  std::map< std::string,
+            std::shared_ptr< TTF_Font > > fonts_by_name;
+protected:
+  font_manager();
+public:
+  static font_manager& instance();
+  ~font_manager();
+
+  font load(const std::string& filename, unsigned int ppt);
+  void on_release(const yage::graphics::font& font);
+
+
+};
+
+
+
+}
+  using namespace interface1;
+}
+}
+
+#endif

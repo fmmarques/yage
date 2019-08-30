@@ -23,26 +23,22 @@ public:
   {
   }
 
-/*
-  state_machine(state_machine&& other):
-    states()
-  {
-    states.swap(other.states);
-  }
-*/
-
-
   template < class state_derived_t, class... args_t >
   void push(args_t&&... args)
   {
+    if (!states.empty())
+      (states.top().get())->on_pause();
     states.push(std::make_shared< state_derived_t >(args...));
+    (states.top().get())->on_initialize();
   }
 
   virtual std::shared_ptr<state_t>&& pop()
   {
     auto&& result = std::move(states.top());
+    result->on_deinitialize();
     states.pop();
-
+    if (!states.empty())
+      (states.top().get())->on_continue();
     return std::move(result);
   }
 

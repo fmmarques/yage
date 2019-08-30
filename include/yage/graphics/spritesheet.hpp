@@ -5,19 +5,14 @@
 #include <map>
 #include <vector>
 
-#include <yage/engine/state_machine.hpp>
+#include <yage/graphics/renderable.hpp>
 #include <yage/graphics/texture_manager.hpp>
 #include <yage/graphics/texture.hpp>
-
 
 namespace yage {
 namespace graphics {
 namespace interface1 {
 
-struct renderable 
-{
-  virtual void render(const SDL_Rect *) = 0;
-};
 
 
 

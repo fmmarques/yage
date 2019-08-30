@@ -332,6 +332,60 @@ src/graphics/drawable.abstract.cpp.s:
 	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/drawable.abstract.cpp.s
 .PHONY : src/graphics/drawable.abstract.cpp.s
 
+src/graphics/font.o: src/graphics/font.cpp.o
+
+.PHONY : src/graphics/font.o
+
+# target to build an object file
+src/graphics/font.cpp.o:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/font.cpp.o
+.PHONY : src/graphics/font.cpp.o
+
+src/graphics/font.i: src/graphics/font.cpp.i
+
+.PHONY : src/graphics/font.i
+
+# target to preprocess a source file
+src/graphics/font.cpp.i:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/font.cpp.i
+.PHONY : src/graphics/font.cpp.i
+
+src/graphics/font.s: src/graphics/font.cpp.s
+
+.PHONY : src/graphics/font.s
+
+# target to generate assembly for a file
+src/graphics/font.cpp.s:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/font.cpp.s
+.PHONY : src/graphics/font.cpp.s
+
+src/graphics/font_manager.o: src/graphics/font_manager.cpp.o
+
+.PHONY : src/graphics/font_manager.o
+
+# target to build an object file
+src/graphics/font_manager.cpp.o:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/font_manager.cpp.o
+.PHONY : src/graphics/font_manager.cpp.o
+
+src/graphics/font_manager.i: src/graphics/font_manager.cpp.i
+
+.PHONY : src/graphics/font_manager.i
+
+# target to preprocess a source file
+src/graphics/font_manager.cpp.i:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/font_manager.cpp.i
+.PHONY : src/graphics/font_manager.cpp.i
+
+src/graphics/font_manager.s: src/graphics/font_manager.cpp.s
+
+.PHONY : src/graphics/font_manager.s
+
+# target to generate assembly for a file
+src/graphics/font_manager.cpp.s:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/graphics/font_manager.cpp.s
+.PHONY : src/graphics/font_manager.cpp.s
+
 src/graphics/graphics_manager.o: src/graphics/graphics_manager.cpp.o
 
 .PHONY : src/graphics/graphics_manager.o
@@ -467,6 +521,33 @@ src/input/input_manager.cpp.s:
 	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/input_manager.cpp.s
 .PHONY : src/input/input_manager.cpp.s
 
+src/input/mouse.o: src/input/mouse.cpp.o
+
+.PHONY : src/input/mouse.o
+
+# target to build an object file
+src/input/mouse.cpp.o:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/mouse.cpp.o
+.PHONY : src/input/mouse.cpp.o
+
+src/input/mouse.i: src/input/mouse.cpp.i
+
+.PHONY : src/input/mouse.i
+
+# target to preprocess a source file
+src/input/mouse.cpp.i:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/mouse.cpp.i
+.PHONY : src/input/mouse.cpp.i
+
+src/input/mouse.s: src/input/mouse.cpp.s
+
+.PHONY : src/input/mouse.s
+
+# target to generate assembly for a file
+src/input/mouse.cpp.s:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/mouse.cpp.s
+.PHONY : src/input/mouse.cpp.s
+
 tests/engine/state_machine.unit.o: tests/engine/state_machine.unit.cpp.o
 
 .PHONY : tests/engine/state_machine.unit.o
@@ -578,6 +659,12 @@ help:
 	@echo "... src/graphics/drawable.abstract.o"
 	@echo "... src/graphics/drawable.abstract.i"
 	@echo "... src/graphics/drawable.abstract.s"
+	@echo "... src/graphics/font.o"
+	@echo "... src/graphics/font.i"
+	@echo "... src/graphics/font.s"
+	@echo "... src/graphics/font_manager.o"
+	@echo "... src/graphics/font_manager.i"
+	@echo "... src/graphics/font_manager.s"
 	@echo "... src/graphics/graphics_manager.o"
 	@echo "... src/graphics/graphics_manager.i"
 	@echo "... src/graphics/graphics_manager.s"
@@ -593,6 +680,9 @@ help:
 	@echo "... src/input/input_manager.o"
 	@echo "... src/input/input_manager.i"
 	@echo "... src/input/input_manager.s"
+	@echo "... src/input/mouse.o"
+	@echo "... src/input/mouse.i"
+	@echo "... src/input/mouse.s"
 	@echo "... tests/engine/state_machine.unit.o"
 	@echo "... tests/engine/state_machine.unit.i"
 	@echo "... tests/engine/state_machine.unit.s"
