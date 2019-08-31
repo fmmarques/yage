@@ -13,13 +13,14 @@ namespace yage {
 namespace graphics {
 namespace interface1 {
 
+class font;
 class texture
 {
 protected:
   void invariant() const;
   texture(const std::string& name, std::shared_ptr< SDL_Texture >& resource);
 
-
+  friend class yage::graphics::font;
   friend class yage::graphics::texture_manager;
 public:
   texture(const texture& other);
@@ -30,9 +31,11 @@ public:
   ~texture();
 
   operator SDL_Texture*();
+
+  std::string name() const;
 private:
-  std::string name;
-  std::shared_ptr< SDL_Texture > resource;
+  std::string _name;
+  std::shared_ptr< SDL_Texture > _texture;
 };
 
 }

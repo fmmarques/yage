@@ -12,9 +12,13 @@ namespace yage {
 namespace graphics {
 namespace interface1 {
 
-struct __deleter_wrapper_t 
+struct __texture_deleter 
 {
   void operator()(SDL_Texture *);
+};
+
+struct __surface_deleter
+{
   void operator()(SDL_Surface *);
 };
 
@@ -32,7 +36,7 @@ public:
   texture load(const std::string&);
   texture load(const std::string&, uint8_t r, uint8_t g, uint8_t b);
 
-  void on_texture_release( const std::string& name );
+  void on_release(const texture& texture );
 private:
   std::map< std::string,
 	    std::shared_ptr< SDL_Texture > > textures_by_name;

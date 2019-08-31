@@ -18,7 +18,7 @@ namespace graphics {
 namespace interface1 { 
 // Deleter section
 
-void __deleter_wrapper_t::operator()(SDL_Texture *texture)
+void __texture_deleter::operator()(SDL_Texture *texture)
 {
   std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
 
@@ -30,7 +30,7 @@ void __deleter_wrapper_t::operator()(SDL_Texture *texture)
   // std::cout << fn << "exit" << std::endl;
 }
 
-void __deleter_wrapper_t::operator()(SDL_Surface *surface)
+void __surface_deleter::operator()(SDL_Surface *surface)
 {
   std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
   //std::cout << fn << "enter" << std::endl;
@@ -80,11 +80,11 @@ texture texture_manager::load(const std::string& name)
   if (textures_by_name.find(name) != textures_by_name.end())
     return graphics::texture(name, textures_by_name[ name ]);
 
-  std::unique_ptr<SDL_Surface, __deleter_wrapper_t> surface(IMG_Load(name.c_str()));
+  std::unique_ptr<SDL_Surface, __surface_deleter> surface(IMG_Load(name.c_str()));
   if (nullptr == surface)
     throw std::runtime_error(SDL_GetError());
   
-  std::unique_ptr<SDL_Texture, __deleter_wrapper_t> uniq_texture( SDL_CreateTextureFromSurface( graphics_manager::instance().get_renderer(), surface.get() ) );
+  std::unique_ptr<SDL_Texture, __texture_deleter> uniq_texture( SDL_CreateTextureFromSurface( graphics_manager::instance().get_renderer(), surface.get() ) );
   if (nullptr == uniq_texture)
     throw std::runtime_error(SDL_GetError());
 
@@ -104,15 +104,15 @@ texture texture_manager::load(const std::string& name, uint8_t r, uint8_t g, uin
   if (textures_by_name.find(name) != textures_by_name.end())
     return graphics::texture(name, textures_by_name[ name ]);
 
-  std::unique_ptr<SDL_Surface, __deleter_wrapper_t> surface(IMG_Load(name.c_str()));
+  std::unique_ptr<SDL_Surface, __surface_deleter> surface(IMG_Load(name.c_str()));
   if (nullptr == surface)
     throw std::runtime_error(SDL_GetError());
 
   SDL_SetColorKey( surface.get(), SDL_TRUE, SDL_MapRGB( surface.get()->format, r, g, b ) );
   
-  std::unique_ptr<SDL_Surface, __deleter_wrapper_t> blitted_surface(SDL_ConvertSurface(surface.get(), SDL_GetWindowSurface(screen)->format, surface.get()->flags | SDL_SWSURFACE));
+  std::unique_ptr<SDL_Surface, __surface_deleter> blitted_surface(SDL_ConvertSurface(surface.get(), SDL_GetWindowSurface(screen)->format, surface.get()->flags | SDL_SWSURFACE));
 
-  std::unique_ptr<SDL_Texture, __deleter_wrapper_t> uniq_texture( SDL_CreateTextureFromSurface( graphics_manager::instance().get_renderer(), surface.get() ) );
+  std::unique_ptr<SDL_Texture, __texture_deleter> uniq_texture( SDL_CreateTextureFromSurface( graphics_manager::instance().get_renderer(), surface.get() ) );
   if (nullptr == uniq_texture)
     throw std::runtime_error(SDL_GetError());
 
@@ -125,16 +125,16 @@ texture texture_manager::load(const std::string& name, uint8_t r, uint8_t g, uin
 }
 
 
-void texture_manager::on_texture_release(const std::string& name)
+void texture_manager::on_release(const texture& t)
 {
-  auto entry = textures_by_name.find(name);
+  auto entry = textures_by_name.find(t.name());
   if (entry == std::end(textures_by_name))
-    throw std::runtime_error(name + " is not a loaded texture.");
+    return ;
 
   auto pointer = entry->second;
   if (pointer.use_count() == 1)
   {
-    textures_by_name.erase(name);
+    textures_by_name.erase(t.name());
   } 
 }
 

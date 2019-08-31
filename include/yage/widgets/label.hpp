@@ -1,25 +1,29 @@
-#if !defined(YAGE_WIDGETS_LABEL_HPP)
-#  define YAGE_WIDGETS_LABEL_HPP
+#if !defined(YAGE_GRAPHICS_LABEL_HPP)
+#  define YAGE_GRAPHICS_LABEL_HPP
 
+#  include <yage/graphics/renderable.hpp>
+#  include <yage/graphics/texture.hpp>
 #  include <yage/graphics/font.hpp>
 
 namespace yage {
 namespace widgets {
 namespace interface1 {
 
-class label
+class label:
+  public virtual yage::graphics::renderable
 {
 protected:
-  std::string _text;
-  yage::graphics::font _font;
+  yage::graphics::font _f;
+  std::string _s;
+  yage::graphics::texture _t;
 public:
-	label( const std::string& text, 
-         const yage::graphics::font& font)
-	void on_frame()
-  {
-  }
-};
+  label( const yage::graphics::font& font, const std::string& text, int ppt);
 
+  void text(const std::string& text);
+  std::string text() const;
+
+  void render(const SDL_Rect* r) override;
+};
 
 }
 using namespace interface1;

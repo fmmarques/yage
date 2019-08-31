@@ -548,6 +548,33 @@ src/input/mouse.cpp.s:
 	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/mouse.cpp.s
 .PHONY : src/input/mouse.cpp.s
 
+src/widgets/label.o: src/widgets/label.cpp.o
+
+.PHONY : src/widgets/label.o
+
+# target to build an object file
+src/widgets/label.cpp.o:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/widgets/label.cpp.o
+.PHONY : src/widgets/label.cpp.o
+
+src/widgets/label.i: src/widgets/label.cpp.i
+
+.PHONY : src/widgets/label.i
+
+# target to preprocess a source file
+src/widgets/label.cpp.i:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/widgets/label.cpp.i
+.PHONY : src/widgets/label.cpp.i
+
+src/widgets/label.s: src/widgets/label.cpp.s
+
+.PHONY : src/widgets/label.s
+
+# target to generate assembly for a file
+src/widgets/label.cpp.s:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/widgets/label.cpp.s
+.PHONY : src/widgets/label.cpp.s
+
 tests/engine/state_machine.unit.o: tests/engine/state_machine.unit.cpp.o
 
 .PHONY : tests/engine/state_machine.unit.o
@@ -683,6 +710,9 @@ help:
 	@echo "... src/input/mouse.o"
 	@echo "... src/input/mouse.i"
 	@echo "... src/input/mouse.s"
+	@echo "... src/widgets/label.o"
+	@echo "... src/widgets/label.i"
+	@echo "... src/widgets/label.s"
 	@echo "... tests/engine/state_machine.unit.o"
 	@echo "... tests/engine/state_machine.unit.i"
 	@echo "... tests/engine/state_machine.unit.s"

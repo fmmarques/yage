@@ -13,10 +13,19 @@ class font;
 class font_manager
 {
 private:
-  std::map< std::string,
-            std::shared_ptr< TTF_Font > > fonts_by_name;
+  std::map< std::string, std::map< int, std::shared_ptr< TTF_Font > > > fonts_by_name;
+  using fonts_by_name_it =  std::map< std::string, std::map< int, std::shared_ptr< TTF_Font > > >::iterator ;
+  using font_ref = std::shared_ptr< TTF_Font >;
+
+
+
+  font_ref load_font( const std::string& filename,
+                      unsigned int ppt );
+  font_ref load_ppt( const fonts_by_name_it& it,
+                     unsigned int ppt );
 protected:
   font_manager();
+
 public:
   static font_manager& instance();
   ~font_manager();
