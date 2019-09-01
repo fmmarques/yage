@@ -34,11 +34,8 @@ protected:
    ,continue_to_iterate{true}
    ,mutex{}
   {
-    //std::cout << "game_engine::game_engine(): enter." << std::endl; 
-    //std::cout << "game_engine::game_engine(): adding game_engine to SDL_QUIT[=" << SDL_QUIT<< "] event listening pool." << std::endl;
     yage::events::event_manager::instance().subscribe(this,SDL_EventType::SDL_QUIT);
     invariant();
-    //std::cout << "game_engine::game_engine(): exit." << std::endl;
   }
 
 
@@ -66,7 +63,7 @@ public:
     }
   }
 
-  void run() 
+  void run()
   {
     std::string fn(__PRETTY_FUNCTION__);
 
@@ -77,6 +74,7 @@ public:
       do_next_iteration = continue_to_iterate;
     }
 
+    auto&& event_mgr = yage::events::event_manager::instance();
     while (do_next_iteration)
     {
   
@@ -85,6 +83,7 @@ public:
         std::unique_lock< decltype(mutex) > lock(mutex);
         do_next_iteration &= continue_to_iterate;
       }
+      event_mgr.poll_event();
     }
 
     std::cout << fn << "engine's main loop exited. joining event_manager's thread." << std::endl;

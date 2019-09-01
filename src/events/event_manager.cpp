@@ -28,7 +28,8 @@ event_manager::event_manager():
   mutex{}
   ,event_listeners{}
   ,continue_thread_execution{true}
-  ,th(&event_manager::run,this)
+//  ,th(&event_manager::run,this)
+  , th{}
 {
   std::lock_guard<std::shared_mutex> lock(mutex);
   invariant();
@@ -46,9 +47,7 @@ event_manager& event_manager::instance()
 }
 
 // Listeners
-void event_manager::subscribe(
-  events::event_listener * listener,
-  SDL_EventType event )
+void event_manager::subscribe( events::event_listener * listener, SDL_EventType event )
 {
   std::string fn{ std::string( __PRETTY_FUNCTION__ ) + std::string(": ") };
   std::unique_lock<decltype(mutex)> lock(mutex, std::defer_lock);
@@ -67,9 +66,7 @@ void event_manager::subscribe(
   //std::cout << fn << "exit. " << std::endl;
 }
 
-void event_manager::subscribe(
-  events::event_listener *listener,
-  std::vector< SDL_EventType >&& events )
+void event_manager::subscribe( events::event_listener *listener, std::vector< SDL_EventType >&& events )
 {
 	std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
 	std::cout << fn;
@@ -94,9 +91,7 @@ void event_manager::subscribe(
   std::cout << std::endl;
 }
 
-void event_manager::unsubscribe(
-  events::event_listener * listener,
-  SDL_EventType event )
+void event_manager::unsubscribe( events::event_listener * listener, SDL_EventType event )
 {
   std::unique_lock<decltype(mutex)> lock(mutex, std::defer_lock);
 
@@ -160,11 +155,32 @@ void event_manager::emit(const SDL_Event& event)
 
 void yage::events::event_manager::interrupt()
 {
-  std::cout << "event_manager::interrupt(): attempting to join this_thread("<< std::this_thread::get_id() <<") with event_manager's thread("<< th.get_id()<<")"<< std::endl;
-  th.join();
+  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+ // std::cout << "event_manager::interrupt(): attempting to join this_thread("<< std::this_thread::get_id() <<") with event_manager's thread("<< th.get_id()<<")"<< std::endl;
+ // th.join();
+  std::cout << fn << "interrupting";
 }
 
-void event_manager::run()
+void event_manager::poll_event()
+{
+  const std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  SDL_Event curr_event {};
+  auto continue_next_iteration = true;
+  while (continue_next_iteration && SDL_PollEvent(&curr_event))
+  {
+    switch (curr_event.type)
+    {
+        case SDL_QUIT:
+          emit(curr_event);
+          continue_next_iteration = false;
+          break;
+        default:
+          emit(curr_event);
+    }
+  }
+}
+
+void event_manager::wait_event()
 {
     std::cout << "event_manager::run(): enter " << std::endl;
     SDL_Event curr_event {};
@@ -179,12 +195,12 @@ void event_manager::run()
     {
         switch (curr_event.type)
         {
-        case SDL_QUIT:
+          case SDL_QUIT:
             emit(curr_event);
             continue_next_iteration = false;
             break;
-	default:
-	    emit(curr_event);
+          default:
+           emit(curr_event);
         }
 
 

@@ -120,21 +120,21 @@ void input_manager::on_event(const SDL_Event& ev)
       break;
     case SDL_MOUSEBUTTONDOWN:
       for(auto&& l : m_l) 
-	l->on_mouse_button_down(ev.button);
+        l->on_mouse_button_down(ev.button);
       break;
     case SDL_MOUSEBUTTONUP:
       for(auto&& l : m_l) 
-	l->on_mouse_button_up(ev.button);
+        l->on_mouse_button_up(ev.button);
       break;
     case SDL_MOUSEMOTION:
       for(auto&& l : m_l) 
         l->on_mouse_movement(ev.motion);
       break;
     default:
-	std::cout << "input_manager::on_event(const SDL_Event&): received event " << ev.type << " and will not pass it" << std::endl;
+      std::cout << "input_manager::on_event(const SDL_Event&): received event " << ev.type << " and will not pass it" << std::endl;
 	break;
 
-  }  
+  }
 }
 
 
