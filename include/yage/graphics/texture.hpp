@@ -16,6 +16,11 @@ namespace interface1 {
 class font;
 class texture
 {
+private:
+  int _h;
+  int _w;
+  std::string _name;
+  std::shared_ptr< SDL_Texture > _texture;
 protected:
   void invariant() const;
   texture(const std::string& name, std::shared_ptr< SDL_Texture >& resource);
@@ -33,9 +38,9 @@ public:
   operator SDL_Texture*();
 
   std::string name() const;
-private:
-  std::string _name;
-  std::shared_ptr< SDL_Texture > _texture;
+
+  int h() const;
+  int w() const;
 };
 
 }

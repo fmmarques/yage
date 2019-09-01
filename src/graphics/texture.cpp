@@ -18,21 +18,28 @@ void texture::invariant() const
 
 texture::texture( const std::string& texture_name,
 	              std::shared_ptr< SDL_Texture >& texture_resource ):
-  _name{texture_name}
+  _h{-1}
+, _w{-1}
+, _name{texture_name}
 , _texture{texture_resource}
 {
+  SDL_QueryTexture(_texture.get(), NULL, NULL, &_w, &_h );
   invariant();
 }
 
 texture::texture(texture&& other):
-  _name{other._name}
+  _h{-1}
+, _w{-1}
+,  _name{other._name}
 , _texture{other._texture}
 {
   invariant();
 }
 
 texture::texture(const texture& other):
-  _name{other._name}
+  _h{-1}
+, _w{-1}
+, _name{other._name}
 , _texture{other._texture}
 {
   invariant();
@@ -40,6 +47,8 @@ texture::texture(const texture& other):
 
 texture& texture::operator=(texture&& other)
 {
+  _h = other._h;
+  _w = other._w;
   _name = other._name;
   _texture = other._texture;
   invariant();
@@ -48,6 +57,8 @@ texture& texture::operator=(texture&& other)
 
 texture& texture::operator=(const texture& other)
 {
+  _h = other._h;
+  _w = other._w;
   _name = other._name;
   _texture = other._texture;
   invariant();
@@ -72,6 +83,8 @@ std::string texture::name() const
   return _name;
 }
 
+int texture::h() const { return _h; };
+int texture::w() const { return _w; };
 
 
 

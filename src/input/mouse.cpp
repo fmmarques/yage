@@ -65,7 +65,8 @@ void mouse::on_mouse_movement(const SDL_MouseMotionEvent& e)
 bool mouse::hovers(const SDL_Rect& o_r)
 {
   std::unique_lock<decltype(m)> l(m);
-  return yage::utility::intersects(r,o_r);
+  return (r.x >= o_r.x && r.x <= o_r.x + o_r.w) &&
+         (r.y >= o_r.y && r.y <= o_r.y + o_r.w);
 }
 
 bool mouse::is_dragging()

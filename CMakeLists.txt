@@ -37,7 +37,11 @@ set(YAGE_SRC
 	src/input/input_manager.cpp
   src/input/mouse.cpp
   
-  src/widgets/label.cpp)
+  src/widgets/label.cpp
+  src/widgets/button.cpp
+
+  src/utility.cpp
+  )
 
 
 

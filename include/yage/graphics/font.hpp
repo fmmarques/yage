@@ -46,7 +46,7 @@ public:
   int ppt() const;
   void ppt(int _ppt);
 
-  texture render(const std::string&);
+  texture render(const std::string&, const SDL_Color& color );
 };
 
 }

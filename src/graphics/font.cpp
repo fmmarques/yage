@@ -75,11 +75,11 @@ void font::ppt(int p)
   _ppt = p;
 }
 
-texture font::render(const std::string& text)
+texture font::render(const std::string& text, const SDL_Color& color = (SDL_Color){ .r = 0, 0, 0, 0 })
 {
   
   std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
-  SDL_Color color { 0, 0, 0};
+//  SDL_Color color { 0, 0, 0};
   std::unique_ptr< SDL_Surface, __surface_deleter > usurface = 
     std::unique_ptr< SDL_Surface, __surface_deleter >( TTF_RenderText_Solid( _f.get(), text.c_str(), color ) );
 

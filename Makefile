@@ -548,6 +548,60 @@ src/input/mouse.cpp.s:
 	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/input/mouse.cpp.s
 .PHONY : src/input/mouse.cpp.s
 
+src/utility.o: src/utility.cpp.o
+
+.PHONY : src/utility.o
+
+# target to build an object file
+src/utility.cpp.o:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/utility.cpp.o
+.PHONY : src/utility.cpp.o
+
+src/utility.i: src/utility.cpp.i
+
+.PHONY : src/utility.i
+
+# target to preprocess a source file
+src/utility.cpp.i:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/utility.cpp.i
+.PHONY : src/utility.cpp.i
+
+src/utility.s: src/utility.cpp.s
+
+.PHONY : src/utility.s
+
+# target to generate assembly for a file
+src/utility.cpp.s:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/utility.cpp.s
+.PHONY : src/utility.cpp.s
+
+src/widgets/button.o: src/widgets/button.cpp.o
+
+.PHONY : src/widgets/button.o
+
+# target to build an object file
+src/widgets/button.cpp.o:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/widgets/button.cpp.o
+.PHONY : src/widgets/button.cpp.o
+
+src/widgets/button.i: src/widgets/button.cpp.i
+
+.PHONY : src/widgets/button.i
+
+# target to preprocess a source file
+src/widgets/button.cpp.i:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/widgets/button.cpp.i
+.PHONY : src/widgets/button.cpp.i
+
+src/widgets/button.s: src/widgets/button.cpp.s
+
+.PHONY : src/widgets/button.s
+
+# target to generate assembly for a file
+src/widgets/button.cpp.s:
+	cd /home/fmmarques/Documentos/Projects/bejeweled && $(MAKE) -f dependencies/yage/CMakeFiles/yage.dir/build.make dependencies/yage/CMakeFiles/yage.dir/src/widgets/button.cpp.s
+.PHONY : src/widgets/button.cpp.s
+
 src/widgets/label.o: src/widgets/label.cpp.o
 
 .PHONY : src/widgets/label.o
@@ -710,6 +764,12 @@ help:
 	@echo "... src/input/mouse.o"
 	@echo "... src/input/mouse.i"
 	@echo "... src/input/mouse.s"
+	@echo "... src/utility.o"
+	@echo "... src/utility.i"
+	@echo "... src/utility.s"
+	@echo "... src/widgets/button.o"
+	@echo "... src/widgets/button.i"
+	@echo "... src/widgets/button.s"
 	@echo "... src/widgets/label.o"
 	@echo "... src/widgets/label.i"
 	@echo "... src/widgets/label.s"
