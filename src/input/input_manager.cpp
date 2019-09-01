@@ -29,8 +29,9 @@ input_manager::input_manager():
   invariant();
   event_manager::instance().subscribe(
     this, 
-    {  ::SDL_KEYDOWN  		,::SDL_KEYUP 
-      ,::SDL_MOUSEBUTTONDOWN 	,::SDL_MOUSEBUTTONUP });
+    {  ::SDL_KEYDOWN          ,::SDL_KEYUP 
+      ,::SDL_MOUSEBUTTONDOWN  ,::SDL_MOUSEBUTTONUP
+      ,::SDL_MOUSEMOTION });
 }
 
 input_manager& input_manager::instance()
@@ -97,6 +98,7 @@ void input_manager::unsubscribe( input_listener *listener )
 // event_listener implementation
 void input_manager::on_event(const SDL_Event& ev) 
 {
+  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
   std::list< mouse_listener * > m_l;
   std::list< keyboard_listener * > k_l;
     

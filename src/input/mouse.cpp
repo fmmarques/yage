@@ -45,7 +45,6 @@ void mouse::on_mouse_button_down(const SDL_MouseButtonEvent& e)
   s[CLICK] = s[DOUBLE_CLICK] = s[DRAGGING] = false;
   int index = e.clicks % 2;
   s[index] = true;
-  std::cout << fn << "received a " << ((index==1)? "click" : "double click") << std::endl;
 }
 
 void mouse::on_mouse_movement(const SDL_MouseMotionEvent& e)
@@ -53,7 +52,6 @@ void mouse::on_mouse_movement(const SDL_MouseMotionEvent& e)
   std::unique_lock<decltype(m)> l(m);
   std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
   r.x = e.x ; r.y = e.y;
-  std::cout << fn << "enter with click: " << std::boolalpha << s[CLICK] << ", double click: " << s[DOUBLE_CLICK] << ", dragging: " << s[DRAGGING] << std::endl;
   if (s[CLICK])
     s[DRAGGING]=true;
   else
