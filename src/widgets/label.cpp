@@ -38,7 +38,9 @@ void label::render(const SDL_Rect *rect)
   assert(nullptr != rect);
   assert(rect->h >= _f.ppt());
   auto&& r = yage::graphics::graphics_manager::instance().get_window();
-  SDL_RenderCopy(r, _t, NULL, rect );
+  auto mrect = (SDL_Rect) { .x = rect->x, rect->y, rect->w, rect->h };
+  mrect.w = _t.w() ;
+  SDL_RenderCopy(r, _t, NULL, &mrect );
 }
 
 }

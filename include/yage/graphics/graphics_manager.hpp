@@ -30,8 +30,11 @@ public:
   operator SDL_Window*();
   operator SDL_Renderer*();
 
-  
+  int w() const;
+  int h() const;
 private:
+  int width;
+  int height;
   std::string title;
   std::unique_ptr< SDL_Window, sdl_deleter_t > window_resource;
   std::unique_ptr<SDL_Renderer, sdl_deleter_t > renderer_resource;

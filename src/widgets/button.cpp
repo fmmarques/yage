@@ -9,11 +9,13 @@ namespace yage {
 button::button( const yage::graphics::font& f, 
                 const std::string& t, 
                 int ppt,
- //               const yage::graphics::texture& background, 
-                const std::function< void() >& callback ):
-  _l{ yage::widgets::label(f, t, (SDL_Color){ 0,0,0, 0 }, ppt) }
+                const std::function< void() >& callback,
+                const SDL_Color& foreground,// = (SDL_Color){ 0xC0, 0xC0, 0xC0, 0x00 },
+                const SDL_Color& background):// = (SDL_Color){ 0x00, 0x00, 0x00, 0x00 } ):
+  _l{ yage::widgets::label(f, t, foreground, ppt) }
 , _b{ nullptr }
 , _c{callback}
+, _bg{ .r = background.r, background.g, background.b, background.a }
 {
 
   auto&& renderer = yage::graphics::graphics_manager::instance().get_window();
@@ -22,10 +24,10 @@ button::button( const yage::graphics::font& f,
       SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1, 1) );
 
   SDL_SetRenderTarget(renderer, _b.get());
-  SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0x0);
+  SDL_SetRenderDrawColor(renderer, _bg.r, _bg.g, _bg.b, _bg.a);
   SDL_RenderClear(renderer);
   SDL_RenderDrawRect(renderer,&r);
-  SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+  SDL_SetRenderDrawColor(renderer, _bg.r, _bg.g, _bg.b, _bg.a);
   SDL_RenderFillRect(renderer, &r);
   SDL_SetRenderTarget(renderer, NULL);
 }
@@ -40,7 +42,7 @@ void button::render(const SDL_Rect* rect)
   assert(nullptr != rect);
   auto&& r = yage::graphics::graphics_manager::instance().get_window();
   
-  SDL_Rect centered_label { .x = rect->x, rect->y, rect->w, rect->h };
+  SDL_Rect centered_label { .x = rect->x, rect->y, _l.w(), _l.h() };
   centered_label.x += ((rect->w)/2 - _l.w() / 2);
   centered_label.y += ((rect->h)/2 - _l.h() / 2);
 

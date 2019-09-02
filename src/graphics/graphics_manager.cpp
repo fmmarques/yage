@@ -30,6 +30,8 @@ window::window(
   const std::string& title,
   unsigned width,
   unsigned height):
+  width(width),
+  height(height),
 	title(title),
  	window_resource{nullptr},
 	renderer_resource{nullptr},
@@ -62,7 +64,10 @@ window::window(
 }
 
 window::window(window&& other):
-  window_resource{std::move(other.window_resource)},
+  width{other.width}
+, height{other.height}
+, title{other.title}
+,  window_resource{std::move(other.window_resource)},
   renderer_resource{std::move(other.renderer_resource)},
   rectangle{other.rectangle}
 {}
@@ -80,6 +85,16 @@ window::operator SDL_Window*()
 window::operator SDL_Renderer*()
 {
   return renderer_resource.get();
+}
+
+int window::w() const
+{
+  return width;
+}
+
+int window::h() const
+{
+  return height;
 }
 
 // Graphics manager
