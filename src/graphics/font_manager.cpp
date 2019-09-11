@@ -1,6 +1,8 @@
 
 #include <cassert>
 #include <iostream>
+
+#include <yage/utility.hpp>
 #include <yage/graphics/font_manager.hpp>
 
 namespace yage {
@@ -15,7 +17,7 @@ font_manager::load_ppt( const fonts_by_name_it& it,
           unsigned int ppt )
 {
 
-  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
   std::shared_ptr< TTF_Font > sfont {};
   assert(it != fonts_by_name.end());
   auto filename = it->first;
@@ -58,7 +60,7 @@ font_manager::font_manager():
   fonts_by_name{}
 {
 
-  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
   if( !TTF_WasInit() && TTF_Init() == -1) 
   {
     std::string err( TTF_GetError());
@@ -75,7 +77,7 @@ font_manager& font_manager::instance()
 
 font_manager::~font_manager()
 {
-  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
   TTF_Quit();
 
 }

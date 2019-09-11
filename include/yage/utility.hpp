@@ -3,6 +3,15 @@
 #   include <iostream>
 #   include <SDL.h>
 
+#	ifndef __FUNCTION_NAME__
+#		if (defined(WIN32) || defined(_WIN32) || defined(__WIN32)) && !defined(__CYGWIN__)
+#			define __FUNCTION_NAME__   __FUNCDNAME__ 
+#		else          //*NIX
+#			define __FUNCTION_NAME__   __PRETTY_FUNCTION__  
+#		endif
+#	endif
+#
+
 namespace yage {
 namespace utility {
 namespace interface1 {

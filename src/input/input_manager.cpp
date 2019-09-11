@@ -4,6 +4,7 @@
 #include <cassert>
 #include <stdexcept>
 
+#include <yage/utility.hpp>
 
 #include <yage/input/input_manager.hpp>
 #include <yage/events/event_manager.hpp>
@@ -98,7 +99,7 @@ void input_manager::unsubscribe( input_listener *listener )
 // event_listener implementation
 void input_manager::on_event(const SDL_Event& ev) 
 {
-  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
   std::list< mouse_listener * > m_l;
   std::list< keyboard_listener * > k_l;
     

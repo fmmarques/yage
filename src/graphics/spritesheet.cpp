@@ -1,5 +1,8 @@
 #include <iostream>
 #include <cassert>
+
+#include <yage/utility.hpp>
+
 #include <yage/graphics/spritesheet.hpp>
 #include <yage/graphics/graphics_manager.hpp>
 
@@ -17,7 +20,7 @@ animation::animation(const texture& map):
 
 void animation::map(uint32_t x, uint32_t y, uint32_t w, uint32_t h ) 
 {
-  const std::string name{ std::string(__PRETTY_FUNCTION__) + std::string(": ")};  
+  const std::string name{ std::string(__FUNCTION_NAME__) + std::string(": ")};  
   //std::cout << name << "enter" << std::endl;
   invariant();
   SDL_Rect rect;
@@ -35,7 +38,7 @@ void animation::map(uint32_t x, uint32_t y, uint32_t w, uint32_t h )
 
 void animation::map_all_of(uint32_t frames, uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
-  const std::string fn{ std::string(__PRETTY_FUNCTION__) +  std::string(": ")};
+  const std::string fn{ std::string(__FUNCTION_NAME__) +  std::string(": ")};
   invariant();
   //std::cout << fn << "enter. mapping " << frames << "." << std::endl;
   SDL_Rect r;
@@ -65,7 +68,7 @@ void animation::map_all_of(uint32_t frames, uint32_t x, uint32_t y, uint32_t w, 
 
 void animation::render(const SDL_Rect * d) 
 {
-  std::string fname{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+  std::string fname{ std::string(__FUNCTION_NAME__) + std::string(": ") };
   invariant();
 //  std::cout << fname << "enter" << std::endl;
   auto&& r = yage::graphics::graphics_manager::instance().get_window();
@@ -83,7 +86,7 @@ void animation::render(int32_t x, int32_t y, int32_t w, int32_t h)
   invariant();
   auto&& renderer = graphics_manager::instance().get_window();
   SDL_Rect *s = &(seq[ticks]);
-  SDL_Rect d{ .x = x, y, w, h };
+  SDL_Rect d{ x, y, w, h };
   SDL_RenderCopy(renderer, tex, s, &d);
   invariant();
 }

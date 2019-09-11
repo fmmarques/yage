@@ -47,25 +47,25 @@ TEST_F(spritesheet_fixture, load_sprite)
 
 
   auto l = 0;
-  SDL_Rect y_idle_dest { .x = x, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect y_coll_dest { .x = x+w, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect y_glow_dest { .x = x+2*w, .y = y+l*h, .w = w, .h = h };
+  SDL_Rect y_idle_dest {  x,     y+l*h, w, h };
+  SDL_Rect y_coll_dest {  x+w,   y+l*h, w, h };
+  SDL_Rect y_glow_dest {  x+2*w, y+l*h, w, h };
   l++; 
-  SDL_Rect g_idle_dest { .x = x, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect g_coll_dest { .x = x+w, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect g_glow_dest { .x = x+2*w, .y = y+l*h, .w = w, .h = h };
+  SDL_Rect g_idle_dest { x, y+l*h, w, h };
+  SDL_Rect g_coll_dest { x+w, y+l*h, w, h };
+  SDL_Rect g_glow_dest { x+2*w, y+l*h, w, h };
   l++; 
-  SDL_Rect b_idle_dest { .x = x, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect b_coll_dest { .x = x+w, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect b_glow_dest { .x = x+2*w, .y = y+l*h, .w = w, .h = h };
+  SDL_Rect b_idle_dest { x, y+l*h, w, h };
+  SDL_Rect b_coll_dest { x+w, y+l*h, w, h };
+  SDL_Rect b_glow_dest { x+2*w, y+l*h, w, h };
   l++; 
-  SDL_Rect r_idle_dest { .x = x, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect r_coll_dest { .x = x+w, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect r_glow_dest { .x = x+2*w, .y = y+l*h, .w = w, .h = h };
+  SDL_Rect r_idle_dest { x, y+l*h, w, h };
+  SDL_Rect r_coll_dest { x+w, y+l*h, w, h };
+  SDL_Rect r_glow_dest { x+2*w, y+l*h, w, h };
   l++; 
-  SDL_Rect p_idle_dest { .x = x, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect p_coll_dest { .x = x+w, .y = y+l*h, .w = w, .h = h };
-  SDL_Rect p_glow_dest { .x = x+2*w, .y = y+l*h, .w = w, .h = h };
+  SDL_Rect p_idle_dest { x, y+l*h, w, h };
+  SDL_Rect p_coll_dest { x+w, y+l*h, w, h };
+  SDL_Rect p_glow_dest { x+2*w, y+l*h, w, h };
   
   auto&& renderer = yage::graphics::graphics_manager::instance().get_window();
   

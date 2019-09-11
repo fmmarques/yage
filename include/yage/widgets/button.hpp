@@ -22,7 +22,7 @@ private:
   std::function< void() > _c;
   SDL_Color _bg; 
 public:
-  button( const yage::graphics::font& font, const std::string& text, int ppt, /*const yage::graphics::texture& background,*/ const std::function< void() >& callback, const SDL_Color& background = (SDL_Color){ 0xC0, 0xC0, 0xC0, 0x00 }, const SDL_Color& foreground = (SDL_Color){ 0x00, 0x00, 0x00, 0x00 } );
+  button( const yage::graphics::font& font, const std::string& text, int ppt, /*const yage::graphics::texture& background,*/ const std::function< void() >& callback, const SDL_Color& background = { 0xC0, 0xC0, 0xC0, 0x00 }, const SDL_Color& foreground = { 0x00, 0x00, 0x00, 0x00 } );
   void on_click();
 
   void render(const SDL_Rect* r);

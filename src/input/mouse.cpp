@@ -10,7 +10,7 @@ namespace interface1 {
 
 mouse::mouse():
   m{}
-, r{ .x = 0, 0, 1, 1 }
+, r{ 0, 0, 1, 1 }
 , e{}
 , s{ false, false, false }
 {
@@ -38,7 +38,7 @@ void mouse::on_mouse_button_up(const SDL_MouseButtonEvent& b)
 
 void mouse::on_mouse_button_down(const SDL_MouseButtonEvent& e)
 {
-  std::string fn{ __PRETTY_FUNCTION__ + std::string(": ")};
+  std::string fn{ __FUNCTION_NAME__ + std::string(": ")};
   std::unique_lock<decltype(m)> l(m);
   r.x = e.x; r.y = e.y;
 
@@ -50,7 +50,7 @@ void mouse::on_mouse_button_down(const SDL_MouseButtonEvent& e)
 void mouse::on_mouse_movement(const SDL_MouseMotionEvent& e)
 {
   std::unique_lock<decltype(m)> l(m);
-  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
   r.x = e.x ; r.y = e.y;
   if (s[CLICK])
     s[DRAGGING]=true;

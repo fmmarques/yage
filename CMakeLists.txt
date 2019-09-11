@@ -5,6 +5,14 @@ project(yage CXX)
 # Setting the project's Cmake modules
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
 
+cmake_policy(PUSH)
+
+enable_language(CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
 function(add_unit_test target target_test)
   get_property(_target_output_directory TARGET ${target} PROPERTY RUNTIME_OUTPUT_DIRECTORY)
   #  message(STATUS "add_unit_test: ${_target_output_directory}/${target_test}")
@@ -46,7 +54,7 @@ set(YAGE_SRC
 
 
 # Targets
-add_library(yage SHARED ${YAGE_SRC})
+add_library(yage SHARED )
 set_property(TARGET yage PROPERTY CXX_STANDARD 17)
 set_property(TARGET yage PROPERTY POSITION_INDEPENDENT_CODE ON)
 set_target_properties(yage
@@ -54,32 +62,56 @@ set_target_properties(yage
 		ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/lib"
 		LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/lib"
 		RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/bin")
-targ(YAGE_SRC
-	src/engine/game_engine.cpp
-	src/engine/game_state.cpp
-	src/engine/state_machine.cpp
-	src/engine/states/splash_screen.cpp
 	
-	src/graphics/drawable.abstract.cpp
+cmake_policy(SET CMP0076 NEW)
+target_sources(yage
+  PUBLIC
+    include/yage/events/event_listener.hpp
+    include/yage/graphics/bounding_box.interface.hpp
+    
+    include/yage.hpp
+
+    include/yage/utility.hpp
+
+    include/yage/engine/game_engine.hpp
+    include/yage/engine/game_state.hpp
+    include/yage/engine/runnable.hpp
+    include/yage/engine/state_machine.hpp
+
+    include/yage/events/event_manager.hpp
+
+    include/yage/graphics/font_manager.hpp
+    include/yage/graphics/graphics_manager.hpp
+    include/yage/graphics/texture_manager.hpp
+
+    include/yage/graphics/font.hpp
+    include/yage/graphics/spritesheet.hpp
+    include/yage/graphics/texture.hpp
+
+  PRIVATE
+    src/engine/game_engine.cpp
+    src/engine/game_state.cpp
+    src/engine/state_machine.cpp
+    src/engine/states/splash_screen.cpp
+	
+    src/graphics/drawable.abstract.cpp
      	
-
-	src/events/event_manager.cpp
+    src/events/event_manager.cpp
 	
-	src/graphics/graphics_manager.cpp
-	src/graphics/texture_manager.cpp
-	src/graphics/texture.cpp
-	src/graphics/spritesheet.cpp
-  src/graphics/font_manager.cpp
-  src/graphics/font.cpp
+    src/graphics/graphics_manager.cpp
+    src/graphics/texture_manager.cpp
+    src/graphics/texture.cpp
+    src/graphics/spritesheet.cpp
+    src/graphics/font_manager.cpp
+    src/graphics/font.cpp
 
-
-	src/input/input_manager.cpp
-  src/input/mouse.cpp
+    src/input/input_manager.cpp
+    src/input/mouse.cpp
   
-  src/widgets/label.cpp
-  src/widgets/button.cpp
+    src/widgets/label.cpp
+    src/widgets/button.cpp
 
-  src/utility.cpp
+    src/utility.cpp
   )
 
 
@@ -178,3 +210,4 @@ add_custom_command(TARGET all_tests
                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
+cmake_policy(POP)

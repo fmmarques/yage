@@ -1,5 +1,8 @@
 #include <cassert>
 #include <iostream>
+
+#include <yage/utility.hpp>
+
 #include <yage/graphics/graphics_manager.hpp>
 #include <yage/widgets/label.hpp>
 
@@ -15,7 +18,7 @@ label::label( const yage::graphics::font& font,
   _f{font}
 , _s{text}
 , _t{_f.render(_s, color)}
-, _c{.r = color.r, color.g, color.b, color.a }
+, _c{ color.r, color.g, color.b, color.a }
 {}
 
 void label::text(const std::string& text)
@@ -34,11 +37,11 @@ int label::h() const { return _t.h(); }
 
 void label::render(const SDL_Rect *rect)
 {
-  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
   assert(nullptr != rect);
   assert(rect->h >= _f.ppt());
   auto&& r = yage::graphics::graphics_manager::instance().get_window();
-  auto mrect = (SDL_Rect) { .x = rect->x, rect->y, rect->w, rect->h };
+  SDL_Rect mrect{ rect->x, rect->y, rect->w, rect->h };
   mrect.w = _t.w() ;
   SDL_RenderCopy(r, _t, NULL, &mrect );
 }

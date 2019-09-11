@@ -8,6 +8,7 @@
 
 #include <SDL_image.h>
 
+#include <yage/utility.hpp>
 #include <yage/graphics/graphics_manager.hpp>
 #include <yage/graphics/texture_manager.hpp>
 #include <yage/graphics/texture.hpp>
@@ -20,7 +21,7 @@ namespace interface1 {
 
 void __texture_deleter::operator()(SDL_Texture *texture)
 {
-  std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+  std::string fn{ std::string(__FUNCTION_NAME__) + std::string(": ") };
 
   if (nullptr != texture)
   {
@@ -32,7 +33,7 @@ void __texture_deleter::operator()(SDL_Texture *texture)
 
 void __surface_deleter::operator()(SDL_Surface *surface)
 {
-  std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+  std::string fn{ std::string(__FUNCTION_NAME__) + std::string(": ") };
   //std::cout << fn << "enter" << std::endl;
   if (nullptr != surface)
   {

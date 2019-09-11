@@ -13,6 +13,7 @@
 
 #include <SDL.h>
 
+#include <yage/utility.hpp>
 #include <yage/events/event_listener.hpp>
 #include <yage/events/event_manager.hpp>
 
@@ -49,7 +50,7 @@ event_manager& event_manager::instance()
 // Listeners
 void event_manager::subscribe( events::event_listener * listener, SDL_EventType event )
 {
-  std::string fn{ std::string( __PRETTY_FUNCTION__ ) + std::string(": ") };
+  std::string fn{ std::string( __FUNCTION_NAME__ ) + std::string(": ") };
   std::unique_lock<decltype(mutex)> lock(mutex, std::defer_lock);
 
   //std::cout << fn << "enter. " << std::endl;
@@ -68,7 +69,7 @@ void event_manager::subscribe( events::event_listener * listener, SDL_EventType 
 
 void event_manager::subscribe( events::event_listener *listener, std::vector< SDL_EventType >&& events )
 {
-	std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+	std::string fn{ std::string(__FUNCTION_NAME__) + std::string(": ") };
 	std::cout << fn;
 //	std::cout << "enter. ";
 	std::unique_lock< decltype(mutex) > lock(mutex, std::defer_lock);
@@ -155,7 +156,7 @@ void event_manager::emit(const SDL_Event& event)
 
 void yage::events::event_manager::interrupt()
 {
-  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
  // std::cout << "event_manager::interrupt(): attempting to join this_thread("<< std::this_thread::get_id() <<") with event_manager's thread("<< th.get_id()<<")"<< std::endl;
  // th.join();
   std::cout << fn << "interrupting";
@@ -163,7 +164,7 @@ void yage::events::event_manager::interrupt()
 
 void event_manager::poll_event()
 {
-  const std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  const std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
   SDL_Event curr_event {};
   auto continue_next_iteration = true;
   while (continue_next_iteration && SDL_PollEvent(&curr_event))

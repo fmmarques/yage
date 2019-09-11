@@ -15,11 +15,11 @@ button::button( const yage::graphics::font& f,
   _l{ yage::widgets::label(f, t, foreground, ppt) }
 , _b{ nullptr }
 , _c{callback}
-, _bg{ .r = background.r, background.g, background.b, background.a }
+, _bg{ background.r, background.g, background.b, background.a }
 {
 
   auto&& renderer = yage::graphics::graphics_manager::instance().get_window();
-  SDL_Rect r { .x = 1, 1, 1, 1 };
+  SDL_Rect r { 1, 1, 1, 1 };
   _b = std::unique_ptr< SDL_Texture, yage::graphics::__texture_deleter >(
       SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1, 1) );
 
@@ -42,7 +42,7 @@ void button::render(const SDL_Rect* rect)
   assert(nullptr != rect);
   auto&& r = yage::graphics::graphics_manager::instance().get_window();
   
-  SDL_Rect centered_label { .x = rect->x, rect->y, _l.w(), _l.h() };
+  SDL_Rect centered_label { rect->x, rect->y, _l.w(), _l.h() };
   centered_label.x += ((rect->w)/2 - _l.w() / 2);
   centered_label.y += ((rect->h)/2 - _l.h() / 2);
 

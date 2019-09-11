@@ -6,6 +6,7 @@
 
 #include <SDL.h>
 
+#include <yage/utility.hpp>
 #include <yage/graphics/graphics_manager.hpp>
 
 namespace yage {
@@ -101,7 +102,7 @@ int window::h() const
 graphics_manager::graphics_manager():
   main_window(nullptr)
 {
-	const std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+	const std::string fn{ std::string(__FUNCTION_NAME__) + std::string(": ") };
 	using namespace std;
 //	std::cout << fn << "entry" << std::endl;
   
@@ -124,7 +125,7 @@ graphics_manager& graphics::graphics_manager::instance()
 
 graphics_manager::~graphics_manager()
 {
-	std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+	std::string fn{ std::string(__FUNCTION_NAME__) + std::string(": ") };
 	std::cout << fn << "quitting video subsystem." << std::endl;
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
 	invariant();
@@ -132,7 +133,7 @@ graphics_manager::~graphics_manager()
 
 void graphics_manager::set_window(window&& new_window)
 {
-	std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+	std::string fn{ std::string(__FUNCTION_NAME__) + std::string(": ") };
 	std::cout << fn << "setting a new window."<< std::endl;
 	main_window = std::make_unique< window >(std::move(new_window));
 //	std::cout << fn << "exit" << std::endl;

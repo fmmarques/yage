@@ -1,5 +1,8 @@
 #include <iostream>
 
+
+#include <yage/utility.hpp>
+
 #include <yage/graphics/font_manager.hpp>
 #include <yage/graphics/texture.hpp>
 #include <yage/graphics/graphics_manager.hpp>
@@ -11,7 +14,7 @@ namespace interface1 {
 	
 void __font_deleter::operator()(TTF_Font *font)
 {
-	std::string fn{ std::string(__PRETTY_FUNCTION__) + std::string(": ") };
+	std::string fn{ std::string(__FUNCTION_NAME__) + std::string(": ") };
 	std::cout << fn << "deleting font at " << std::hex << font << std::dec << std::endl;
 }
 
@@ -75,10 +78,10 @@ void font::ppt(int p)
   _ppt = p;
 }
 
-texture font::render(const std::string& text, const SDL_Color& color = (SDL_Color){ .r = 0, 0, 0, 0 })
+texture font::render(const std::string& text, const SDL_Color& color = { 0, 0, 0, 0 })
 {
   
-  std::string fn { std::string( __PRETTY_FUNCTION__ ) + ": "};
+  std::string fn { std::string( __FUNCTION_NAME__ ) + ": "};
 //  SDL_Color color { 0, 0, 0};
   std::unique_ptr< SDL_Surface, __surface_deleter > usurface = 
     std::unique_ptr< SDL_Surface, __surface_deleter >( TTF_RenderText_Solid( _f.get(), text.c_str(), color ) );

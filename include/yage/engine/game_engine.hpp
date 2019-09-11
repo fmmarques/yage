@@ -65,7 +65,7 @@ public:
 
   void run()
   {
-    std::string fn(__PRETTY_FUNCTION__);
+    std::string fn(__FUNCTION_NAME__);
 
     bool do_next_iteration = true;
 
@@ -92,7 +92,7 @@ public:
 
   void interrupt()
   {
-    std::string fn( std::string(__PRETTY_FUNCTION__) + std::string(": ") );
+    std::string fn( std::string(__FUNCTION_NAME__) + std::string(": ") );
     std::cout << fn << "interrupting the engine's main loop." << std::endl;
     std::unique_lock< decltype(mutex) > lock( mutex );
     continue_to_iterate = false;
