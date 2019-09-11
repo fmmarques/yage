@@ -83,7 +83,7 @@ void animation::render(int32_t x, int32_t y, int32_t w, int32_t h)
   invariant();
   auto&& renderer = graphics_manager::instance().get_window();
   SDL_Rect *s = &(seq[ticks]);
-  SDL_Rect d{ .x = x, .y = y, .w = w, .h = h };
+  SDL_Rect d{ .x = x, y, w, h };
   SDL_RenderCopy(renderer, tex, s, &d);
   invariant();
 }

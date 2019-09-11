@@ -11,7 +11,7 @@
 #include <thread>
 
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include <yage/events/event_listener.hpp>
 #include <yage/events/event_manager.hpp>

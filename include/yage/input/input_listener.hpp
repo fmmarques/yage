@@ -1,7 +1,7 @@
 #if !defined(INPUT_KEYBOARD_LISTENER_INTERFACE_H)
 #  define INPUT_KEYBOARD_LISTENER_INTERFACE_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 namespace yage {
 namespace input {

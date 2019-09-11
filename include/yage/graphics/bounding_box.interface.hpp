@@ -1,7 +1,7 @@
 #if !defined(GRAPHICS_BOUNDING_BOX_INTERFACE_H)
 #  define GRAPHICS_BOUNDING_BOX_INTERFACE_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 
 namespace graphics {

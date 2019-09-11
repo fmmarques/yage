@@ -3,7 +3,7 @@
 
 #include <functional>
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include <yage/input/input_listener.hpp>
 #include <yage/graphics/texture.hpp>

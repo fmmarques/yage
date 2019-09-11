@@ -5,7 +5,7 @@
 #include <string>
 #include <map>
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 
 namespace yage {

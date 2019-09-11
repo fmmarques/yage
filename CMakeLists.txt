@@ -54,6 +54,34 @@ set_target_properties(yage
 		ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/lib"
 		LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/lib"
 		RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/bin")
+targ(YAGE_SRC
+	src/engine/game_engine.cpp
+	src/engine/game_state.cpp
+	src/engine/state_machine.cpp
+	src/engine/states/splash_screen.cpp
+	
+	src/graphics/drawable.abstract.cpp
+     	
+
+	src/events/event_manager.cpp
+	
+	src/graphics/graphics_manager.cpp
+	src/graphics/texture_manager.cpp
+	src/graphics/texture.cpp
+	src/graphics/spritesheet.cpp
+  src/graphics/font_manager.cpp
+  src/graphics/font.cpp
+
+
+	src/input/input_manager.cpp
+  src/input/mouse.cpp
+  
+  src/widgets/label.cpp
+  src/widgets/button.cpp
+
+  src/utility.cpp
+  )
+
 
 # Dependencies
 find_package(Git QUIET)

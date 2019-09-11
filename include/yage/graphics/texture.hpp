@@ -5,7 +5,7 @@
 #include <memory>
 
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include <yage/graphics/texture_manager.hpp>
 

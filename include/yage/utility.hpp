@@ -1,7 +1,7 @@
 #if !defined(YAGE_UTILITY_HPP)
 #  define YAGE_UTILITY_HPP
 #   include <iostream>
-#   include <SDL2/SDL.h>
+#   include <SDL.h>
 
 namespace yage {
 namespace utility {

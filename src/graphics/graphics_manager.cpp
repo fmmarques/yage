@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include <yage/graphics/graphics_manager.hpp>
 
