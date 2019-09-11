@@ -24,37 +24,36 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -g")
 
 # Define sources
 set(YAGE_SRC
-	src/engine/game_engine.cpp
-	src/engine/game_state.cpp
-	src/engine/state_machine.cpp
-	src/engine/states/splash_screen.cpp
+  src/engine/game_engine.cpp
+  src/engine/game_state.cpp
+  src/engine/state_machine.cpp
+  src/engine/states/splash_screen.cpp
 	
-	src/graphics/drawable.abstract.cpp
+  src/graphics/drawable.abstract.cpp
      	
-
-	src/events/event_manager.cpp
+  src/events/event_manager.cpp
 	
-	src/graphics/graphics_manager.cpp
-	src/graphics/texture_manager.cpp
-	src/graphics/texture.cpp
-	src/graphics/spritesheet.cpp
+  src/graphics/graphics_manager.cpp
+  src/graphics/texture_manager.cpp
+  src/graphics/texture.cpp
+  src/graphics/spritesheet.cpp
   src/graphics/font_manager.cpp
   src/graphics/font.cpp
 
 
-	src/input/input_manager.cpp
+  src/input/input_manager.cpp
   src/input/mouse.cpp
   
   src/widgets/label.cpp
   src/widgets/button.cpp
 
   src/utility.cpp
-  )
+)
 
 
 
 # Targets
-add_library(yage SHARED )
+add_library(yage SHARED ${YAGE_SRC})
 set_property(TARGET yage PROPERTY CXX_STANDARD 17)
 set_property(TARGET yage PROPERTY POSITION_INDEPENDENT_CODE ON)
 set_target_properties(yage
@@ -89,30 +88,8 @@ target_sources(yage
     include/yage/graphics/texture.hpp
 
   PRIVATE
-    src/engine/game_engine.cpp
-    src/engine/game_state.cpp
-    src/engine/state_machine.cpp
-    src/engine/states/splash_screen.cpp
-	
-    src/graphics/drawable.abstract.cpp
-     	
-    src/events/event_manager.cpp
-	
-    src/graphics/graphics_manager.cpp
-    src/graphics/texture_manager.cpp
-    src/graphics/texture.cpp
-    src/graphics/spritesheet.cpp
-    src/graphics/font_manager.cpp
-    src/graphics/font.cpp
-
-    src/input/input_manager.cpp
-    src/input/mouse.cpp
-  
-    src/widgets/label.cpp
-    src/widgets/button.cpp
-
-    src/utility.cpp
-  )
+    ${YAGE_SRC}  
+)
 
 
 # Dependencies
